@@ -20,14 +20,14 @@ const Profile = () => {
               alt="UserProfile"
               src="/images/Norway.png"
               height="237.2"
-          >
+          > 
         </CardMedia>
         <Avatar
             sx={{height: "180px", width: "180px", borderRadius: "10px"}}
             variant="rounded" 
             src="/images/Norway.png"
         />
-        <Button color="otherColor" variant="contained">Hello</Button>
+        <Button variant="contained">Hello</Button>
       </Grid>
   )
 }

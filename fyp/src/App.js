@@ -14,8 +14,10 @@ import Signup from "./FYP-Project-Components/Signup";
 
 import UserProfile from "./FYP-Project-Components/UserProfile";
 
-import {Button} from "@mui/material"
+import {Box, Button} from "@mui/material"
 import { ListAlt } from "@mui/icons-material";
+
+import Gallery from "./FYP-Project-Components/Gallery";
 
 
 function App() {
@@ -48,8 +50,9 @@ const cardArray = data.map(items => {
   {...items}
    />
 })
+
 const NFTCardArray = []
-for (var i=0; i<3; i++)
+for (var i=0; i<12; i++)
 {
   NFTCardArray.push(<NFTCard />)
 }
@@ -59,17 +62,23 @@ for (var i=0; i<3; i++)
       <Navbar />
       {cardArray} */}
       {/* {<Login /> */}
-      <Grid spacing={2} container sx={{padding: "16px"}}>
-        {NFTCardArray}
-        {/* <Profile /> */}
+      <Gallery />
+
+      <Grid spacing={4} container justifyContent="center">
+          {NFTCardArray}
+          {/* {<Profile /> } */}
       </Grid>
+
 
       {/* <Signup /> */}
 
       {/* <UserProfile value={ProfileDetails}/> */}
+      
       {/* <Login2 /> */}
+      
     </div>
   );
 }
+
 
 export default App;
