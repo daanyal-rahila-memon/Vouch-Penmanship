@@ -7,6 +7,8 @@ import {makeStyles,styled} from "@mui/material/"
 import theme from "../theme"
 import { margin, positions, textAlign } from "@mui/system"
 
+import {Link as RouterLink} from "react-router-dom"
+
 export  default function Signup(){
   
   const roleArray = ["Supervisor", "Student", "Admin"]
@@ -97,11 +99,12 @@ export  default function Signup(){
             </TextField>
           </Box>
 
-          <Button variant="contained" sx={{mt: 5, height: 48}}>Login</Button>
+          <Button href="/Gallery" variant="contained" sx={{mt: 5, height: 48}}>Login</Button>
+
           <Typography component="p" sx={{mt: 1.5, textAlign: "start"}}>
             Don’t have an account already? 
-            <Link sx={{cursor: "pointer", mb: 2, pl: 0.5}}>
-                SignUp
+            <Link component={RouterLink} to="/signUp" sx={{cursor: "pointer", mb: 2, pl: 0.5}}>
+               SignUp
             </Link>
           </Typography>
         </Box>

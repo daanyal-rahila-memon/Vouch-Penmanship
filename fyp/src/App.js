@@ -19,6 +19,7 @@ import { ListAlt } from "@mui/icons-material";
 
 import Gallery from "./FYP-Project-Components/Gallery";
 
+import {Routes, Route} from "react-router-dom";
 
 function App() {
 
@@ -56,29 +57,37 @@ for (var i=0; i<12; i++)
 {
   NFTCardArray.push(<NFTCard />)
 }
+
+<div className="App">
+{/* {ElementArray}
+<Navbar />
+{cardArray} */}
+{/* {<Login /> */}
+<Gallery />
+
+<Grid spacing={4} container justifyContent="center">
+    {NFTCardArray}
+    {/* {<Profile /> } */}
+</Grid>
+
+
+{/* <Signup /> */}
+
+{/* <UserProfile value={ProfileDetails}/> */}
+
+{/* <Login2 /> */}
+
+</div>
+
   return (
-    <div className="App">
-      {/* {ElementArray}
-      <Navbar />
-      {cardArray} */}
-      {/* {<Login /> */}
-      <Gallery />
-
-      <Grid spacing={4} container justifyContent="center">
-          {NFTCardArray}
-          {/* {<Profile /> } */}
-      </Grid>
-
-
-      {/* <Signup /> */}
-
-      {/* <UserProfile value={ProfileDetails}/> */}
-      
-      {/* <Login2 /> */}
-      
-    </div>
+    <Routes>
+      <Route path="/" element={<Login2 />}/>
+      <Route path="/signUp" element={<Signup />} />
+      <Route path="/Gallery" element={<Gallery />}/>
+    </Routes>
   );
 }
+
 
 
 export default App;

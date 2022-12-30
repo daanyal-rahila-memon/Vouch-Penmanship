@@ -5,12 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Zoom from "@mui/material/Zoom"
 
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const names = ["alice", "bob", "charlie", "dani"]
 const Names = names.map(Math.sqrt)
 root.render(
-
-  <App />
+  <Router>
+     <App />
+  </Router>
 
 );
 
