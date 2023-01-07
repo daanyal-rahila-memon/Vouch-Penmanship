@@ -1,0 +1,135 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.Login-form {
+  background-color: #29292963;
+  height: 1024px;
+  width: 728px;
+  margin-left: 712px;
+  padding-left: 127px;
+}
+
+.google-btn {
+  height: 66px;
+  width: 430px;
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: transparent;
+  border: 1px solid #D9D9D9;
+  margin-top: 24px;
+  margin-bottom: 34.5px;
+}
+
+.google-icon {
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
+
+}
+
+.form-control {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  width: 430px;
+  height: 48px;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  border-bottom: 1px solid #E0E0E0;
+  border-radius: 0px;
+  background-color: transparent;
+}
+
+.form-control::placeholder {
+  color: white;
+}
+
+.login-btn {
+  height: 60px;
+  width: 430px;
+  margin-top: 61px;
+  background-color: #060606;
+  border: none;
+}
+
+.form-control:focus {
+  background-color: transparent;
+  box-shadow: 2px 2px 4px 2px black;
+  border-bottom: 1px solid #E6E6E6;
+  box-shadow: 5px 5px 5px #E6E6E6,
+   -5px -5px 5px #E6E6E6,
+   5px -5px 5px #E6E6E6,
+   -5px 5px 5px #E6E6E6
+}
+
+Form {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.or-line {
+  color: #E6E6E6;
+  display: flex;
+  flex-direction: row;
+  width: 430px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.or-line::before, .or-line::after{
+  content: "";
+  flex: 1 1;
+  border-bottom: 1px solid;
+  margin-bottom: 8px;
+}
+
+.or-line::before {
+  margin-right: 6px;
+}
+
+.or-line::after {
+  margin-left: 6px;
+}
+
+.mb-4 {
+  display: flex;
+}
+
+.mb-4 > strong {
+  margin-left: 8px;
+}
+
+.mb-4 > a {
+  margin-left: 175px;
+}
+
+.mb-4 > a, .mb-4 > strong, .signup-link > strong, .signup-link > a {
+  color: #FFFFFF;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.signup-link {
+  display: flex;
+  margin-top: 16px;
+  margin-left: 100px;
+}
+.signup-link > a {
+  margin-left: 8px;
+  font-weight: 700;
+}
+
+.invalid {
+  height: 20px;
+  width: 100px;
+  color: rebeccapurple;
+  margin-bottom: 4px;
+}
