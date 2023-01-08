@@ -20,6 +20,11 @@ var studentSchema = new mongoose.Schema({
     maxlength: 2,
     trim: true,
   },
+  role: {
+    type: Number,
+    required: true,
+    default: 1
+  },
   department: {
     type: String,
     required: true,
@@ -38,7 +43,6 @@ var studentSchema = new mongoose.Schema({
   salt: String,         // is a random string (collection of alpha-numerics) added to the password to make it stronger
   walletAddress: {
     type: String,
-    unique: true,
     trim: true,
   }
 }, {timestamps: true}    // Timestamp will save the exact time in Database when any Student will be created.

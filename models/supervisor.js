@@ -18,6 +18,11 @@ var supervisorSchema = new mongoose.Schema(
             maxlength: 32,
             trim: true
         },
+        role: {
+          type: Number,
+          required: true,
+          default: 2
+        },
         department: 
         {
             type: String,
