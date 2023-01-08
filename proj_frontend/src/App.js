@@ -3,14 +3,14 @@ import './App.css';
 import Card from "./React-Project/Card"
 import data from "./React-Project/CardArray"
 
-import NFTCard from "./FYP-Project-Components/NFTCard";
-import Login2 from "./FYP-Project-Components/Login2"
-import Signup from "./FYP-Project-Components/Signup";
+import NFTCard from "./Components/NFTCard";
+import Login2 from "./Components/Login2"
+import Signup from "./Components/Signup";
 
 
-import Gallery from "./FYP-Project-Components/Gallery";
-import ForgotPassword from "./FYP-Project-Components/ForgetPassword";
-import ManuScript from "./FYP-Project-Components/ManuScript";
+import Gallery from "./Components/Gallery";
+import ForgotPassword from "./Components/ForgetPassword";
+import ManuScript from "./Components/ManuScript";
 
 import {Routes, Route} from "react-router-dom";
 
