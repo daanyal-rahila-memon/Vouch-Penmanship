@@ -69,7 +69,8 @@ export  default function Signup(){
           flex: 1,
           mt: "10ch",
           mb: "10ch",
-          p: "1ch 10ch 1ch 10ch"
+          p: "1ch 10ch 1ch 10ch",
+          backgroundColor: "pink"
         }}
       >
       <Box component="img" src="/images/Project Logo.jpeg"
@@ -90,7 +91,7 @@ export  default function Signup(){
           </Box>
 
           <Box sx={flexStyle}>
-            <Email sx={{...emailSx}} />
+            <Email sx={{...emailSx}} fontSize="small"/>
             <TextField type="text" variant="standard" label="Email"
               sx={{width: "300px"}} onChange={handleEmailValidation}
               helperText={valid ? "" : "Please Enter valid Email address"}
@@ -99,7 +100,7 @@ export  default function Signup(){
           </Box>
 
           <Box sx={{...flexStyle, mb: "0.6ch"}}>
-            <Lock sx={emailSx}/>
+            <Lock sx={emailSx} fontSize="small"/>
             <TextField type="password" variant="standard" autoComplete="current-password"
             label="Password" sx={{width: 300}} />
           </Box>

@@ -43,13 +43,13 @@ const ForgotPassword = () =>
       <Box component="form"
         sx={{
           width: 500,
-          height: 250,
+          height: 337,
           background: "white",
           borderRadius: "10px",
-          flex: 1,
           mt: "10ch",
           mb: "10ch",
-          p: "1ch 10ch 1ch 10ch"
+          p: "1ch 10ch 1ch 10ch", 
+          backgroundColor: "pink"
         }}
       >
       <Box component="img" src="/images/Project Logo.jpeg"

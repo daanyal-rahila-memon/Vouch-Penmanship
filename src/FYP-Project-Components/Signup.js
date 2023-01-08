@@ -3,6 +3,7 @@ import {React, useState} from "react"
 import {Email, Lock, Person, Visibility, VisibilityOff} from "@mui/icons-material"
 import MenuItem from "@mui/material/MenuItem"
 import {makeStyles,styled} from "@mui/material/"
+import PersonIcon from '@mui/icons-material/Person';
 
 import theme from "../theme"
 import { margin, positions, textAlign } from "@mui/system"
@@ -77,14 +78,14 @@ export  default function Signup(){
       </Box>
 
           <Box sx={flexStyle}>
-            <Email sx={{...emailSx}} />
-            <TextField type="text" variant="standard" label="First Name"
+            <PersonIcon sx={{...emailSx}} />
+            <TextField type="text" variant="standard" label="Full Name"
               sx={{width: "300px"}}
             />
           </Box>
 
           <Box sx={flexStyle}>
-            <Email sx={{...emailSx}} />
+            <Email sx={{...emailSx}} fontSize="small" />
             <TextField type="text" variant="standard" label="Email"
               sx={{width: "300px"}} onChange={handleEmailValidation}
               helperText={valid ? "" : "Please Enter valid Email address"}
@@ -93,13 +94,13 @@ export  default function Signup(){
           </Box>
 
           <Box sx={flexStyle}>
-            <Lock sx={emailSx}/>
+            <Lock sx={emailSx} fontSize="small"/>
             <TextField type="password" variant="standard"
             label="Password" sx={{width: 300}} />
           </Box>
 
           <Box sx={flexStyle}>
-            <Lock sx={emailSx}/>
+            <Lock sx={emailSx} fontSize="small"/>
             <TextField type="password" variant="standard"
             label="Confirm Password" sx={{width: 300}} onBlur={handleConfirmPassword} />
           </Box>

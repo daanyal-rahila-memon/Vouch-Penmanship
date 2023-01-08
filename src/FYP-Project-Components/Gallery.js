@@ -72,7 +72,7 @@ const Gallery = (props) => {
   return (
     <>
       <Box>
-        <Navbar role={location.state.role}/>
+      <Navbar role={location.state.role}/>
         <Typography sx={{mb: "100px",mt: "120px", textAlign: "center"}} component="h2" variant="h2">My Project</Typography>
         <Divider sx=
         {{mt: "50px", mb: "50px", color: "black", borderColor: "#434F53",
