@@ -73,12 +73,12 @@ const Gallery = (props) => {
     <>
       <Box>
         <Navbar role={location.state.role}/>
-        <Typography sx={{mt: "5px",pt: "55px", textAlign: "center"}} component="h2" variant="h2">My Project</Typography>
+        <Typography sx={{mb: "100px",mt: "120px", textAlign: "center"}} component="h2" variant="h2">My Project</Typography>
         <Divider sx=
         {{mt: "50px", mb: "50px", color: "black", borderColor: "#434F53",
         background: "transparent"}} variant="middle"/>
       </Box>
-      <Grid spacing={4} container justifyContent="center">
+      <Grid id="Gallery" spacing={4} container justifyContent="center">
         
        {NFTCardArray}
         {/* {<Profile /> } */}

@@ -10,6 +10,7 @@ import Signup from "./FYP-Project-Components/Signup";
 
 import Gallery from "./FYP-Project-Components/Gallery";
 import ForgotPassword from "./FYP-Project-Components/ForgetPassword";
+import ManuScript from "./FYP-Project-Components/ManuScript";
 
 import {Routes, Route} from "react-router-dom";
 
@@ -73,6 +74,7 @@ for (var i=0; i<12; i++)
       <Route path="/signUp" element={<Signup />} />
       <Route path="/Gallery" element={<Gallery />}/>
       <Route path="/ForgetPassword" element={<ForgotPassword />} />
+      <Route path="/ManuScript" element={<ManuScript />} />
     </Routes>
   );
 }

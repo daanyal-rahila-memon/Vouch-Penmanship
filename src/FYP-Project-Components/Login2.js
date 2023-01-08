@@ -76,6 +76,19 @@ export  default function Signup(){
        sx={{height: 170, width: 250, ml: "4ch", mr: "4ch"}}>
 
       </Box>
+
+          <Box sx={{...flexStyle, mt: "1ch"}}>
+            <Person sx={emailSx}/>
+            <TextField
+              label="Role" variant="standard"
+              select value={role}
+              sx={{flex: 1, textAlign: "start"}} onChange={handleRole}>
+              {roleArray.map(option => {
+                return (<MenuItem key={option} value={option}>{option}</MenuItem>)
+              })}
+            </TextField>
+          </Box>
+
           <Box sx={flexStyle}>
             <Email sx={{...emailSx}} />
             <TextField type="text" variant="standard" label="Email"
@@ -91,25 +104,18 @@ export  default function Signup(){
             label="Password" sx={{width: 300}} />
           </Box>
 
+          
+
+          
+
+
           <Link component={RouterLink} to="/ForgetPassword"
             sx={{pl: "21.4ch", cursor: "pointer",
              textAlign: "end"}}>
                 Forget Password?
           </Link>
 
-          <Box sx={{...flexStyle, mt: "1ch"}}>
-            <Person sx={emailSx}/>
-            <TextField
-              label="Role" variant="standard"
-              select value={role}
-              sx={{width: "20ch", textAlign: "start"}} onChange={handleRole}>
-              {roleArray.map(option => {
-                return (<MenuItem key={option} value={option}>{option}</MenuItem>)
-              })}
-            </TextField>
-          </Box>
-
-          <Button onClick={goToGallery} variant="contained" sx={{mt: 5, height: 48, width: "40ch"}}>Login</Button>
+          <Button onClick={goToGallery} variant="contained" sx={{mt: 5,ml: 2, height: 48, width: "38ch"}}>Login</Button>
           
           <Typography component="p" sx={{mt: 1.5, textAlign: "start"}}>
             Don’t have an account already? 
