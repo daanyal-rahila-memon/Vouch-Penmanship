@@ -1,11 +1,20 @@
 import {Button, Box, Typography, Divider, Pagination, Stack } from "@mui/material"
 import NFTCard from "./NFTCard"
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
-import {motion} from "framer-motion"
 import React, { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
 
 
-const Gallery = () => {
+import Navbar from "./Navbar"
+
+
+
+const Gallery = (props) => {
+
+ 
+  const location = useLocation()
+
+  console.log(location.state.role)
   var i = 1;
   const [dis, setDis] = useState([0])
   const supervisorList = ["Rizwan-ul-Haq", "Muhammad Bilal", "Furqan Athar",
@@ -63,13 +72,13 @@ const Gallery = () => {
   return (
     <>
       <Box>
-        <Box sx={{width: "83px", height: "83px", textAlign: "center", position: "fixed"}}> Navbar</Box>
-        <Typography sx={{pt: "55px", textAlign: "center"}} component="h2" variant="h2">My Project</Typography>
+      <Navbar role={location.state.role}/>
+        <Typography sx={{mb: "100px",mt: "120px", textAlign: "center"}} component="h2" variant="h2">My Project</Typography>
         <Divider sx=
         {{mt: "50px", mb: "50px", color: "black", borderColor: "#434F53",
         background: "transparent"}} variant="middle"/>
       </Box>
-      <Grid spacing={4} container justifyContent="center">
+      <Grid id="Gallery" spacing={4} container justifyContent="center">
         
        {NFTCardArray}
         {/* {<Profile /> } */}
