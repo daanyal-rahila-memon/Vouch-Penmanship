@@ -7,12 +7,14 @@ import {makeStyles,styled} from "@mui/material/"
 import theme from "../theme"
 import { margin, positions, textAlign } from "@mui/system"
 
-import {Link as RouterLink} from "react-router-dom"
+import {Link as RouterLink, useNavigate} from "react-router-dom"
+import Gallery from "./Gallery"
 
 export  default function Signup(){
   
   const roleArray = ["Supervisor", "Student", "Admin"]
 
+  const navigate = useNavigate();
   const [role, setRole] = useState("Student")
   const [valid, setValid] = useState(true)
 
@@ -46,6 +48,12 @@ export  default function Signup(){
 
   const handlePasswordToggle = () => {
     setPassToggle(value => !passToggle)
+  }
+
+  const goToGallery = () => {
+    navigate('/Gallery', {
+      state: {role}
+    })
   }
 
   return (
@@ -101,7 +109,7 @@ export  default function Signup(){
             </TextField>
           </Box>
 
-          <Button component={Link} href="/Gallery/"  variant="contained" sx={{mt: 5, height: 48, width: "40ch"}}>Login</Button>
+          <Button onClick={goToGallery} variant="contained" sx={{mt: 5, height: 48, width: "40ch"}}>Login</Button>
           
           <Typography component="p" sx={{mt: 1.5, textAlign: "start"}}>
             Don’t have an account already? 

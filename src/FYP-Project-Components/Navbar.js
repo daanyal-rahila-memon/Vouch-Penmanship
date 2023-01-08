@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-var pages = ['Home', 'About', 'Gallery', 'Ideas'];
+var page = ['Home', 'About', 'Gallery', 'Ideas'];
 const studentPages = ['Add Member', 'Approval Request', 'ManuScript']
 const supervisorPages = ['viewRequest']
 const adminPages = ['Access Control']
@@ -22,16 +22,16 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function Navbar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  console.log(props)
-
-  pages = pages.concat(props.role === "admin" ? 
+  
+  const pages = page.concat(props.role === "Admin" ? 
   adminPages
-  : props.role === "supervisor" ?
+  : props.role === "Supervisor" ?
   supervisorPages
-  : props.role === "student" ?
+  : props.role === "Student" ?
   studentPages
   : "")
+
+  console.log(props)
 
   pages.push('Contact Us')
 
