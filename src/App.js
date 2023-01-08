@@ -71,7 +71,7 @@ for (var i=0; i<12; i++)
     <Routes>
       <Route path="/" element={<Login2 />}/>
       <Route path="/signUp" element={<Signup />} />
-      <Route path="/Gallery" element={<Gallery />}/>
+      <Route path="/Gallery/:role" element={<Gallery />}/>
       <Route path="/ForgetPassword" element={<ForgotPassword />} />
     </Routes>
   );

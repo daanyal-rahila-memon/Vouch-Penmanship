@@ -27,13 +27,11 @@ const NFTCard = (props) => {
   {
     console.log("whatsgoinOn")
   }
-
-  console.log(props.supervisorName) 
   return (
     shown ?
     <motion.div initial={{x:-100}} whileInView={{x: 5}} transition={{
         type: "spring",
-        stiffness: 70-props.wait+props.wait,
+        stiffness: 70,
         damping: 20,
       }}>
         <motion.div

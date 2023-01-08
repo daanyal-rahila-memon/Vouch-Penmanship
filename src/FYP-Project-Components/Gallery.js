@@ -5,6 +5,8 @@ import {motion} from "framer-motion"
 import React, { useEffect, useState } from "react"
 
 
+import Navbar from "./Navbar"
+
 const Gallery = () => {
   var i = 1;
   const [dis, setDis] = useState([0])
@@ -63,7 +65,8 @@ const Gallery = () => {
   return (
     <>
       <Box>
-        <Box sx={{width: "83px", height: "83px", textAlign: "center", position: "fixed"}}> Navbar</Box>
+        <Navbar />
+        
         <Typography sx={{pt: "55px", textAlign: "center"}} component="h2" variant="h2">My Project</Typography>
         <Divider sx=
         {{mt: "50px", mb: "50px", color: "black", borderColor: "#434F53",

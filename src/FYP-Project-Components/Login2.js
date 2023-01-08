@@ -101,7 +101,7 @@ export  default function Signup(){
             </TextField>
           </Box>
 
-          <Button href="/Gallery" variant="contained" sx={{mt: 5, height: 48, width: "40ch"}}>Login</Button>
+          <Button component={Link} href="/Gallery/"  variant="contained" sx={{mt: 5, height: 48, width: "40ch"}}>Login</Button>
           
           <Typography component="p" sx={{mt: 1.5, textAlign: "start"}}>
             Don’t have an account already? 
