@@ -15,11 +15,11 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
 
 
-var page = ['Home', 'About', 'Gallery', 'Ideas'];
-const studentPages = ['Add Member', 'Approval Request', 'ManuScript']
-const supervisorPages = ['viewRequest']
+var page = ['Home', 'Gallery'];
+const studentPages = ['Ideas', 'Approval Request', 'ManuScript']
+const supervisorPages = ['Ideas','viewRequest']
 const adminPages = ['Access Control']
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Change Role', 'Status', 'Logout'];
 
 function Navbar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -140,12 +140,12 @@ function Navbar(props) {
             VOUCH PENMANSHIP
           </Typography>
 
-          <Box justifyContent="center" sx={{flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box  justifyContent="center" sx={{flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block', ml: 2, fontSize: "16px" }}
                 value= {page}
               >
                 {page}
