@@ -30,20 +30,31 @@ export const signup = user => {
 };
 
 export const signin = user => {
-    return fetch(`${API}/signin`, {
-        method: "POST",
-        header: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-        },
-        body: JSON.stringify(user)
-    })
+    // console.log(JSON.stringify(user))
+    return axios.post(`${API}/signin`, user)
     .then(response => {
-        return response.json();
-    })
+            return response.data;
+        })
     .catch(error => {
-        console.log(error);
-    });
+            console.log(error);
+        }
+    );
+
+
+    // return fetch(`${API}/signin`, {
+    //     method: "POST",
+    //     header: {
+    //         "Content-Type": "application/json",
+    //         Accept: "application/json"
+    //     },
+    //     body: JSON.stringify(user)
+    // })
+    // .then(response => {
+    //     return response.json();
+    // })
+    // .catch(error => {
+    //     console.log(error);
+    // });
 };
 
 // browser is unable to remember who's logged in, so let's put token for our ease
@@ -83,6 +94,7 @@ export const isAuthenticated = () => {
 
     if (localStorage.getItem('jwt'))        // if you're able to get the item of 'jwt' in the local storage
     {
+        // console.log(JSON.parse(localStorage.getItem('jwt')));
         return JSON.parse(localStorage.getItem('jwt')); // instead of return true, we're returning jwt value and then in the frontend (component), we'll check over there as well if the jwt returned is same as the jwt of the user that is signed-in
     }
     else
