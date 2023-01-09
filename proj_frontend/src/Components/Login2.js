@@ -165,6 +165,7 @@ export default function Signin()
 
   return (
     <Box component="div" 
+      
       sx={{height: "100vh", display: "flex",
        alignItems: "center", flexDirection: "column"}}>
       <Box component="form"
@@ -177,7 +178,7 @@ export default function Signin()
           mt: "10ch",
           mb: "10ch",
           p: "1ch 10ch 1ch 10ch",
-          backgroundColor: "pink"
+          backgroundColor: "#dfdcdc"
         }}
       >
       <Box component="img" src="/images/Project Logo.jpeg"
