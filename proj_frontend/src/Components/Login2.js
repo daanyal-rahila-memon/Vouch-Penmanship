@@ -14,7 +14,10 @@ import { signin, authenticate, isAuthenticated } from "../auth/helper"
 
 export default function Signin()
 {
+  const [roles, setRoles] = useState("Student");
+  const [valid, setValid] = useState(true);
   const [values, setValues] = useState({
+    role: 1,
     email: "",
     password: "",
     error: "",
@@ -22,7 +25,7 @@ export default function Signin()
     didRedirect: false      // use to know if the user has been redirect to any other page, hence signed-in
   });
 
-  const { email, password, error, loading, didRedirect } = values;
+  const { role, email, password, error, loading, didRedirect } = values;
 
   // storing JSON.parse(localStorage.getItem('jwt')) returning from isAuthenticated() in src/auth/helper/index.js
   const { user } = isAuthenticated();
@@ -32,42 +35,70 @@ export default function Signin()
     setValues({ ...values, error: false, [name]: event.target.value });
   };
 
-  const onSubmit = event => {
-    event.preventDefault();
-    setValues({...values, error: false, loading: true });
-    signin({email, password})
-    .then(data => {
-      if (data.error)
-      {
-        setValues({...values, error: data.error, loading: false });
-      }
-      else
-      {
-        authenticate(data, () => {
-          setValues({...values, didRedirect: true});
-        })
-      }
-    })
-    .catch(console.log("Signin request failed"));
+  const handleEmailValidation = (event) => {
+    const nu_regex = new RegExp('[f0-9]+@[cfd]*\.nu\.edu\.pk')
+    setValid(false)
+    if (nu_regex.test(event.target.value))
+    {
+      setValid(value => { return !valid});
+      setValues({...values, "email": event.target.value});
+    }
+  }
+
+  const onSubmit = event => 
+  {
+    // console.log(values);
+    if (email !== "" && password !== "")
+    {
+      event.preventDefault();
+      setValues({...values, error: false, loading: true });
+      // console.log(values);
+      signin({role, email, password})
+      .then(data => {
+        if (data.error)
+        {
+          // console.log("IN DATA.ERROR");
+          setValues({...values, error: data.error, loading: false });
+        }
+        else
+        {
+          // console.log("NOT IN DATA.ERROR");
+          authenticate(data, () => {
+            setValues({...values, didRedirect: true});
+            // console.log("ABOUT TO PERFORM_REDIRECT");
+            performRedirect();
+            loadingMessage();
+            errorMessage();
+          })
+        }
+      })
+      .catch(console.log("Signin request failed"));
+    }
   }
 
   const performRedirect = () => {
+    // console.log("Performing redirect with didredirect" + didRedirect);
     if (didRedirect)
     {
+      // console.log(user.role);
       if (user && user.role === 0)      // Admin
       {
+        console.log("ADMIN");
         return <p>Redirect to Admin</p>
       }
       else
       {
-        return <p>Redirect to User Dashboard</p>
+        // console.log("USER");
+        navigate('/Gallery', {
+        state: {roles}
+        });
       }
     }
 
-    if (isAuthenticated())
-    {
-      return <Navigate to="/" />
-    }
+    // if (isAuthenticated())
+    // {
+    //   return <Navigate to="/" />
+    // }
   };
 
   const loadingMessage = () => {
@@ -94,11 +125,6 @@ export default function Signin()
   const roleArray = ["Supervisor", "Student", "Admin"]
 
   const navigate = useNavigate();
-  const [role, setRole] = useState("Student")
-  const [valid, setValid] = useState(true)
-
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
 
   const [passToggle, setPassToggle] = useState(true)
 
@@ -116,33 +142,26 @@ export default function Signin()
     alignItems: "flex-end"
   }
 
-  const handleEmailValidation = (event) => {
-    const nu_regex = new RegExp('[f0-9]+@[cfd]*\.nu\.edu\.pk')
-    setValid(false)
-    if (nu_regex.test(event.target.value)) {
-      setValid(value => { return !valid});
-      setEmail(event.target.value);
-    }
-  }
-
   const handleRole = (event) => {
-    setRole(event.target.value)
-  }
-
-  const handlePassword = (event) => {
-    setPassToggle(value => !passToggle);
-    setPassword(event.target.value);
-  }
-
-  const goToGallery = () => {
-    if (valid)
+    setRoles(event.target.value);
+    if (event.target.value === "Admin")
     {
-      console.log(email, password);
-      navigate('/Gallery', {
-        state: {role}
-      })
+      setValues({...values, "role": 0});
+    }
+    else if (event.target.value === "Student")
+    {
+      setValues({...values, "role": 1});
+    }
+    else
+    {
+      setValues({...values, "role": 2});
     }
   }
+
+  // const handlePassword = (event) => {
+  //   setPassToggle(value => !passToggle);
+  //   setPassword(event.target.value);
+  // }
 
   return (
     <Box component="div" 
@@ -161,18 +180,15 @@ export default function Signin()
           backgroundColor: "pink"
         }}
       >
-        {loadingMessage()}
-        {errorMessage()}
       <Box component="img" src="/images/Project Logo.jpeg"
        sx={{height: 170, width: 250, ml: "4ch", mr: "4ch"}}>
 
       </Box>
-
           <Box sx={{...flexStyle, mt: "1ch"}}>
             <Person sx={emailSx}/>
             <TextField
               label="Role" variant="standard"
-              select value={role}
+              select value={roles}
               sx={{flex: 1, textAlign: "start"}} onChange={handleRole}>
               {roleArray.map(option => {
                 return (<MenuItem key={option} value={option}>{option}</MenuItem>)
@@ -192,7 +208,7 @@ export default function Signin()
           <Box sx={{...flexStyle, mb: "0.6ch"}}>
             <Lock sx={emailSx} fontSize="small"/>
             <TextField type="password" variant="standard" autoComplete="current-password"
-            label="Password" sx={{width: 300}} onChange={handlePassword} />
+            label="Password" sx={{width: 300}} onChange={handleChange("password")} />
           </Box>
 
           <Link component={RouterLink} to="/ForgetPassword"
@@ -201,16 +217,15 @@ export default function Signin()
                 Forget Password?
           </Link>
 
-          <Button onClick={goToGallery} variant="contained" sx={{mt: 5,ml: 2, height: 48, width: "38ch"}}>Login</Button>
+          <Button onClick={onSubmit} variant="contained" sx={{mt: 5,ml: 2, height: 48, width: "38ch"}}>Login</Button>
           
           <Typography component="p" sx={{mt: 1.5, textAlign: "start"}}>
             Don’t have an account already? 
-            <Link component={RouterLink} to="/signUp" sx={{cursor: "pointer", mb: 2, pl: 0.5}} onClick={onSubmit}>
+            <Link component={RouterLink} to="/signUp" sx={{cursor: "pointer", mb: 2, pl: 0.5}}>
                SignUp
             </Link>
           </Typography>
         </Box>
-        {performRedirect()}
     </Box>
   )
 }

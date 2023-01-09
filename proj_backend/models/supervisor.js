@@ -1,6 +1,6 @@
 const crypto = require("crypto");
+const uuidv4 = require("uuid/v4");
 const mongoose = require("mongoose");
-import { v4 as uuidv4 } from "uuid";
 
 var supervisorSchema = new mongoose.Schema(
     {

@@ -1,4 +1,5 @@
 const Student = require("../models/student");
+const Supervisor = require("../models/Supervisor");
 const { check, validationResult } = require("express-validator");
 var jwt = require('jsonwebtoken');
 var expressJwt = require("express-jwt");
@@ -44,9 +45,9 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
     // check validations
     const errors = validationResult(req);
-    
+    // console.log(req.body);
     // getting email & password form the body of the request
-    const { email, password } = req.body;
+    const { role, email, password } = req.body;
     
     if (!errors.isEmpty())
     {
@@ -55,7 +56,7 @@ exports.signin = (req, res) => {
             param: errors.array()[0].param
         })
     };
-
+    // console.log(email);
     // check if the entered email exists in Student (model)
     Student.findOne({ email }, (error, student) => {
         // console.log(student);
@@ -65,7 +66,7 @@ exports.signin = (req, res) => {
                 error: "USER email not found"
             });
         };
-        
+        // console.log(password);
         // check if the entered passwword is valid
         if(!student.authenticate(password))
         {
@@ -80,13 +81,12 @@ exports.signin = (req, res) => {
 
         // put token in cookie to learn if user has already looged in
         res.cookie("token", token, {expire: new Date() + 9999});
-
+        
         // send some response to frontend
-        const { _id, firstName, lastName, email } = student;
-        return res.json({token, student: { _id, firstName, lastName, email}});
-
+        // console.log(student);
+        const { _id, firstName, lastName, role, email } = student;
+        return res.json({token, student: { _id, firstName, lastName, role, email}});
     });
-
 }
 
 exports.signout = (req, res) => {
