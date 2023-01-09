@@ -1,22 +1,104 @@
 import { Box, TextField, Button, Link, Typography} from "@mui/material"
-import {React, useState} from "react"
-import {Email, Lock, Person} from "@mui/icons-material"
+import { React, useState } from "react"
+import { Email, Lock, Person } from "@mui/icons-material"
 import MenuItem from "@mui/material/MenuItem"
-import {makeStyles,styled} from "@mui/material/"
+import { makeStyles, styled } from "@mui/material/"
 
 import theme from "../theme"
 import { margin, positions, textAlign } from "@mui/system"
 
-import {Link as RouterLink, useNavigate} from "react-router-dom"
+import { Link as RouterLink, useNavigate, Navigate } from "react-router-dom"
 import Gallery from "./Gallery"
 
-export  default function Signup(){
-  
+import { signin, authenticate, isAuthenticated } from "../auth/helper"
+
+export default function Signin()
+{
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    error: "",
+    loading: false,
+    didRedirect: false      // use to know if the user has been redirect to any other page, hence signed-in
+  });
+
+  const { email, password, error, loading, didRedirect } = values;
+
+  // storing JSON.parse(localStorage.getItem('jwt')) returning from isAuthenticated() in src/auth/helper/index.js
+  const { user } = isAuthenticated();
+
+  // to update values state
+  const handleChange = name => event => {
+    setValues({ ...values, error: false, [name]: event.target.value });
+  };
+
+  const onSubmit = event => {
+    event.preventDefault();
+    setValues({...values, error: false, loading: true });
+    signin({email, password})
+    .then(data => {
+      if (data.error)
+      {
+        setValues({...values, error: data.error, loading: false });
+      }
+      else
+      {
+        authenticate(data, () => {
+          setValues({...values, didRedirect: true});
+        })
+      }
+    })
+    .catch(console.log("Signin request failed"));
+  }
+
+  const performRedirect = () => {
+    if (didRedirect)
+    {
+      if (user && user.role === 0)      // Admin
+      {
+        return <p>Redirect to Admin</p>
+      }
+      else
+      {
+        return <p>Redirect to User Dashboard</p>
+      }
+    }
+
+    if (isAuthenticated())
+    {
+      return <Navigate to="/" />
+    }
+  };
+
+  const loadingMessage = () => {
+    return (
+      loading && (
+        <div className="alert alert-info">
+          <h2>Loading...</h2>
+        </div>
+      )
+    );
+  };
+
+  const errorMessage = () => {
+    return (
+      <div
+        className="alert alert-danger"
+        style={{ display: error ? "" : "none" }}
+      >
+        {error}
+      </div>
+    );
+  };
+
   const roleArray = ["Supervisor", "Student", "Admin"]
 
   const navigate = useNavigate();
   const [role, setRole] = useState("Student")
   const [valid, setValid] = useState(true)
+
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
   const [passToggle, setPassToggle] = useState(true)
 
@@ -38,7 +120,8 @@ export  default function Signup(){
     const nu_regex = new RegExp('[f0-9]+@[cfd]*\.nu\.edu\.pk')
     setValid(false)
     if (nu_regex.test(event.target.value)) {
-      setValid(value => { return !valid})
+      setValid(value => { return !valid});
+      setEmail(event.target.value);
     }
   }
 
@@ -46,14 +129,19 @@ export  default function Signup(){
     setRole(event.target.value)
   }
 
-  const handlePasswordToggle = () => {
-    setPassToggle(value => !passToggle)
+  const handlePassword = (event) => {
+    setPassToggle(value => !passToggle);
+    setPassword(event.target.value);
   }
 
   const goToGallery = () => {
-    navigate('/Gallery', {
-      state: {role}
-    })
+    if (valid)
+    {
+      console.log(email, password);
+      navigate('/Gallery', {
+        state: {role}
+      })
+    }
   }
 
   return (
@@ -73,6 +161,8 @@ export  default function Signup(){
           backgroundColor: "pink"
         }}
       >
+        {loadingMessage()}
+        {errorMessage()}
       <Box component="img" src="/images/Project Logo.jpeg"
        sx={{height: 170, width: 250, ml: "4ch", mr: "4ch"}}>
 
@@ -102,13 +192,8 @@ export  default function Signup(){
           <Box sx={{...flexStyle, mb: "0.6ch"}}>
             <Lock sx={emailSx} fontSize="small"/>
             <TextField type="password" variant="standard" autoComplete="current-password"
-            label="Password" sx={{width: 300}} />
+            label="Password" sx={{width: 300}} onChange={handlePassword} />
           </Box>
-
-          
-
-          
-
 
           <Link component={RouterLink} to="/ForgetPassword"
             sx={{pl: "21.4ch", cursor: "pointer",
@@ -120,11 +205,12 @@ export  default function Signup(){
           
           <Typography component="p" sx={{mt: 1.5, textAlign: "start"}}>
             Don’t have an account already? 
-            <Link component={RouterLink} to="/signUp" sx={{cursor: "pointer", mb: 2, pl: 0.5}}>
+            <Link component={RouterLink} to="/signUp" sx={{cursor: "pointer", mb: 2, pl: 0.5}} onClick={onSubmit}>
                SignUp
             </Link>
           </Typography>
         </Box>
+        {performRedirect()}
     </Box>
   )
 }

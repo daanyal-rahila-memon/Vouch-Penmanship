@@ -13,9 +13,10 @@ import ForgotPassword from "./Components/ForgetPassword";
 import ManuScript from "./Components/ManuScript";
 
 import {Routes, Route} from "react-router-dom";
+import { API } from './backend';
 
-function App() {
-
+function App() 
+{
 const Element = [{id:1, rating: "5.0", reviewCount: 8, country: "pakistan",
 title: "Life With jony jony", price: 16},
 {id: 2, rating: "5.0", reviewCount: 8, country: "pakistan",

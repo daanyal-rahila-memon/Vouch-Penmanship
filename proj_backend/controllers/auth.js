@@ -13,7 +13,9 @@ exports.signup = (req, res) => {
     // });
 
     // check validations
+    // console.log(req.body);
     const errors = validationResult(req);
+    // console.log(req.body);
     if (!errors.isEmpty())
     {
         return res.status(422).json({
@@ -29,6 +31,7 @@ exports.signup = (req, res) => {
         // console.log(student);
         if (error)
         {
+            // console.log("check");
             console.log(error);
             return res.status(404).json({
                 error: "NOT able to save user in Database"
