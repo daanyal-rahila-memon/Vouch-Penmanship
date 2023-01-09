@@ -29,6 +29,7 @@ var studentSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    default: "Computer Science"
   },
   email: {
     type: String,
