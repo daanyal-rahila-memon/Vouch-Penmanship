@@ -43,7 +43,7 @@ const NFTCard = (props) => {
           <CardMedia
             component="img"
             height="250" 
-            image="/images/Australia.png"
+            image={`/images/${props.nftimage}`}
             alt="Autralia"
             sx={{
             borderRadius: "15px 15px 0px 0px"
@@ -61,7 +61,7 @@ const NFTCard = (props) => {
             <Avatar sx={{height: "70px", width: "70px"}} variant="rounded" src="/images/globe.gif" />
             <Typography component="div" variant="h5" gutterBottom noWrap
             >
-              {props.supervisorName}
+              {props.supervisorname}
             </Typography>
           </CardContent>
         </Paper>

@@ -11,7 +11,7 @@ import Signup from "./Components/Signup";
 import Gallery from "./Components/Gallery";
 import ForgotPassword from "./Components/ForgetPassword";
 import ManuScript from "./Components/ManuScript";
-
+import Particle from "./Components/Particle"
 import {Routes, Route} from "react-router-dom";
 
 function App() {
