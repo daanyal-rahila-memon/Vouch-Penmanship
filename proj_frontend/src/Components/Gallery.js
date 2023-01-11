@@ -3,7 +3,7 @@ import NFTCard from "./NFTCard"
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
-
+import Particle from "./Particle"
 
 import Navbar from "./Navbar"
 
@@ -90,8 +90,7 @@ const nfg = Element.map(data => {
   return (
     <>
       <Box>
-      <Navbar role={location.state.role}/>
-        <Typography sx={{mb: "100px",mt: "120px", textAlign: "center"}} component="h2" variant="h2">My Project</Typography>
+        <Typography sx={{mb: "100px",mt: "120px", textAlign: "center"}} component="h2" variant="h2">Vouch Penmanship</Typography>
         <Divider sx=
         {{mt: "50px", mb: "50px", color: "black", borderColor: "#434F53",
         background: "transparent"}} variant="middle"/>
@@ -106,7 +105,6 @@ const nfg = Element.map(data => {
       {/* <Stack>
         <Pagination onClick={()=> {}} count={NFTCardArray.length/6} />
       </Stack> */}
-      
     </>
   )
 }

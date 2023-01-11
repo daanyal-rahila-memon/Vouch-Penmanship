@@ -13,9 +13,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
+import { signout, isAuthenticated } from '../auth/helper';
 
-
-var page = ['Home', 'Gallery'];
+var page = ['Home'];
 const studentPages = ['Ideas', 'Approval Request', 'ManuScript']
 const supervisorPages = ['Ideas','viewRequest']
 const adminPages = ['Access Control']
@@ -36,6 +36,16 @@ function Navbar(props) {
   : "")
 
   console.log(props)
+
+  const Logout = (event) => {
+    console.log(event.target.value, " Logout");
+    if (event.target.value === "Logout")
+    {
+      localStorage.clear();
+      navigate('/Login');
+    }
+  }
+  // {setting !== "Logout" ? setting : (isAuthenticated() && "Logout")}
 
   pages.push('Contact Us')
 

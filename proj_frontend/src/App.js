@@ -7,13 +7,13 @@ import NFTCard from "./Components/NFTCard";
 import Login2 from "./Components/Login2"
 import Signup from "./Components/Signup";
 
-
 import Gallery from "./Components/Gallery";
 import ForgotPassword from "./Components/ForgetPassword";
 import ManuScript from "./Components/ManuScript";
 import Particle from "./Components/Particle"
 import {Routes, Route} from "react-router-dom";
 import { API } from './backend';
+import Navbar from "./Components/Navbar";
 
 function App() 
 {
@@ -58,9 +58,6 @@ for (var i=0; i<12; i++)
 {cardArray} */}
 {/* {<Login /> */}
 
-
-
-
 {/* <Signup /> */}
 
 {/* <UserProfile value={ProfileDetails}/> */}
@@ -70,16 +67,15 @@ for (var i=0; i<12; i++)
 </div>
 
   return (
-    <Routes>
-      <Route path="/" element={<Login2 />}/>
-      <Route path="/signUp" element={<Signup />} />
-      <Route path="/Gallery" element={<Gallery />}/>
-      <Route path="/ForgetPassword" element={<ForgotPassword />} />
-      <Route path="/ManuScript" element={<ManuScript />} />
-    </Routes>
+    
+      <Routes>
+        <Route path="/" element={<Login2 />}/>
+        <Route path="/signUp" element={<Signup />} />
+        <Route path="/Gallery" element={<><Navbar role={"Student"}/><Gallery/></>}/>
+        <Route path="/ForgetPassword" element={<ForgotPassword />} />
+        <Route path="/ManuScript" element={<><Navbar role={"Student"}/><ManuScript/></>} />
+      </Routes>
   );
 }
-
-
 
 export default App;

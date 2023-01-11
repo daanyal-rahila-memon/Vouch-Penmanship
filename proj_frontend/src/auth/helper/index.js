@@ -11,22 +11,6 @@ export const signup = user => {
             console.log(error);
         }
     );
-    
-    // console.log(user);
-    // return fetch(`${API}/signup`, {
-    //     method: "POST",
-    //     header: {
-    //         "Content-Type": "application/json",
-    //         Accept: "application/json"
-    //     },
-    //     body: JSON.stringify(user)
-    // })
-    // .then(response => {
-    //     return response.json();
-    // })
-    // .catch(error => {
-    //     console.log(error);
-    // });
 };
 
 export const signin = user => {
@@ -39,22 +23,6 @@ export const signin = user => {
             console.log(error);
         }
     );
-
-
-    // return fetch(`${API}/signin`, {
-    //     method: "POST",
-    //     header: {
-    //         "Content-Type": "application/json",
-    //         Accept: "application/json"
-    //     },
-    //     body: JSON.stringify(user)
-    // })
-    // .then(response => {
-    //     return response.json();
-    // })
-    // .catch(error => {
-    //     console.log(error);
-    // });
 };
 
 // browser is unable to remember who's logged in, so let's put token for our ease

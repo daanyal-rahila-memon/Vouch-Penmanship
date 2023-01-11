@@ -158,7 +158,7 @@ export default function Signup() {
       <Box
         component="div"
         sx={{
-          height: "100vh",
+          height: "80vh",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
@@ -169,8 +169,9 @@ export default function Signup() {
           sx={{
             width: 500,
             height: 250,
-            background: "pink",
+            background: "white",
             borderRadius: "10px",
+            border: "1px solid #dfdcdc",
             flex: 1,
             mt: "10ch",
             mb: "10ch",
@@ -232,7 +233,7 @@ export default function Signup() {
             />
           </Box>
 
-          <Box sx={flexStyle}>
+          {/* <Box sx={flexStyle}>
             <Lock sx={emailSx} fontSize="small" />
             <TextField
               type="password"
@@ -241,7 +242,7 @@ export default function Signup() {
               sx={{ width: 300 }}
               onBlur={handleConfirmPassword}
             />
-          </Box>
+          </Box> */}
 
           <Button
             variant="contained"
