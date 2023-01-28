@@ -20,7 +20,7 @@ exports.getStudentById = (req, res, next, id) => {
   });
 };
 
-// this function will work when someone will call the function without 'params' => gets the student (object)
+// this function will work when someone will call the function without 'params' => gets the student (object) and to show student's stored information over the screen (frontend)
 exports.getStudent = (req, res) => {
   // As in getStudentById, we already have everything in req.profile, now just have to respond it back
   // TODO: get back here for the password
