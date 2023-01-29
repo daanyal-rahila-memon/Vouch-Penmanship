@@ -1,6 +1,6 @@
 const Student = require("../models/student");
 
-// This function will work with 'params', bcz we've the 'id' here
+// This function will work with 'params', bcz we've the 'id' (parameter) here
 exports.getStudentById = (req, res, next, id) => {
   // execute the function findById(id) - which is populated/has 'id' & is a function of Student model
   Student.findById(id).exec((error, student) => {
