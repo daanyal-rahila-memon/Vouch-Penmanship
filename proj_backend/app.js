@@ -12,7 +12,7 @@ const cors = require('cors');
 
 // My Routes
 const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/user");
+const studentRoutes = require("./routes/student");
 
 // DB Connection
 mongoose.connect(process.env.DATABASE).then(() => { // In 'process.env.PORT', At 'process' it attach all the env avriables,
@@ -31,7 +31,7 @@ app.use(cors());                    // using cors Middleware
 
 // My Routes
 app.use("/api", authRoutes);        // This is how we use Middlewares; 1st parameter is the prefix to the API endpoint, and 2nd parameter is the path to the controller route
-app.use("/api", userRoutes);
+app.use("/api", studentRoutes);
 
 // Port
 const port = process.env.PORT || 8000;          // to not expose their database connection string & port, we use 'process.env.PORT'
