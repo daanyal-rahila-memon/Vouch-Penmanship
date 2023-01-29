@@ -111,7 +111,7 @@ exports.isSignedIn = expressJwt({
 // custom middlewares
 // authenticated means that the user is signed in and can only change/look information of his account
 exports.isAuthenticated = (req, res, next) => {
-  let checker = req.profile && req.auth && req.profile._id === req.auth._id; // It will check whether the user is authenticated or not. checker will be filled using 3 thing things: profile (it is the id of user who shoot the request and will only be get set if the user is Logged in and has id, name, email, anything like that), auth (it will be set using isSignIn method), profile.id === auth.id means Logged-in user who shoot the request is same as the one who's account been signed in
+  let checker = req.profile && req.auth && req.profile._id == req.auth._id; // It will check whether the user is authenticated or not. checker will be filled using 3 thing things: profile (it is the id of user who shoot the request and will only be get set if the user is Logged in and has id, name, email, anything like that), auth (it will be set using isSignIn method), profile.id === auth.id means Logged-in user who shoot the request is same as the one who's account been signed in
   if (!checker) {
     res.status(403).json({
       // status code = 403 means you're not allowed to do so
