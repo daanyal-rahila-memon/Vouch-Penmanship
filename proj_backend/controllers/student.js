@@ -32,3 +32,17 @@ exports.getStudent = (req, res) => {
 
   return res.json(req.profile);
 };
+
+// exports.getAllStudents = (req, res) => {      // to get all the students from the database
+//   Student.find().exec((error, student) => {
+//     if (error || !student) {
+//       return res.status(404).json({
+//         error: "Unable to retrieve data",
+//       });
+//     } else {
+//       return res.json(student);
+//     }
+//   });
+// };
+
+
