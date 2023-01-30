@@ -6,6 +6,5 @@ const { getStudentById, getStudent, getAllStudents } = require("../controllers/s
 
 router.param("studentId", getStudentById);
 router.get("/student/:studentId", isSignedIn, isAuthenticated, getStudent);
-// router.get("/students", getAllStudents); // get all students
 
 module.exports = router;
