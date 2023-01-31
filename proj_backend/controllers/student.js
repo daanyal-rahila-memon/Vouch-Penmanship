@@ -24,7 +24,8 @@ exports.getStudentById = (req, res, next, id) => {
 // this function will work when someone will call the function without 'params' => gets the student (object) and to show student's stored information over the screen (frontend)
 exports.getStudent = (req, res) => {
   // As in getStudentById, we already have everything in req.profile, now just have to respond it back
-
+  
+  // Following will only change in the data which is being sent to the frontend
   req.profile.salt = undefined; // Make the salt undefined so that it should not be displayed over the frontend, as it's a private information
   req.profile.encryPassword = undefined; // Make the encryPassword undefined so that it should not be displayed over the frontend, as it's a private information
   req.profile.createdAt = undefined; // Make the createdAt undefined, for the same reason as above
@@ -38,7 +39,7 @@ exports.updateStudent = (req, res) => {   // Update the student information
   Student.findByIdAndUpdate(
     {_id: req.profile._id},    // id will remain the same
     {$set: req.body},          // set the new student information which is coming in req.body from the frontend and
-    {new: true, useFindAndModify: false},   // "new:" we'll provide new field over here coz updation is going on
+    {new: true, useFindAndModify: false},   // "new: true", it'll return the new/udated document
     (error, student) => {
       if (error)    // we won't be checking !student in this as if no object was to be found then the error has already been come up above, at {_id: req.profile._id}
       {
@@ -48,8 +49,9 @@ exports.updateStudent = (req, res) => {   // Update the student information
       }
       else
       {
-        user.salt = undefined;
-        user.encryPassword = undefined;
+        // Following will only change in the data which is being sent to the frontend
+        student.salt = undefined;
+        student.encryPassword = undefined;
         res.json(student);
       }
     }
