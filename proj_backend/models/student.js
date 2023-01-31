@@ -89,7 +89,7 @@ studentSchema.methods = {
       return crypto.createHmac("sha256", this.salt)    // CreateHmac(algorithm, key) -- createHmac is used to create Hash object
                                                 // Encryption Algorithm is 'sha256' over here
                                                 // Key is the salt, which will be used to create the cryptographic HMAC hash
-        .update(plainPassword)                  // Updateing the password
+        .update(plainPassword)                  // Updating the password
         .digest("hex");                         // Encoding to be used
     } catch (error) {
       return "";
