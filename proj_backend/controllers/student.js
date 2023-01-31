@@ -1,3 +1,5 @@
+const crypto = require("crypto");
+const uuidv4 = require("uuid/v4");
 const student = require("../models/student");
 const Student = require("../models/student");
 
@@ -27,15 +29,19 @@ exports.getStudent = (req, res) => {
   
   // Following will only change in the data which is being sent to the frontend
   req.profile.salt = undefined; // Make the salt undefined so that it should not be displayed over the frontend, as it's a private information
-  req.profile.encryPassword = undefined; // Make the encryPassword undefined so that it should not be displayed over the frontend, as it's a private information
-  req.profile.createdAt = undefined; // Make the createdAt undefined, for the same reason as above
-  req.profile.updatedAt = undefined; // Make the updatedAt undefined, for the same reason as above
-  // For above lines of code: We are not setting these properties undefined in the database, instead it is just in the profile object (temporarily) over teh frontend
+  req.profile.encryPassword = req.profile.createdAt = req.profile.updatedAt = undefined; // Make the encryPassword, createdAt, and updatedAt undefined so that it should not be displayed over the frontend, as it's a private information
+  // For above lines of code: We are not setting these properties undefined in the database, instead it is just in the profile object (temporarily) over the frontend
 
   return res.json(req.profile);
 };
 
 exports.updateStudent = (req, res) => {   // Update the student information
+  if (req.body.encryPassword)
+  {
+    req.body.salt = uuidv4();
+    req.body.encryPassword = crypto.createHmac("sha256", req.body.salt).update(req.body.encryPassword).digest("hex");
+  };
+  
   Student.findByIdAndUpdate(
     {_id: req.profile._id},    // id will remain the same
     {$set: req.body},          // set the new student information which is coming in req.body from the frontend and
@@ -50,8 +56,8 @@ exports.updateStudent = (req, res) => {   // Update the student information
       else
       {
         // Following will only change in the data which is being sent to the frontend
-        student.salt = undefined;
-        student.encryPassword = undefined;
+          student.salt = student.encryPassword = student.createdAt = student.updatedAt = undefined; // Make the encryPassword, createdAt, and updatedAt undefined so that it should not be displayed over the frontend, as it's a private information
+
         res.json(student);
       }
     }
