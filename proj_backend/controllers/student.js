@@ -1,3 +1,4 @@
+const student = require("../models/student");
 const Student = require("../models/student");
 
 // This function will work with 'params', bcz we've the 'id' (parameter) here
@@ -32,3 +33,25 @@ exports.getStudent = (req, res) => {
 
   return res.json(req.profile);
 };
+
+exports.updateStudent = (req, res) => {   // Update the student information
+  Student.findByIdAndUpdate(
+    {_id: req.profile._id},    // id will remain the same
+    {$set: req.body},          // set the new student information which is coming in req.body from the frontend and
+    {new: true, useFindAndModify: false},   // "new:" we'll provide new field over here coz updation is going on
+    (error, student) => {
+      if (error)    // we won't be checking !student in this as if no object was to be found then the error has already been come up above, at {_id: req.profile._id}
+      {
+        return res.status(400).json({
+          error: "You're not authorized to update this student"
+        });
+      }
+      else
+      {
+        user.salt = undefined;
+        user.encryPassword = undefined;
+        res.json(student);
+      }
+    }
+  )
+}
