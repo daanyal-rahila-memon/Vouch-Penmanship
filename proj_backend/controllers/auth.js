@@ -1,10 +1,10 @@
-const Student = require("../models/student");
-const Supervisor = require("../models/Supervisor");
 const { check, validationResult } = require("express-validator");
 var jwt = require("jsonwebtoken");
 var expressJwt = require("express-jwt");
-const student = require("../models/student");
 require("dotenv").config();
+const Student = require("../models/student");
+const Supervisor = require("../models/supervisor");
+const Admin = require("../models/admin");
 
 exports.signup = (req, res) => {
   // // Testing below
@@ -15,7 +15,7 @@ exports.signup = (req, res) => {
 
   // check validations
   // console.log(req.body);
-  const errors = validationResult(req);
+  const errors = validationResult(req);      // validationResult() -- Extracts the validation errors from a request and makes them available in a Result object.
   // console.log(req.body);
     if (!errors.isEmpty())
     {
@@ -25,20 +25,32 @@ exports.signup = (req, res) => {
     });
     };
 
-  // Student Signup Code
-  const student = new Student(req.body); // creating the object of Student (model)
+  // User Signup Code
+  let modelObj;
+  if (req.params['role'] == "student")
+  {
+    modelObj = new Student(req.body); // creating the object of the model (Student, Supervisor)
+  }
+  else if (req.params['role'] == "supervisor")
+  {
+    modelObj = new Supervisor(req.body); // creating the object of the model (Student, Supervisor)
+  }
+  else if (req.params['role'] == "admin")
+  {
+    modelObj = new Admin(req.body); // creating the object of the model (Student, Supervisor)
+  }
   // console.log(student);
-  student.save((error, student) => {
+  modelObj.save((error, obj) => {
     // console.log(student);
         if (error)
         {
       // console.log("check");
       console.log(error);
       return res.status(404).json({
-        error: "NOT able to save user in Database",
+        error: "NOT able to save user in Database OR this user already exists",
       });
     }
-    res.json(student);
+    res.json(obj);
   });
 };
 
@@ -47,7 +59,7 @@ exports.signin = (req, res) => {
   const errors = validationResult(req);
   // console.log(req.body);
   // getting email & password form the body of the request
-  const { role, email, password } = req.body;
+  const { email, password } = req.body;
 
     if (!errors.isEmpty())
     {
@@ -57,24 +69,40 @@ exports.signin = (req, res) => {
     })
   };
   // console.log(email);
-  // check if the entered email exists in Student (model)
-  Student.findOne({ email }, (error, student) => {
+  let modelObj, model;
+  if (req.params['role'] == "student")
+  {
+    modelObj = new Student(req.body); // creating the object of the model (Student, Supervisor)
+    model = Student;
+  }
+  else if (req.params['role'] == "supervisor")
+  {
+    modelObj = new Supervisor(req.body); // creating the object of the model (Student, Supervisor)
+    model = Supervisor;
+  }
+  else if (req.params['role'] == "admin")
+  {
+    modelObj = new Admin(req.body); // creating the object of the model (Student, Supervisor)
+    model = Admin;
+  }
+  // check if the entered email exists in model
+  model.findOne({ email }, (error, obj) => {
     // console.log(student);
-    if (error || !student) {
+    if (error || !obj) {
       return res.status(400).json({
         error: "USER email not found",
       });
     }
     // console.log(password);
     // check if the entered passwword is valid
-    if (!student.authenticate(password)) {
+    if (!obj.authenticate(password)) {
       return res.status(401).json({
         error: "USER password is invalid",
       });
     }
 
     // create token
-    const token = jwt.sign({ _id: student._id }, process.env.SECRET);
+    const token = jwt.sign({ _id: obj._id }, process.env.SECRET);
     // console.log(token);
 
     // put token in cookie to learn if user has already looged in
@@ -82,10 +110,10 @@ exports.signin = (req, res) => {
 
     // send some response to frontend
     // console.log(student);
-    const { _id, firstName, lastName, role, email } = student;
+    const { _id, firstName, lastName, role, email } = obj;
     return res.json({
       token,
-      student: { _id, firstName, lastName, role, email },
+      object: { firstName, lastName, role, email },
     });
   });
 };
@@ -122,7 +150,7 @@ exports.isAuthenticated = (req, res, next) => {
 };
 
 exports.isAdmin = (req, res, next) => {
-  if (!req.profile.role === 0) {
+  if (!req.profile.role === "admin") {
     res.status(403).json({
       // status code = 403 means you're not allowed to do so
       error: "ACCESS DENIED: You're not Admin",
@@ -132,7 +160,7 @@ exports.isAdmin = (req, res, next) => {
 };
 
 exports.isSupervisor = (req, res, next) => {
-  if (!req.profile.role === 2) {
+  if (!req.profile.role === "supervisor") {
     res.status(403).json({
       // status code = 403 means you're not allowed to do so
       error: "ACCESS DENIED: You're not Supervisor",

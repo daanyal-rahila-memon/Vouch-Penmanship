@@ -65,42 +65,38 @@ exports.updateStudent = (req, res) => {
   );
 };
 
-// // to update the password for the student
-// exports.updateStudentPassword = (req, res) => {
+// to update the password for the student
+exports.updateStudentPassword = (req, res) => {
+  // Find Student by ID and look if he's entered the password & email to change the password, then check if does the email exist, then change the password
+  Student.findByIdAndUpdate({ _id: req.profile._id });
+  if (req.body.password) {
+    if (req.body.email) {
+      if (req.body.email == req.profile.email) {
+        req.body.salt = uuidv4();
+        req.body.encryPassword = crypto
+          .createHmac("sha256", req.body.salt)
+          .update(req.body.password)
+          .digest("hex");
 
-//   // Find student
-//   Student.findOne(req.profile._id, )
-  
-//   // Find Student by ID and look if he's entered the password & email to change the password, then check if does the email exist, then change the password
-//   Student.findByIdAndUpdate({ _id: req.profile._id });
-//   if (req.body.password) {
-//     if (req.body.email) {
-//       if (req.body.email == req.profile.email) {
-//         req.body.salt = uuidv4();
-//         req.body.encryPassword = crypto
-//           .createHmac("sha256", req.body.salt)
-//           .update(req.body.password)
-//           .digest("hex");
-//       } else {
-//         return res.status(400).json({
-//           error: "Enter the correct Email Address",
-//         });
-//       }
-//     }
-//     else
-//   {
-//     return res.status(404).json({
-//       error: "Please enter the email first to change the password"
-//     });
-//   }
-//   }
-//   else
-//   {
-//     return res.status(404).json({
-//       error: "Please enter Password to change"
-//     });
-//   }
-// };
+        {
+          $set: req.body;
+        }
+      } else {
+        return res.status(400).json({
+          error: "Enter the correct Email Address",
+        });
+      }
+    } else {
+      return res.status(404).json({
+        error: "Please enter the email first to change the password",
+      });
+    }
+  } else {
+    return res.status(404).json({
+      error: "Please enter 'Password' to Update Password",
+    });
+  }
+};
 
 exports.deleteStudent = (req, res) => {
   Student.findByIdAndDelete(req.profile.id, (error, student) => {
