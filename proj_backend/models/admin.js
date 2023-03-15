@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const mongoose = require("mongoose");
-import { v4 as uuidv4 } from "uuid";
+const uuidv4 = require("uuid/v4");
 
 var adminSchema = new mongoose.Schema(
     {
@@ -24,9 +24,9 @@ var adminSchema = new mongoose.Schema(
             required: true
         },
         role: {
-          type: Number,
+          type: String,
           required: true,
-          default: 0
+          default: "admin"
         },
         email: 
         {
@@ -45,7 +45,7 @@ var adminSchema = new mongoose.Schema(
 );
 
 // Create a virtual property `password` to secure it using hash & then store it in our database -> encryPassword.
-adminSchema.virtuals("password")
+adminSchema.virtual("password")
     .get(function()
     {
         return this._password;

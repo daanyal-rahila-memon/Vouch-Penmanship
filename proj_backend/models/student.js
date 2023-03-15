@@ -21,15 +21,15 @@ var studentSchema = new mongoose.Schema({
     trim: true,
   },
   role: {
-    type: Number,
+    type: String,
     required: true,
-    default: 1
+    default: "student"
   },
   department: {
     type: String,
     required: true,
     trim: true,
-    default: "Computer Science"
+    required: true,
   },
   email: {
     type: String,
