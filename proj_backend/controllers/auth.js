@@ -7,7 +7,7 @@ const Supervisor = require("../models/supervisor");
 const Admin = require("../models/admin");
 
 exports.signup = (req, res) => {
-  // // Testing below
+  // Testing below
   // console.log("REQ BODY", req.body);      // console will show the request sent through this & it is done by body-parser
   // res.json({
   //     message: "Signup Successful"
