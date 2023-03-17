@@ -4,16 +4,15 @@ const mongoose = require("mongoose");
 
 var supervisorSchema = new mongoose.Schema(
   {
-    id: {
+    firstName: {
       type: String,
       required: true,
-      unique: true,
+      maxlength: 20,
       trim: true,
     },
-    name: {
+    lastName: {
       type: String,
-      required: true,
-      maxlength: 32,
+      maxlength: 20,
       trim: true,
     },
     role: {
@@ -69,7 +68,8 @@ supervisorSchema.methods = {
     if (!plainPassword) return "";
     try {
       return (
-        createHmac("sha256", this.salt) // CreateHmac(algorithm, key) -- createHmac is used to create Hash object
+        crypto
+          .createHmac("sha256", this.salt) // CreateHmac(algorithm, key) -- createHmac is used to create Hash object
           // Encryption Algorithm is 'sha256' over here
           // Key is the salt, which will be used to create the cryptographic HMAC hash
           .update(plainPassword) // Updateing the password

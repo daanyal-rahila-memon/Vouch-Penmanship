@@ -15,35 +15,28 @@ exports.signup = (req, res) => {
 
   // check validations
   // console.log(req.body);
-  const errors = validationResult(req);      // validationResult() -- Extracts the validation errors from a request and makes them available in a Result object.
+  const errors = validationResult(req); // validationResult() -- Extracts the validation errors from a request and makes them available in a Result object.
   // console.log(req.body);
-    if (!errors.isEmpty())
-    {
+  if (!errors.isEmpty()) {
     return res.status(422).json({
       error: errors.array()[0].msg,
       param: errors.array()[0].param,
     });
-    };
+  }
 
   // User Signup Code
   let modelObj;
-  if (req.params['role'] == "student")
-  {
+  if (req.params["role"] == "student") {
     modelObj = new Student(req.body); // creating the object of the model (Student, Supervisor)
-  }
-  else if (req.params['role'] == "supervisor")
-  {
+  } else if (req.params["role"] == "supervisor") {
     modelObj = new Supervisor(req.body); // creating the object of the model (Student, Supervisor)
-  }
-  else if (req.params['role'] == "admin")
-  {
+  } else if (req.params["role"] == "admin") {
     modelObj = new Admin(req.body); // creating the object of the model (Student, Supervisor)
   }
   // console.log(student);
   modelObj.save((error, obj) => {
     // console.log(student);
-        if (error)
-        {
+    if (error) {
       // console.log("check");
       console.log(error);
       return res.status(404).json({
@@ -61,27 +54,21 @@ exports.signin = (req, res) => {
   // getting email & password form the body of the request
   const { email, password } = req.body;
 
-    if (!errors.isEmpty())
-    {
+  if (!errors.isEmpty()) {
     return res.status(422).json({
       error: errors.array()[0].msg,
       param: errors.array()[0].param,
-    })
-  };
+    });
+  }
   // console.log(email);
   let modelObj, model;
-  if (req.params['role'] == "student")
-  {
+  if (req.params["role"] == "student") {
     modelObj = new Student(req.body); // creating the object of the model (Student, Supervisor)
     model = Student;
-  }
-  else if (req.params['role'] == "supervisor")
-  {
+  } else if (req.params["role"] == "supervisor") {
     modelObj = new Supervisor(req.body); // creating the object of the model (Student, Supervisor)
     model = Supervisor;
-  }
-  else if (req.params['role'] == "admin")
-  {
+  } else if (req.params["role"] == "admin") {
     modelObj = new Admin(req.body); // creating the object of the model (Student, Supervisor)
     model = Admin;
   }
