@@ -7,22 +7,24 @@ const Supervisor = require("../models/supervisor");
 const Admin = require("../models/admin");
 
 exports.signup = (req, res) => {
-  // Testing below
-  // console.log("REQ BODY", req.body);      // console will show the request sent through this & it is done by body-parser
-  // res.json({
-  //     message: "Signup Successful"
-  // });
+  // Testing Block
+  // {
+  //   console.log("REQ BODY", req.body); // console will show the request sent through this & it is done by body-parser
+  //   res.json({
+  //     message: "Signup Successful",
+  //   });
+  // }
 
   // check validations
-  // console.log(req.body);
-  const errors = validationResult(req); // validationResult() -- Extracts the validation errors from a request and makes them available in a Result object.
-  // console.log(req.body);
+  const errors = validationResult(req); // validationResult() -- Extracts the validation errors from a request and makes them available in a errors as Array. Each error in the array is an object that contains information about the validation error, such as the location of the error, the parameter that failed validation, and the error message.
   if (!errors.isEmpty()) {
     return res.status(422).json({
       error: errors.array()[0].msg,
       param: errors.array()[0].param,
     });
   }
+
+  req.body.email = req.body.email.toLowerCase(); // to convert the user's email in Lower Case
 
   // User Signup Code
   let modelObj;

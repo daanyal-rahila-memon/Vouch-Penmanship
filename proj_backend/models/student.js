@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 
 var studentSchema = new mongoose.Schema(
   {
-    
     firstName: {
       type: String,
       required: true,
@@ -53,7 +52,7 @@ var studentSchema = new mongoose.Schema(
 );
 
 // Create a virtual property `roll_number` that's computed from `email`.
-studentSchema.virtual("roll_number").get(function () {
+studentSchema.virtual("rollNumber").get(function () {
   return this.email.slice(this.email, this.email.indexOf("@"));
 });
 
