@@ -10,7 +10,7 @@ router.post(
     check("email", "It must be in Email Format - domain@host.com").isEmail(),
     check("password", "Password should be at least 6 characters").isLength({
       min: 6,
-    }), 
+    }),
   ], // Middleware
   signup // response
 );
