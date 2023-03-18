@@ -38,13 +38,13 @@ exports.getStudent = (req, res) => {
   return res.json(req.profile);
 };
 
-exports.updateStudent = (req, res) => {
+exports.updateStudent = (req, res) => {   // This can update all the information of the student besides the password
   // Update the student information
   // password will be updated in this function
   Student.findByIdAndUpdate(
     { _id: req.profile._id }, // id will remain the same
-    { $set: req.body }, // sets the new student information which is coming - in req.body - from the frontend
-    { new: true, useFindAndModify: false }, // "new: true", it'll return the new/udated document
+    { $set: req.body }, // sets the new student information which is coming - in req.body - from the frontend to the old student information
+    { new: true, useFindAndModify: false }, // "new: true", it'll return the new/updated document
     (error, student) => {
       if (error) {
         // we won't be checking !student in this as if no object was to be found then the error has already been come up above, at {_id: req.profile._id}
@@ -65,37 +65,28 @@ exports.updateStudent = (req, res) => {
   );
 };
 
+// TODO: Correct this functionality
 // to update the password for the student
 exports.updateStudentPassword = (req, res) => {
-  // Find Student by ID and look if he's entered the password & email to change the password, then check if does the email exist, then change the password
-  Student.findByIdAndUpdate({ _id: req.profile._id });
-  if (req.body.password) {
-    if (req.body.email) {
-      if (req.body.email == req.profile.email) {
-        req.body.salt = uuidv4();
-        req.body.encryPassword = crypto
-          .createHmac("sha256", req.body.salt)
-          .update(req.body.password)
-          .digest("hex");
+  let salt = uuidv4();
+  let Password = crypto
+    .createHmac("sha256", salt)
+    .update(req.body.password)
+    .digest("hex");
 
-        {
-          $set: req.body;
-        }
+  // Find Student by ID and look if he's entered the password & email to change the password, then check if does the email exist, then change the password
+  Student.findByIdAndUpdate(
+    { _id: req.profile._id }, // Replace with the _id of the user you want to update
+    { password: Password }, // Replace with the new name you want to set
+    { new: true }, // Return the updated document
+    (err, obj) => {
+      if (err) {
+        console.log(err);
       } else {
-        return res.status(400).json({
-          error: "Enter the correct Email Address",
-        });
+        console.log(obj);
       }
-    } else {
-      return res.status(404).json({
-        error: "Please enter the email first to change the password",
-      });
     }
-  } else {
-    return res.status(404).json({
-      error: "Please enter 'Password' to Update Password",
-    });
-  }
+  );
 };
 
 exports.deleteStudent = (req, res) => {
