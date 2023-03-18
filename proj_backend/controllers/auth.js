@@ -52,7 +52,9 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
   // check validations
   const errors = validationResult(req);
-  // console.log(req.body);
+
+  req.body.email = req.body.email.toLowerCase(); // to convert the user's email in Lower Case
+
   // getting email & password form the body of the request
   const { email, password } = req.body;
 
@@ -62,7 +64,7 @@ exports.signin = (req, res) => {
       param: errors.array()[0].param,
     });
   }
-  // console.log(email);
+
   let modelObj, model;
   if (req.params["role"] == "student") {
     modelObj = new Student(req.body); // creating the object of the model (Student, Supervisor)
@@ -94,15 +96,14 @@ exports.signin = (req, res) => {
     const token = jwt.sign({ _id: obj._id }, process.env.SECRET);
     // console.log(token);
 
-    // put token in cookie to learn if user has already looged in
+    // put token in cookie to learn in future if the user has already logged in or not
     res.cookie("token", token, { expire: new Date() + 9999 });
 
     // send some response to frontend
-    // console.log(student);
     const { _id, firstName, lastName, role, email } = obj;
     return res.json({
       token,
-      object: { firstName, lastName, role, email },
+      object: { _id, firstName, lastName, role, email },
     });
   });
 };
@@ -118,17 +119,18 @@ exports.signout = (req, res) => {
 
 // protected routes
 // In this Middleware we won't need to add next() method as it is dealt by express-jwt
-// signed in means that the user is signed in and can roam around and can change/look any information of anyone
+// signed in means that the user is signed-in and the session isn't expired and still valid.
 exports.isSignedIn = expressJwt({
-  // is to check whether the user loggen in or not by using created token
+  // is to check whether the user loggen in or not by using `created token`
   secret: process.env.SECRET,
-  userProperty: "auth", // it contains the value which we passed while createing the token in jwt.sign(). In this case, we have _id; and this property 'auth' will be contained by the req
+  userProperty: "auth", // `auth` contains the value which we passed while creating the token in jwt.sign(). In this case, we have _id; and this property 'auth' will be contained by the req
 });
 
 // custom middlewares
-// authenticated means that the user is signed in and can only change/look information of his account
+// authenticated means that the user is signed into his own account and can change/look information of his/her account
 exports.isAuthenticated = (req, res, next) => {
-  let checker = req.profile && req.auth && req.profile._id == req.auth._id; // It will check whether the user is authenticated or not. checker will be filled using 3 thing things: profile (it is the id of user who shoot the request and will only be get set if the user is Logged in and has id, name, email, anything like that), auth (it will be set using isSignIn method), profile.id === auth.id means Logged-in user who shoot the request is same as the one who's account been signed in
+  // let checker = req.profile && req.auth && req.profile._id == req.auth._id; // It will check whether the user is authenticated or not. checker will be filled using 3 things: 1) req.profile (it is the id of the user who shoot the request and will only be get set in getStudentById and if the user is Logged-in), req.auth (it will be set using isSignIn method), req.profile._id === req.auth._id means Logged-in user who shoot the request is same as the one who's account been signed in
+  let checker = req.profile?._id == req.auth?._id; // `?` represnts that req.profile & req.auth is available. This line is Equal to the `let checker = req.profile && req.auth && req.profile._id == req.auth._id;`
   if (!checker) {
     res.status(403).json({
       // status code = 403 means you're not allowed to do so
