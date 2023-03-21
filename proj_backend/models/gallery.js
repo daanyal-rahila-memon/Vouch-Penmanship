@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 var gallerySchema = new mongoose.Schema(
     {
-        id:
+        title:
         {
             type: String,
             required: true,
@@ -36,4 +36,4 @@ var gallerySchema = new mongoose.Schema(
     }, {timestamps: true}       // Timestamp will save the exact time in Database when any Project will be published in the Gallery.
 );
 
-module.exports = mongoose.model("Gallert", gallerySchema);
+module.exports = mongoose.model("Gallery", gallerySchema);

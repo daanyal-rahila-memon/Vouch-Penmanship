@@ -10,9 +10,11 @@ const bodyParser = require('body-parser');      // 'body-parser' is responsible 
 const cookieParser = require('cookie-parser');  // 'cookie-parser' is responsible for parsing the cookie and returning it as a string, so that we can set/get something in/from the cookie.
 const cors = require('cors');
 
-// My Routes
+// My Routes (Importing)
 const authRoutes = require("./routes/auth.routes");
 const studentRoutes = require("./routes/student.routes");
+const supervisorRoutes = require("./routes/supervisor.routes");
+const categoryRoutes = require("./routes/category.routes");
 
 // DB Connection
 mongoose.connect(process.env.DATABASE).then(() => { // In 'process.env.PORT', At 'process' it attach all the env avriables,
@@ -32,6 +34,8 @@ app.use(cors());                    // using cors Middleware
 // My Routes
 app.use("/api", authRoutes);        // This is how we use Middlewares; 1st parameter is the prefix to the API endpoint, and 2nd parameter is the path to the controller route
 app.use("/api", studentRoutes);
+app.use("/api", supervisorRoutes);
+app.use("/api", categoryRoutes);
 
 // Port
 const port = process.env.PORT || 8000;          // to not expose their database connection string & port, we use 'process.env.PORT'
