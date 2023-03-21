@@ -43,6 +43,14 @@ var studentSchema = new mongoose.Schema(
       required: true,
     },
     salt: String, // is a random string (collection of alpha-numerics) added to the password to make it stronger
+    // manuscript: [{
+    //   type: ObjectId,
+    //   ref: "Manuscript",
+    // }],
+    manuscript: {
+      type: Array,
+      default: [],
+    },
     walletAddress: {
       type: String,
       trim: true,

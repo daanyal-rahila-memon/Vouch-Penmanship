@@ -146,6 +146,8 @@ exports.isAdmin = (req, res, next) => {
       // status code = 403 means you're not allowed to do so
       error: "ACCESS DENIED: You're not Admin",
     });
+  } else {
+    re.json(req.body);
   }
   next();
 };

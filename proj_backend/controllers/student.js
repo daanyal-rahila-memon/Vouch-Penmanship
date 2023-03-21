@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const uuidv4 = require("uuid/v4");
-const student = require("../models/student");
 const Student = require("../models/student");
+const Manuscript = require("../models/manuscript");
 
 // This function will work with 'params', bcz we've the 'id' (parameter) here
 exports.getStudentById = (req, res, next, id) => {
@@ -38,7 +38,8 @@ exports.getStudent = (req, res) => {
   return res.json(req.profile);
 };
 
-exports.updateStudent = (req, res) => {   // This can update all the information of the student besides the password
+exports.updateStudent = (req, res) => {
+  // This can update all the information of the student besides the password
   // Update the student information
   // password will be updated in this function
   Student.findByIdAndUpdate(
@@ -103,3 +104,16 @@ exports.deleteStudent = (req, res) => {
     }
   });
 };
+
+exports.getStudentManuscripts = (req, res) => {     // Whenever you need to get some details from one collection (Manuscript) and store it to other collection (Student), you use populate()
+  Manuscript.find({student: req.profile._id})    // We're looking for Manuscripts which are pushed in manuscript model by this student/req.profile._id
+  .populate("student", "_id firstName lastName")    // takes 2 parameters => 1st, which model you want to update and 2nd, fields which need to bring in (update/populate)
+  .exec((error, manuscript) => {
+    if(error) {
+      return res.status(400).json({
+        error: "No manuscript found of this student"
+      })
+    }
+    return res.json(manuscript);
+  })
+}
