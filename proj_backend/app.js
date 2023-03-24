@@ -15,6 +15,7 @@ const authRoutes = require("./routes/auth.routes");
 const studentRoutes = require("./routes/student.routes");
 const supervisorRoutes = require("./routes/supervisor.routes");
 const categoryRoutes = require("./routes/category.routes");
+const adminRoutes = require("./routes/admin.routes");
 
 // DB Connection
 mongoose.connect(process.env.DATABASE).then(() => { // In 'process.env.PORT', At 'process' it attach all the env avriables,
@@ -36,6 +37,7 @@ app.use("/api", authRoutes);        // This is how we use Middlewares; 1st param
 app.use("/api", studentRoutes);
 app.use("/api", supervisorRoutes);
 app.use("/api", categoryRoutes);
+app.use("/api", adminRoutes);
 
 // Port
 const port = process.env.PORT || 8000;          // to not expose their database connection string & port, we use 'process.env.PORT'
