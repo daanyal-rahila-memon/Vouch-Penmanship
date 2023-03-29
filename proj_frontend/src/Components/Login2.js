@@ -170,7 +170,6 @@ export default function Signin() {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
-        // position: "static"
       }}
     >
       <Box
@@ -256,10 +255,10 @@ export default function Signin() {
           Don’t have an account already?
           <Link
             component={RouterLink}
-            to="/signUp"
+            to="/signup"
             sx={{ cursor: "pointer", mb: 2, pl: 0.5 }}
           >
-            SignUp
+            Sign Up
           </Link>
         </Typography>
       </Box>

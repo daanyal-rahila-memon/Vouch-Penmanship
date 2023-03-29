@@ -70,10 +70,10 @@ for (var i=0; i<12; i++)
     
       <Routes>
         <Route path="/" element={<Login2 />}/>
-        <Route path="/signUp" element={<Signup />} />
-        <Route path="/Gallery" element={<><Navbar role={"Student"}/><Gallery/></>}/>
-        <Route path="/ForgetPassword" element={<ForgotPassword />} />
-        <Route path="/ManuScript" element={<><Navbar role={"Student"}/><ManuScript/></>} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/gallery" element={<><Navbar role={"Student"}/><Gallery/></>}/>
+        <Route path="/forgetpassword" element={<ForgotPassword />} />
+        <Route path="/manuscript" element={<><Navbar role={"Student"}/><ManuScript/></>} />
       </Routes>
   );
 }

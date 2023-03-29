@@ -22,6 +22,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import theme from "../theme";
 import { margin, positions, textAlign } from "@mui/system";
 import { signup } from "../auth/helper/index";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const roleArray = ["Supervisor", "Student", "Admin"];
@@ -43,14 +44,20 @@ export default function Signup() {
     email: "",
     password: "",
     error: "",
-    success: false
+    success: false,
   });
 
-  const { firstName, lastName, batch, email, password, error, success } = values;
+  const { firstName, lastName, batch, email, password, error, success } =
+    values;
 
   // to update values state
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
+  };
+  const navigate = useNavigate();
+
+  const performRedirect = () => {
+    navigate("/");
   };
 
   // Submit Button Function
@@ -76,10 +83,13 @@ export default function Signup() {
             error: "",
             success: true,
           });
+          // performRedirect();
+          navigate("/");
         }
       })
-      .catch(error => {
-        console.log("Error in Signup")});
+      .catch((error) => {
+        console.log("Error in Signup");
+      });
   };
 
   const successMessage = () => {
@@ -118,13 +128,19 @@ export default function Signup() {
   };
 
   const handleEmailValidation = (event) => {
-    const nu_regex = new RegExp('[f0-9]+@[cfd]*\.nu\.edu\.pk')
-    setValid(false)
+    const nu_regex = new RegExp("[f0-9]+@[cfd]*.nu.edu.pk");
+    setValid(false);
     if (nu_regex.test(event.target.value)) {
-      setValid(value => { return !valid});
-      setValues({...values, batch: event.target.value.slice(1, 3), "email": event.target.value});
+      setValid((value) => {
+        return !valid;
+      });
+      setValues({
+        ...values,
+        batch: event.target.value.slice(1, 3),
+        email: event.target.value,
+      });
     }
-  }
+  };
 
   // const handleEmailValidation = (event) => {
   //   const nu_regex = new RegExp('[f0-9]+@[cfd]*\.nu\.edu\.pk')
