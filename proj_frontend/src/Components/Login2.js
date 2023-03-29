@@ -45,13 +45,16 @@ export default function Signin() {
         });
         setValues({ ...values, email: event.target.value });
       }
+    } else {
+      const nu_regex = /^[\w.%+-]+@[cfd]*.nu.edu.pk$/;
+      setValid(false);
+      if (nu_regex.test(event.target.value)) {
+        setValid((value) => {
+          return !valid;
+        });
+        setValues({ ...values, email: event.target.value });
+      }
     }
-    else {
-      //
-    }
-
-    setValid(true);
-    setValues({ ...values, email: event.target.value });
   };
 
   const onSubmit = (event) => {
