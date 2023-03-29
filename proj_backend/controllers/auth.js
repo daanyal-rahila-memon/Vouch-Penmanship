@@ -35,12 +35,8 @@ exports.signup = (req, res) => {
   } else if (req.params["role"] == "admin") {
     modelObj = new Admin(req.body); // creating the object of the model (Student, Supervisor)
   }
-  // console.log(student);
   modelObj.save((error, obj) => {
-    // console.log(student);
-    if (error) {
-      // console.log("check");
-      console.log(error);
+    if (error || !obj) {
       return res.status(404).json({
         error: "NOT able to save user in Database OR this user already exists",
       });
@@ -147,7 +143,7 @@ exports.isAdmin = (req, res, next) => {
       error: "ACCESS DENIED: You're not Admin",
     });
   } else {
-    re.json(req.body);
+    res.json(req.body);
   }
   next();
 };
