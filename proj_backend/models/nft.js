@@ -17,21 +17,13 @@ var nftSchema = new mongoose.Schema(
       type: ObjectId,
       ref: "Manuscript",
     },
-    ownerName: {
+    owner: {
       type: ObjectId,
       ref: "Student",
     },
-    supervisorName: {
+    supervisor: {
       type: ObjectId,
       ref: "Supervisor",
-    },
-    theme: {
-      type: String,
-      required: true,
-    },
-    style: {
-      type: String,
-      required: true,
     },
   },
   { timestamps: true } // Timestamp will save the exact time in Database when any NFT will be created.

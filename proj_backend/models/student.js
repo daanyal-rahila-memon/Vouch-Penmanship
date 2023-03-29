@@ -25,7 +25,7 @@ var studentSchema = new mongoose.Schema(
     role: {
       type: String,
       required: true,
-      default: "student",
+      default: "Student",
     },
     department: {
       type: String,

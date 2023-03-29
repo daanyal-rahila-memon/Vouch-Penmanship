@@ -116,7 +116,7 @@ exports.addGroupMembers = (req, res) => {
     }
 
     const updatedData = {
-      $addToSet: { members: memberStudent[0]._id }
+      $addToSet: { members: memberStudent[0]._id }, // Operator $addToSet would only push the member if it's not already in the Array unlike $push
     };
     // To nullify the array for testing purposes
     // const updatedData = {
@@ -141,23 +141,24 @@ exports.addGroupMembers = (req, res) => {
             student.createdAt =
             student.updatedAt =
               undefined; // Make the encryPassword, createdAt, and updatedAt undefined so that it should not be displayed over the frontend, as it's a private information
-  
+
           res.json(student);
         }
       }
     );
   });
-}
+};
 
-exports.getStudentManuscripts = (req, res) => {     // Whenever you need to get some details from one collection (Manuscript) and store it to other collection (Student), you use populate()
-  Manuscript.find({student: req.profile._id})    // We're looking for Manuscripts which are pushed in manuscript model by this student/req.profile._id
-  .populate("student", "_id firstName lastName")    // takes 2 parameters => 1st, which model you want to update and 2nd, fields which need to bring in (update/populate)
-  .exec((error, manuscript) => {
-    if(error) {
-      return res.status(400).json({
-        error: "No manuscript found of this student"
-      })
-    }
-    return res.json(manuscript);
-  })
-}
+exports.getStudentManuscripts = (req, res) => {
+  // Whenever you need to get some details from one collection (Manuscript) and store it to other collection (Student), you use populate()
+  Manuscript.find({ student: req.profile._id }) // We're looking for Manuscripts which are pushed in manuscript model by this student/req.profile._id
+    .populate("student", "_id firstName lastName") // takes 2 parameters => 1st, which model you want to update and 2nd, fields which need to bring in (update/populate)
+    .exec((error, manuscript) => {
+      if (error) {
+        return res.status(400).json({
+          error: "No manuscript found of this student",
+        });
+      }
+      return res.json(manuscript);
+    });
+};

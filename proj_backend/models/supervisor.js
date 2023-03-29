@@ -18,7 +18,7 @@ var supervisorSchema = new mongoose.Schema(
     role: {
       type: String,
       required: true,
-      default: "supervisor",
+      default: "Supervisor",
     },
     department: {
       type: String,

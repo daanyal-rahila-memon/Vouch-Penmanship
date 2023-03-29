@@ -14,10 +14,10 @@ import { signin, authenticate, isAuthenticated } from "../auth/helper";
 import Particle from "./Particle";
 
 export default function Signin() {
-  const [roles, setRoles] = useState("Student");
+  const [roles, setRoles] = useState("student");
   const [valid, setValid] = useState(true);
   const [values, setValues] = useState({
-    role: 1,
+    role: "student",
     email: "",
     password: "",
     error: "",
@@ -36,14 +36,22 @@ export default function Signin() {
   };
 
   const handleEmailValidation = (event) => {
-    const nu_regex = new RegExp("[f0-9]+@[cfd]*.nu.edu.pk");
-    setValid(false);
-    if (nu_regex.test(event.target.value)) {
-      setValid((value) => {
-        return !valid;
-      });
-      setValues({ ...values, email: event.target.value });
+    if (roles == "student") {
+      const nu_regex = new RegExp("[f0-9]+@[cfd]*.nu.edu.pk");
+      setValid(false);
+      if (nu_regex.test(event.target.value)) {
+        setValid((value) => {
+          return !valid;
+        });
+        setValues({ ...values, email: event.target.value });
+      }
     }
+    else {
+      //
+    }
+
+    setValid(true);
+    setValues({ ...values, email: event.target.value });
   };
 
   const onSubmit = (event) => {
@@ -76,7 +84,7 @@ export default function Signin() {
     // console.log("Performing redirect with didredirect" + didRedirect);
     if (didRedirect) {
       // console.log(user.role);
-      if (user && user.role === 0) {
+      if (user && user.role == "admin") {
         // Admin
         console.log("ADMIN");
         return <p>Redirect to Admin</p>;
@@ -138,11 +146,11 @@ export default function Signin() {
   const handleRole = (event) => {
     setRoles(event.target.value);
     if (event.target.value === "Admin") {
-      setValues({ ...values, role: 0 });
+      setValues({ ...values, role: "admin" });
     } else if (event.target.value === "Student") {
-      setValues({ ...values, role: 1 });
+      setValues({ ...values, role: "student" });
     } else {
-      setValues({ ...values, role: 2 });
+      setValues({ ...values, role: "supervisor" });
     }
   };
 

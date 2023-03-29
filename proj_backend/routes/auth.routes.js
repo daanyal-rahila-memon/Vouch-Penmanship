@@ -20,7 +20,7 @@ router.post(
   "/signin/:role", // request
   [
     check("email", "Email is required").isEmail(),
-    check("password", "Password is required").isLength({ min: 1 }),
+    check("password", "Password is required").isLength({ min: 6 }),
   ], // Middleware
   signin // response
 );
