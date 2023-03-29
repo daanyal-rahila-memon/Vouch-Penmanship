@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const uuidv4 = require("uuid/v4");
 const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema;
 
 var studentSchema = new mongoose.Schema(
   {
@@ -49,6 +50,15 @@ var studentSchema = new mongoose.Schema(
     // }],
     manuscript: {
       type: Array,
+      default: [],
+    },
+    members: {    // It will store array of objects of students
+      type: [
+        {
+          type: ObjectId,
+          ref: "Student",
+        },
+      ],
       default: [],
     },
     walletAddress: {

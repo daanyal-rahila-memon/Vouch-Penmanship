@@ -43,7 +43,7 @@ exports.updateStudent = (req, res) => {
   // Update the student information
   // password will be updated in this function
   Student.findByIdAndUpdate(
-    { _id: req.profile._id }, // id will remain the same
+    { _id: req.profile._id }, // Search this student
     { $set: req.body }, // sets the new student information which is coming - in req.body - from the frontend to the old student information
     { new: true, useFindAndModify: false }, // "new: true", it'll return the new/updated document
     (error, student) => {
@@ -104,6 +104,50 @@ exports.deleteStudent = (req, res) => {
     }
   });
 };
+
+exports.addGroupMembers = (req, res) => {
+  const student = new Student(req.profile);
+
+  Student.find(req.body).exec((error, memberStudent) => {
+    if (error || !memberStudent) {
+      return res.status(400).json({
+        error: "Student need to be registered first",
+      });
+    }
+
+    const updatedData = {
+      $addToSet: { members: memberStudent[0]._id }
+    };
+    // To nullify the array for testing purposes
+    // const updatedData = {
+    //   members: []
+    // };
+
+    Student.findByIdAndUpdate(
+      req.profile._id, // Search this id
+      updatedData, // update this part of the found student
+      // { $set: req.body }, // sets the new student information which is coming - in req.body - from the frontend to the old student information
+      { new: true, useFindAndModify: false }, // "new: true", it'll return the new/updated document
+      (error, student) => {
+        if (error) {
+          // we won't be checking !student in this as if no object was to be found then the error has already been come up above, at {_id: req.profile._id}
+          return res.status(400).json({
+            error: "Update failed",
+          });
+        } else {
+          // Following will only change in the data which is being sent to the frontend
+          student.salt =
+            student.encryPassword =
+            student.createdAt =
+            student.updatedAt =
+              undefined; // Make the encryPassword, createdAt, and updatedAt undefined so that it should not be displayed over the frontend, as it's a private information
+  
+          res.json(student);
+        }
+      }
+    );
+  });
+}
 
 exports.getStudentManuscripts = (req, res) => {     // Whenever you need to get some details from one collection (Manuscript) and store it to other collection (Student), you use populate()
   Manuscript.find({student: req.profile._id})    // We're looking for Manuscripts which are pushed in manuscript model by this student/req.profile._id
