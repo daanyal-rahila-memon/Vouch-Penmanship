@@ -40,6 +40,10 @@ var supervisorSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    access: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true } // Timestamp will save the exact time in Database when any Supervisor will be created.
 );

@@ -2,11 +2,11 @@ import { API } from "../../backend";
 import axios from "axios";
 
 export const signup = (user) => {
-//   console.log(JSON.stringify(user));
+  console.log(user);
   return axios
-    .post(`${API}signup`, user)
+    .post(`${API}signup/student`, user)
     .then((response) => {
-      return response.json();
+      return response.data;
     })
     .catch((error) => {
       console.log(error);
@@ -14,7 +14,7 @@ export const signup = (user) => {
 };
 
 export const signin = (user) => {
-  console.log(JSON.stringify(user))
+  console.log(JSON.stringify(user));
   return axios
     .post(`${API}signin/${user?.role}`, user)
     .then((response) => {

@@ -32,6 +32,7 @@ var studentSchema = new mongoose.Schema(
       required: true,
       trim: true,
       required: true,
+      default: "Computer Science",
     },
     email: {
       type: String,
@@ -52,7 +53,8 @@ var studentSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
-    members: {    // It will store array of objects of students
+    members: {
+      // It will store array of objects of students
       type: [
         {
           type: ObjectId,
@@ -60,6 +62,10 @@ var studentSchema = new mongoose.Schema(
         },
       ],
       default: [],
+    },
+    access: {
+      type: Boolean,
+      default: true,
     },
     walletAddress: {
       type: String,
