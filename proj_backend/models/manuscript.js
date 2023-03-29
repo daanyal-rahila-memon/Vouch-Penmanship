@@ -3,16 +3,10 @@ const { ObjectId } = mongoose.Schema;
 
 var manuscriptSchema = new mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
       maxlength: 200,
-      trim: true,
-    },
-    type: {
-      type: String,
-      required: true,
-      maxlength: 20,
       trim: true,
     },
     category: {
@@ -21,26 +15,33 @@ var manuscriptSchema = new mongoose.Schema(
       ref: "Category",
       required: true,
     },
-    scriptCount: {
-      // Count the number of manuscripts uploaded in the application
-      type: Number,
-      required: true,
-      maxlength: 1,
-      trim: true,
-    },
     description: {
       type: String,
       maxlength: 2000,
       trim: true,
     },
-    photo: {
-      // Upload a photo of the manuscript to the application
-      type: Buffer,
+    // photo: {
+    //   // Upload a photo of the manuscript to the application
+    //   data: Buffer,
+    //   contentType: String,
+    // },
+    document: {
+      // Upload a file of the draft to the application
+      data: Buffer,
       contentType: String,
+    },
+    nft: {
+      // it will represent whether the NFT of this document has minted or not
+      type: Boolean,
+      default: false,
     },
     student: {
       type: ObjectId,
       ref: "Student",
+    },
+    supervisor: {
+      type: ObjectId,
+      ref: "Supervisor",
     },
   },
   { timestamps: true } // Timestamp will save the exact time in Database when any Manuscript will be created.

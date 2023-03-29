@@ -8,14 +8,15 @@ const app = express();                          // now we can use express using 
 // Following are the most common Middlewares - When a request from client is made, Middleware (is a function) handles it by excecuting its body over it, and if it succeeds then it passes the response or passes to the next Middleware
 const bodyParser = require('body-parser');      // 'body-parser' is responsible for parsing the body of the request body into a string and returning it as a string. It gets the data from the frontend and then we can use it using parser.email, parser.password, etc.
 const cookieParser = require('cookie-parser');  // 'cookie-parser' is responsible for parsing the cookie and returning it as a string, so that we can set/get something in/from the cookie.
-const cors = require('cors');
+const cors = require('cors');   // 'cors' is responsible for cross-origin resource sharing; As our frontend & backend are two different codebases to allow them work together we have to enable 'cors' in our server that is in our backend. That will allow our frontend to make requests to the backend
 
 // My Routes (Importing)
 const authRoutes = require("./routes/auth.routes");
 const studentRoutes = require("./routes/student.routes");
 const supervisorRoutes = require("./routes/supervisor.routes");
-const categoryRoutes = require("./routes/category.routes");
 const adminRoutes = require("./routes/admin.routes");
+const categoryRoutes = require("./routes/category.routes");
+const manuscriptRoutes = require("./routes/manuscript.routes");
 
 // DB Connection
 mongoose.connect(process.env.DATABASE).then(() => { // In 'process.env.PORT', At 'process' it attach all the env avriables,
@@ -38,6 +39,7 @@ app.use("/api", studentRoutes);
 app.use("/api", supervisorRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", adminRoutes);
+app.use("/api", manuscriptRoutes);
 
 // Port
 const port = process.env.PORT || 8000;          // to not expose their database connection string & port, we use 'process.env.PORT'
