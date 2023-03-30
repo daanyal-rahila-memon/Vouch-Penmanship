@@ -10,10 +10,13 @@ import Signup from "./Components/Signup";
 import Gallery from "./Components/Gallery";
 import ForgotPassword from "./Components/ForgetPassword";
 import ManuScript from "./Components/ManuScript";
-import Particle from "./Components/Particle"
 import {Routes, Route} from "react-router-dom";
-import { API } from './backend';
+//import { API } from './backend';
 import Navbar from "./Components/Navbar";
+import Home from "./Components/Home";
+//import Ideas from "./Components/Ideas";
+import SupervisorNamesDropdown from "./Components/SupervisorNamesDrpdown";
+import Footer from "./Components/Footer";
 
 function App() 
 {
@@ -69,12 +72,16 @@ for (var i=0; i<12; i++)
   return (
     
       <Routes>
-        <Route path="/" element={<Login2 />}/>
+        <Route path="/" element={<Footer />}/>
+
+        <Route path="/home" element={<><Navbar/><Home /></>}/>
         <Route path="/signup" element={<Signup />} />
+        <Route path="/ideas" element={<><Navbar role={"Student" || "Supervisor"}/><SupervisorNamesDropdown /></>} />
         <Route path="/gallery" element={<><Navbar role={"Student"}/><Gallery/></>}/>
         <Route path="/forgetpassword" element={<ForgotPassword />} />
         <Route path="/manuscript" element={<><Navbar role={"Student"}/><ManuScript/></>} />
-      </Routes>
+     </Routes>
+     
   );
 }
 
