@@ -71,3 +71,42 @@ export const isAuthenticated = () => {
     return false;
   }
 };
+
+export const setDocument = (document) => {
+  return axios
+    .post(`${API}manuscript/create/6423a2ea445a88212bd1aa24`, document, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDIzYTJlYTQ0NWE4ODIxMmJkMWFhMjQiLCJpYXQiOjE2ODAxNzQ3MjV9.L-kdWQYrvIjDcLXuRg2VXXYALJ_H6qEQMb-HWCc3fSI",
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getDocument = (document) => {
+  // console.log("in getDocument");
+  return fetch(
+    `${API}manuscript/getStudentManuscripts/6423a2ea445a88212bd1aa24`,
+    {
+      method: "GET",
+      headers: {
+        Authorization:
+          "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDIzYTJlYTQ0NWE4ODIxMmJkMWFhMjQiLCJpYXQiOjE2ODAxNzQ3MjV9.L-kdWQYrvIjDcLXuRg2VXXYALJ_H6qEQMb-HWCc3fSI",
+      },
+    }
+  )
+    .then((response) => {
+      // console.log("fetched data");
+      return response.json();
+    })
+    .catch((error) => {
+      // console.log("could not fetch data");
+      console.log(error);
+    });
+};

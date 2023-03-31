@@ -50,8 +50,8 @@ var studentSchema = new mongoose.Schema(
     //   ref: "Manuscript",
     // }],
     manuscript: {
-      type: Array,
-      default: [],
+      type: ObjectId,
+      ref: "Manuscript",
     },
     members: {
       // It will store array of objects of students

@@ -25,10 +25,14 @@ var manuscriptSchema = new mongoose.Schema(
     //   data: Buffer,
     //   contentType: String,
     // },
-    document: {
-      // Upload a file of the draft to the application
-      data: Buffer,
-      contentType: String,
+    // document: {
+    //   // Upload a file of the draft to the application
+    //   data: Buffer,
+    //   contentType: String,
+    // },
+    documentUrl: {
+      type: String,
+      required: true,
     },
     nft: {
       // it will represent whether the NFT of this document has minted or not
