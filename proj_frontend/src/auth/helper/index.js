@@ -76,7 +76,7 @@ export const setDocument = (document) => {
   return axios
     .post(`${API}manuscript/create/6423a2ea445a88212bd1aa24`, document, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDIzYTJlYTQ0NWE4ODIxMmJkMWFhMjQiLCJpYXQiOjE2ODAxNzQ3MjV9.L-kdWQYrvIjDcLXuRg2VXXYALJ_H6qEQMb-HWCc3fSI",
       },
