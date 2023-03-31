@@ -76,7 +76,9 @@ exports.createManuscript = (req, res) => {
   //     return res.json(obj);
   //   });
   // });
+
   const manuscriptObj = new Manuscript(req.body);
+  console.log(manuscriptObj);
   manuscriptObj.save((error, obj) => {
     if (error || !obj) {
       return res.status(400).json({

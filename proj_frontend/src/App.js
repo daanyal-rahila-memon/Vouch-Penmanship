@@ -9,6 +9,7 @@ import Signup from "./Components/Signup";
 
 import Gallery from "./Components/Gallery";
 import ForgotPassword from "./Components/ForgetPassword";
+import ManuscriptForm from "./Components/ManuscriptForm";
 import ManuScript from "./Components/ManuScript";
 import Particle from "./Components/Particle"
 import {Routes, Route} from "react-router-dom";
@@ -67,12 +68,12 @@ for (var i=0; i<12; i++)
 </div>
 
   return (
-    
       <Routes>
         <Route path="/" element={<Login2 />}/>
         <Route path="/signup" element={<Signup />} />
         <Route path="/gallery" element={<><Navbar role={"Student"}/><Gallery/></>}/>
         <Route path="/forgetpassword" element={<ForgotPassword />} />
+        <Route path="/manuscriptform" element={<><Navbar role={"Student"}/><ManuscriptForm/></>} />
         <Route path="/manuscript" element={<><Navbar role={"Student"}/><ManuScript/></>} />
       </Routes>
   );
