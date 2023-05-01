@@ -256,7 +256,7 @@ export default function Signin() {
           Don’t have an account already?
           <Link
             component={RouterLink}
-            to="/signup"
+            to="/gallery"
             sx={{ cursor: "pointer", mb: 2, pl: 0.5 }}
           >
             Sign Up

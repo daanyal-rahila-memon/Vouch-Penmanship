@@ -17,6 +17,7 @@ import Home from "./Components/Home";
 //import Ideas from "./Components/Ideas";
 import SupervisorNamesDropdown from "./Components/SupervisorNamesDrpdown";
 import Footer from "./Components/Footer";
+import ManuScript2 from "./Components/ManuScript2";
 
 function App() 
 {
@@ -72,14 +73,13 @@ for (var i=0; i<12; i++)
   return (
     
       <Routes>
-        <Route path="/" element={<Footer />}/>
-
-        <Route path="/home" element={<><Navbar/><Home /></>}/>
+        <Route path="/" element={<Login2/>}/>
+        <Route path="/home" element={<><Navbar/><Home /><Footer /></>}/>
         <Route path="/signup" element={<Signup />} />
-        <Route path="/ideas" element={<><Navbar role={"Student" || "Supervisor"}/><SupervisorNamesDropdown /></>} />
-        <Route path="/gallery" element={<><Navbar role={"Student"}/><Gallery/></>}/>
+        <Route path="/ideas" element={<><Navbar role={"Student" || "Supervisor"}/><SupervisorNamesDropdown /><Footer /></>} />
+        <Route path="/gallery" element={<><Navbar role={"Student"}/><Gallery/><Footer /></>}/>
         <Route path="/forgetpassword" element={<ForgotPassword />} />
-        <Route path="/manuscript" element={<><Navbar role={"Student"}/><ManuScript/></>} />
+        <Route path="/manuscript" element={<><Navbar role={"Student"}/><ManuScript2/></>} />
      </Routes>
      
   );

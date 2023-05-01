@@ -13,23 +13,22 @@ return (
 		<Row>
 		<Column>
 			<Heading>About Us</Heading>
-			<FooterLink href="#">Aim</FooterLink>
-			<FooterLink href="#">Vision</FooterLink>
-			<FooterLink href="#">Testimonials</FooterLink>
+			<FooterLink href="#">We Pioneers</FooterLink>
+			<FooterLink href="#">Know the importance </FooterLink>
+			<FooterLink href="#">of your Innovations</FooterLink>
 		</Column>
 		<Column>
 			<Heading>Services</Heading>
-			<FooterLink href="#">Writing</FooterLink>
-			<FooterLink href="#">Internships</FooterLink>
-			<FooterLink href="#">Coding</FooterLink>
-			<FooterLink href="#">Teaching</FooterLink>
+			<FooterLink href="#">Preventing Theft</FooterLink>
+			<FooterLink href="#">Digital Assests</FooterLink>
+			<FooterLink href="#">NFT</FooterLink>
+			<FooterLink href="#">Intellectual Property prevention</FooterLink>
 		</Column>
 		<Column>
 			<Heading>Contact Us</Heading>
-			<FooterLink href="#">Uttar Pradesh</FooterLink>
-			<FooterLink href="#">Ahemdabad</FooterLink>
-			<FooterLink href="#">Indore</FooterLink>
-			<FooterLink href="#">Mumbai</FooterLink>
+			<FooterLink href="#">FAST NUCES</FooterLink>
+			<FooterLink href="#">Email</FooterLink>
+			<FooterLink href="#">Phone Number : 03494734586</FooterLink>
 		</Column>
 		<Column>
 			<Heading>Social Media</Heading>

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Box = styled.div`
 padding: 40px 50px;
 background: black;
-position: absolute;
 bottom: 0;
 width: 70%;
 margin-left:26ch;
@@ -49,7 +48,8 @@ font-size: 18px;
 text-decoration: none;
 
 &:hover {
-	color: green;
+	color: black;
+	font-size: 20px;
 	transition: 200ms ease-in;
 }
 `;
