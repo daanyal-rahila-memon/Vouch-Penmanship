@@ -76,8 +76,11 @@ exports.createManuscript = (req, res) => {
     //     return res.json(obj);
     //   });
     // });
+    console.log("hello")
+    console.log(req.profile._id)
+    req.body.student = req.profile._id
     const manuscriptObj = new Manuscript(req.body)
-    manuscriptObj.student = req.profile._id
+    // manuscriptObj.student = request.profile._id;
     manuscriptObj.save((error, obj) => {
         if (error || !obj) {
             return res.status(400).json({

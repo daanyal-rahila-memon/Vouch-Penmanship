@@ -20,7 +20,9 @@ const manuscriptRoutes = require("./routes/manuscript.routes")
 
 // DB Connection
 mongoose
-    .connect(process.env.DATABASE)
+    .connect(
+        "mongodb+srv://bilal:123@cluster0.erpmtps.mongodb.net/VouchPenmanship?retryWrites=true&w=majority"
+    )
     .then(() => {
         // In 'process.env.PORT', At 'process' it attach all the env avriables,
         // '.env' is the file, and 'DATABASE' is the name of the string
