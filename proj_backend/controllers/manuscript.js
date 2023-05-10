@@ -109,12 +109,26 @@ exports.getStudentManuscripts = (req, res) => {
     })
 }
 
+exports.getManuscriptsByCategory = (req, res) => {
+
+    Manuscript.find({ category: req.body }) // only bring those manuscripts of this category
+        .sort([[sortBy, "asc"]]) // sort on these properties
+        .exec((error, manuscript) => {
+            if (error) {
+                return res.status(400).json({
+                    error: "No NFT Found",
+                })
+            }
+            return res.json(manuscript)
+        })
+}
+
 exports.getAllManuscripts_NFT = (req, res) => {
     let limit = req.query.limit ? parseInt(req.query.limit) : 12
     let sortBy = req.query.sort ? req.query.sort : "_id"
 
     Manuscript.find({ nft: true }) // only bring those manuscripts which are minted to NFT
-        .select("-document") // it tells teh request to bring everything of this object from the database except document
+        .select("-document") // it tells the request to bring everything of this object from the database except document
         .populate("category")
         .sort([[sortBy, "asc"]]) // sort on these properties
         .limit(limit) // limit tells how many documents to return for each request

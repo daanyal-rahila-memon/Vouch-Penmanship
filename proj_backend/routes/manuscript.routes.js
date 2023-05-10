@@ -5,6 +5,7 @@ const {
     getManuscriptById,
     createManuscript,
     getStudentManuscripts,
+    getManuscriptsByCategory,
     getAllManuscripts_NFT,
     getManuscript,
     setDocument,
@@ -52,6 +53,7 @@ router.put("/manuscript/setDocument/:manuscriptId/:studentId", setDocument)
 router.delete("/manuscript/:manuscriptId/:studentId", deleteManuscript)
 
 // listing routes
+router.get("/manuscript/:studentId", getManuscriptsByCategory)
 router.get("/manuscripts", getAllManuscripts_NFT)
 
 module.exports = router
