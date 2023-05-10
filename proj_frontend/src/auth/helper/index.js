@@ -73,14 +73,9 @@ export const isAuthenticated = () => {
 }
 
 export const setDocument = (document) => {
+    console.log("set document=?>" + JSON.stringify(document))
     return axios
-        .post(`${API}manuscript/create/64262eca47ff817ff021ad88`, document, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization:
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDI2MmVjYTQ3ZmY4MTdmZjAyMWFkODgiLCJpYXQiOjE2ODAyMzMyMzV9.cvXyK4Tgp72fMvtbf67WnSUUuLaWhMDmqN9DDorkX5E",
-            },
-        })
+        .post(`${API}manuscript/create/64524c49bfaff90c2c6d6758`, document)
         .then((response) => {
             return response.data
         })

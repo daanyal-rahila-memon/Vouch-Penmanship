@@ -169,8 +169,6 @@ export const onMinting = async (url, name, description) => {
         console.log(`checking: ${tokenURI}`)
         console.log(`imghash: ${extractCidFromPinataUrl(url)}`)
 
-        const cid = extractCidFromPinataUrl(url)
-
         window.contract = await new web3.eth.Contract(
             contractABI.abi,
             contractAddress

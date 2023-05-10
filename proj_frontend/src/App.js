@@ -15,6 +15,7 @@ import Particle from "./Components/Particle"
 import { Routes, Route } from "react-router-dom"
 import { API } from "./backend"
 import Navbar from "./Components/Navbar"
+import Footer from "./Components/Footer"
 
 function App() {
     const Element = [
@@ -95,6 +96,7 @@ function App() {
                     <>
                         <Navbar role={"Student"} />
                         <Gallery />
+                        <Footer />
                     </>
                 }
             />

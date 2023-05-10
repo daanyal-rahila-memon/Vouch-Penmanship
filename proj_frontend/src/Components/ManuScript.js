@@ -1,7 +1,6 @@
 import * as React from "react"
 import Button from "@mui/material/Button"
 import Stack from "@mui/material/Stack"
-import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined"
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1"
 import Popover from "@mui/material/Popover"
 import { Box, Divider, TextField, Typography } from "@mui/material"
@@ -11,6 +10,11 @@ import { motion } from "framer-motion"
 import MintNFT from "./MintNFT"
 import { useNavigate } from "react-router-dom"
 import { onMinting } from "../utils/interact"
+import CategoryListCards from "./CategoryListCards"
+import Testing from "./Testing"
+import DropDownMenu from "./DropDownMenu"
+import Filter from "./Filter"
+
 const { setDocument, getDocument } = require("../auth/helper/index")
 
 const ManuScript = () => {
@@ -279,6 +283,23 @@ const ManuScript = () => {
             {/* <MintNFT /> */}
             {/* {<FileView/>} */}
             <p>{console.log(nftMinted)}</p>
+            {/* <CategoryCard
+                image="https://gateway.pinata.cloud/ipfs/QmbLiP651PnJ7Me8ZsFY1DYHA5GdeNipKmntBpH1yE5gKf?_gl=1*1yqdojl*rs_ga*OGQxOWJlNjQtYTkwYi00ZDMzLTkyNTctNGVlMzA5NmQyZjkz*rs_ga_5RMPXG14TE*MTY4MzQ1MDYwNy4yLjEuMTY4MzQ1MDYxNS41Mi4wLjA."
+                category="new Card"
+            /> */}
+            {/* <CategoryCard
+                image="https://gateway.pinata.cloud/ipfs/QmbLiP651PnJ7Me8ZsFY1DYHA5GdeNipKmntBpH1yE5gKf?_gl=1*1yqdojl*rs_ga*OGQxOWJlNjQtYTkwYi00ZDMzLTkyNTctNGVlMzA5NmQyZjkz*rs_ga_5RMPXG14TE*MTY4MzQ1MDYwNy4yLjEuMTY4MzQ1MDYxNS41Mi4wLjA."
+                category="new Card"
+            /> */}
+            <CategoryListCards />
+            <br />
+            <Filter />
+            <DropDownMenu />
+            <Testing
+                pdfLink="https://gateway.pinata.cloud/ipfs/QmSUEgxnM8VSxshy47iSX3xsAcSrYDqSTnmkLG1QuXRmNa?_gl=1*nllcqw*rs_ga*OGQxOWJlNjQtYTkwYi00ZDMzLTkyNTctNGVlMzA5NmQyZjkz*rs_ga_5RMPXG14TE*MTY4MzQ3MTc3OS4zLjEuMTY4MzQ3MjMwOC41NS4wLjA.
+"
+            />
+            <DropDownMenu />
         </div>
     )
 }
