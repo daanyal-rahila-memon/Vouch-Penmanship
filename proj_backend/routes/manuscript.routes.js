@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 
-const { getManuscriptById, createManuscript, getStudentManuscripts, getAllManuscripts_NFT, getManuscript, setDocument, getDocument, updateManuscript, deleteManuscript } = require("../controllers/manuscript")
+const { getManuscriptById, createManuscript, getStudentManuscripts, getManuscriptsByCategory, getAllManuscripts_NFT, getManuscript, setDocument, getDocument, updateManuscript, deleteManuscript } = require("../controllers/manuscript")
 const { isSignedIn, isAuthenticated } = require("../controllers/auth")
 const { getStudentById} = require("../controllers/student")
 
@@ -27,6 +27,7 @@ router.put("/manuscript/setDocument/:manuscriptId/:studentId", setDocument);
 router.delete("/manuscript/:manuscriptId/:studentId", deleteManuscript);
 
 // listing routes
+router.get("/manuscript/:studentId", getManuscriptsByCategory);
 router.get("/manuscripts", getAllManuscripts_NFT);
 
 module.exports = router;
