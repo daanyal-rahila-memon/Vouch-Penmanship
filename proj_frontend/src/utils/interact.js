@@ -6,12 +6,12 @@ import axios, * as others from "axios"
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3")
 
 const ALCHEMY_API_KEY =
-    "https://eth-goerli.g.alchemy.com/v2/gMKearN4ZYg_4Si5m_TL8zsypT4e7GQ"
+    "https://eth-goerli.g.alchemy.com/v2/GJYhxuYS9reYYOkVJrysGpozt6rdb2Qe"
 const PRIVATE_KEY =
     "6fbe8baf7f246652782f97ebcaa4020d72e78b6653eac12cbc8ac578202941d6"
 
 const web3 = createAlchemyWeb3(ALCHEMY_API_KEY)
-const contractAddress = "0x6e8D7c1a4e81A850eA0F08134a7F52A0e50BB62c"
+const contractAddress = "0xed8FD7f52F6BA37026A6Bd91Ae8Cfc8CD2E7E4AA"
 
 // PINATA_KEY=3a21c54322c1759d88a0
 // PINATA_SECRET_KEY=68be2dc7f79e5e1f2be38608e2c4035eaf08842dfc0d855185476b3c7638bced
@@ -156,6 +156,8 @@ export const onMinting = async (url, name, description) => {
 
     const pinataResponse = await pinJSONToIPFS(metadata)
 
+    console.log(`pinstat response : ${pinataResponse.success}`)
+
     if (!pinataResponse.success) {
         return {
             success: false,
@@ -174,28 +176,42 @@ export const onMinting = async (url, name, description) => {
             contractAddress
         )
 
-        const transactionParameters = {
-            to: contractAddress, // Required except during contract publications.
-            from: window.ethereum.selectedAddress, // must match user's active address.
-            data: window.contract.methods
+        console.log(`function called it ${tokenURI}`)
+
+        // // testing calling
+        // const contract = new web3.eth.Contract(contractABI.abi, contractAddress)
+        // contract.methods
+        //     .imgHash("QmeXS22C5gak6YUPxx6ZRdP9tefAc5vmFkigTQmMNUWfpK")
+        //     .call()
+        //     .then((result) => {
+        //         console.log(`contract call : ${result}`)
+        //     })
+        //     .catch((error) => {
+        //         console.error(error)
+        //     })
+
+        // ending testing code
+
+        try {
+            const mintValue = await window.contract.methods
                 .mintNFT(
                     window.ethereum.selectedAddress,
                     tokenURI,
                     extractCidFromPinataUrl(url)
                 )
-                .encodeABI(), //make call to NFT smart contract
-        }
+                .send({
+                    from: window.ethereum.selectedAddress,
+                    value: web3.utils.toWei("0.0001", "ether"),
+                })
 
-        try {
-            const txHash = await window.ethereum.request({
-                method: "eth_sendTransaction",
-                params: [transactionParameters],
-            })
+            console.log(`minting Value : ${JSON.stringify(mintValue)}`)
+
             return {
                 success: true,
-                status: "https://gateway.pinata.cloud/ipfs/" + txHash,
+                status: "https://gateway.pinata.cloud/ipfs/" + mintValue,
             }
         } catch (error) {
+            console.log("error message : " + error.message)
             return {
                 success: false,
                 status: "Something went wrong: " + error.message,

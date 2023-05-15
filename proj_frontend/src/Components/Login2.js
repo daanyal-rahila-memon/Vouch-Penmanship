@@ -7,7 +7,7 @@ import { makeStyles, styled } from "@mui/material/"
 import theme from "../theme"
 import { margin, positions, textAlign } from "@mui/system"
 
-import { Link as RouterLink, useNavigate, Navigate } from "react-router-dom"
+import { Link as RouterLink, useNavigate } from "react-router-dom"
 import Gallery from "./Gallery"
 
 import { signin, authenticate, isAuthenticated } from "../auth/helper"
@@ -16,6 +16,7 @@ import Particle from "./Particle"
 export default function Signin() {
     const [roles, setRoles] = useState("student")
     const [valid, setValid] = useState(true)
+    const [isLoggedIn, setLoggedIn] = useState(false)
     const [values, setValues] = useState({
         role: "student",
         email: "",
@@ -96,8 +97,9 @@ export default function Signin() {
                 return <p>Redirect to Admin</p>
             } else {
                 console.log(roles)
+                setLoggedIn(!isLoggedIn)
                 navigate("/Gallery", {
-                    state: { roles },
+                    state: { Role: role },
                 })
             }
         }
@@ -165,6 +167,11 @@ export default function Signin() {
     //   setPassword(event.target.value);
     // }
 
+    if (isLoggedIn) {
+        navigate("/Gallery", {
+            state: { Role: role },
+        })
+    }
     return (
         <Box
             component="div"

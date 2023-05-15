@@ -50,7 +50,7 @@ import {
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
-const Testing = ({ pdfLink }) => {
+const Testing = ({ pdfTitle, pdfDescription, pdfLink }) => {
     const [coverImage, setCoverImage] = useState(null)
     const [isPdfOpen, setIsPdfOpen] = useState(false)
 
@@ -94,10 +94,10 @@ const Testing = ({ pdfLink }) => {
                 )}
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        PDF Title
+                        {pdfTitle}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        PDF Description
+                        {pdfDescription}
                     </Typography>
                 </CardContent>
             </CardActionArea>

@@ -238,13 +238,13 @@ const ManuScript = () => {
             <br />
             <Divider />
 
-            <button
+            {/* <button
                 className="button ptimary"
                 onClick={postRequestToGetDocument}
             >
                 {" "}
                 Click here to Get Data
-            </button>
+            </button> */}
             <br />
             {documents.map((doc) => {
                 return (
@@ -283,23 +283,23 @@ const ManuScript = () => {
             {/* <MintNFT /> */}
             {/* {<FileView/>} */}
             <p>{console.log(nftMinted)}</p>
-            {/* <CategoryCard
-                image="https://gateway.pinata.cloud/ipfs/QmbLiP651PnJ7Me8ZsFY1DYHA5GdeNipKmntBpH1yE5gKf?_gl=1*1yqdojl*rs_ga*OGQxOWJlNjQtYTkwYi00ZDMzLTkyNTctNGVlMzA5NmQyZjkz*rs_ga_5RMPXG14TE*MTY4MzQ1MDYwNy4yLjEuMTY4MzQ1MDYxNS41Mi4wLjA."
-                category="new Card"
-            /> */}
-            {/* <CategoryCard
-                image="https://gateway.pinata.cloud/ipfs/QmbLiP651PnJ7Me8ZsFY1DYHA5GdeNipKmntBpH1yE5gKf?_gl=1*1yqdojl*rs_ga*OGQxOWJlNjQtYTkwYi00ZDMzLTkyNTctNGVlMzA5NmQyZjkz*rs_ga_5RMPXG14TE*MTY4MzQ1MDYwNy4yLjEuMTY4MzQ1MDYxNS41Mi4wLjA."
-                category="new Card"
-            /> */}
-            <CategoryListCards />
-            <br />
             <Filter />
+            {/* <CategoryCard
+                image="https://gateway.pinata.cloud/ipfs/QmbLiP651PnJ7Me8ZsFY1DYHA5GdeNipKmntBpH1yE5gKf?_gl=1*1yqdojl*rs_ga*OGQxOWJlNjQtYTkwYi00ZDMzLTkyNTctNGVlMzA5NmQyZjkz*rs_ga_5RMPXG14TE*MTY4MzQ1MDYwNy4yLjEuMTY4MzQ1MDYxNS41Mi4wLjA."
+                category="new Card"
+            /> */}
+            {/* <CategoryCard
+                image="https://gateway.pinata.cloud/ipfs/QmbLiP651PnJ7Me8ZsFY1DYHA5GdeNipKmntBpH1yE5gKf?_gl=1*1yqdojl*rs_ga*OGQxOWJlNjQtYTkwYi00ZDMzLTkyNTctNGVlMzA5NmQyZjkz*rs_ga_5RMPXG14TE*MTY4MzQ1MDYwNy4yLjEuMTY4MzQ1MDYxNS41Mi4wLjA."
+                category="new Card"
+            /> */}
+            {/* <CategoryListCards />
+            <br />
             <DropDownMenu />
             <Testing
                 pdfLink="https://gateway.pinata.cloud/ipfs/QmSUEgxnM8VSxshy47iSX3xsAcSrYDqSTnmkLG1QuXRmNa?_gl=1*nllcqw*rs_ga*OGQxOWJlNjQtYTkwYi00ZDMzLTkyNTctNGVlMzA5NmQyZjkz*rs_ga_5RMPXG14TE*MTY4MzQ3MTc3OS4zLjEuMTY4MzQ3MjMwOC41NS4wLjA.
 "
             />
-            <DropDownMenu />
+            <DropDownMenu /> */}
         </div>
     )
 }

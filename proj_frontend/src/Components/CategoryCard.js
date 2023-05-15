@@ -4,8 +4,15 @@ import CardMedia from "@mui/material/CardMedia"
 import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 import { motion } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 
 const CategoryCard = ({ image, category }) => {
+    const navigate = useNavigate()
+
+    const handleNFTCard = () => {
+        navigate("/NFTCard")
+        console.log("NFT card")
+    }
     return (
         <motion.div
             style={{ maxWidth: 345 }}
@@ -19,6 +26,7 @@ const CategoryCard = ({ image, category }) => {
                     overflow: "hidden",
                     boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                 }}
+                onClick={handleNFTCard}
             >
                 <CardMedia
                     image={image}

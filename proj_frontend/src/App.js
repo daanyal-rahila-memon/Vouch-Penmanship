@@ -16,75 +16,35 @@ import { Routes, Route } from "react-router-dom"
 import { API } from "./backend"
 import Navbar from "./Components/Navbar"
 import Footer from "./Components/Footer"
+import { Grid, Box } from "@mui/material"
+
+import { useLocation } from "react-router-dom"
 
 function App() {
-    const Element = [
-        {
-            id: 1,
-            rating: "5.0",
-            reviewCount: 8,
-            country: "pakistan",
-            title: "Life With jony jony",
-            price: 16,
-        },
-        {
-            id: 2,
-            rating: "5.0",
-            reviewCount: 8,
-            country: "pakistan",
-            title: "Life With Honey Honey",
-            price: 16,
-        },
-        {
-            id: 3,
-            rating: "5.0",
-            reviewCount: 8,
-            country: "pakistan",
-            title: "Life With jony jony",
-            price: 16,
-        },
+    const location = useLocation()
+    const role = location.state?.Role
+    const Elements = [
+        { id: 0, nftimage: "image1.jpg", supervisorname: "Sir Umar Aftab" },
+        { id: 1, nftimage: "image2.jpg", supervisorname: "Sir Rizwan Ul Haq" },
+        { id: 2, nftimage: "image3.jpg", supervisorname: "Sir Bilal Khan" },
+        { id: 3, nftimage: "image4.jpg", supervisorname: "Sir Abdul Qadeer" },
+        { id: 4, nftimage: "image5.jpg", supervisorname: "Mam Saba" },
+        { id: 5, nftimage: "image6.jpg", supervisorname: "Mam Pariwish" },
+        { id: 6, nftimage: "image7.jpg", supervisorname: "Mam Sehar" },
+        { id: 7, nftimage: "image8.jpg", supervisorname: "Sir Tahir" },
+        { id: 8, nftimage: "image9.jpg", supervisorname: "Sir Sajid" },
+        { id: 9, nftimage: "image10.jpg", supervisorname: "Mam Ayesha" },
+        { id: 10, nftimage: "image11.jpg", supervisorname: "Sir Daanyal" },
+        { id: 11, nftimage: "image12.jpg", supervisorname: "Sir Azeem" },
     ]
 
-    const ProfileDetails = [
-        { id: 1, value: "Technology", techImg: "technology.png" },
-        { id: 2, value: "Description", techImg: "technology.png" },
-        { id: 3, value: "Supervisor", techImg: "technology.png" },
-        { id: 4, value: "Supervisor", techImg: "technology.png" },
-    ]
-
-    const ElementArray = Element.map((data) => {
+    var NFTCardArray = Elements.map((data) => {
         return (
-            <Card
-                key={data.id}
-                // item={data}
-                {...data}
-            />
+            <Grid item xs={12} sm={6} md={4}>
+                <NFTCard key={data.id} {...data} />
+            </Grid>
         )
     })
-
-    // const list = ProfileDetails.map(data => <Button>{data.value}</Button>)
-
-    const cardArray = data.map((items) => {
-        return <Card key={items.id} {...items} />
-    })
-
-    const NFTCardArray = []
-    for (var i = 0; i < 12; i++) {
-        NFTCardArray.push(<NFTCard />)
-    }
-
-    ;<div className="App">
-        {/* {ElementArray}
-<Navbar />
-{cardArray} */}
-        {/* {<Login /> */}
-
-        {/* <Signup /> */}
-
-        {/* <UserProfile value={ProfileDetails}/> */}
-
-        {/* <Login2 /> */}
-    </div>
 
     return (
         <Routes>
@@ -94,7 +54,8 @@ function App() {
                 path="/gallery"
                 element={
                     <>
-                        <Navbar role={"Student"} />
+                        {console.log(`Role in Gallery : ${role}`)}
+                        <Navbar role={role} />
                         <Gallery />
                         <Footer />
                     </>
@@ -117,6 +78,21 @@ function App() {
                         <Navbar role={"Student"} />
                         <ManuScript />
                     </>
+                }
+            />
+            <Route
+                path="/NFTCard"
+                element={
+                    <Box>
+                        <Grid
+                            item
+                            container
+                            spacing={2}
+                            sx={{ position: "relative", overflow: "hidden" }}
+                        >
+                            {NFTCardArray}
+                        </Grid>
+                    </Box>
                 }
             />
         </Routes>

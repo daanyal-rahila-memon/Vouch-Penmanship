@@ -105,3 +105,26 @@ export const getDocument = (document) => {
             console.log(error)
         })
 }
+
+export const getDocumentByCategory = (document) => {
+    console.log(`in getDocumentByCategory ${document}`)
+    return fetch(
+        `${API}manuscript/getManuscriptsByCategory/64563683c395ec0c845ce575?document=${document}`,
+        {
+            method: "GET",
+            headers: {
+                Authorization:
+                    "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDU2MzY4M2MzOTVlYzBjODQ1Y2U1NzUiLCJpYXQiOjE2ODM3MzgwNDZ9.e9dTBudmBmlW4cQRB5AAGNX8Z8t9SxOfB6JzYKMq6X8",
+            },
+        }
+    )
+        .then((response) => response.json())
+        .then((jsonArray) => {
+            console.log(jsonArray)
+            return jsonArray
+        })
+        .catch((error) => {
+            console.log("could not fetch data")
+            console.log(error)
+        })
+}

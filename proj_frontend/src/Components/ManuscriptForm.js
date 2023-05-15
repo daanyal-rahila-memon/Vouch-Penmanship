@@ -173,6 +173,8 @@ import {
     FormControl,
     InputLabel,
     FormHelperText,
+    CircularProgress,
+    Backdrop,
 } from "@mui/material"
 
 import { setDocument } from "../auth/helper"
@@ -191,6 +193,8 @@ const ManuscriptForm = () => {
 
     const [documentUrl, setDocumentUrl] = useState("")
     const [status, setStatus] = useState("")
+
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value)
@@ -221,7 +225,14 @@ const ManuscriptForm = () => {
             setFormError("Please fill out all required fields")
             return
         }
-        await onFileUploadToIPFS()
+        setIsLoading(true)
+        try {
+            await onFileUploadToIPFS()
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     const navigate = useNavigate()
@@ -287,9 +298,13 @@ const ManuscriptForm = () => {
                         variant="outlined"
                     >
                         <MenuItem value="">-- Select --</MenuItem>
-                        <MenuItem value="option1">Option 1</MenuItem>
-                        <MenuItem value="option2">Option 2</MenuItem>
-                        <MenuItem value="option3">Option 3</MenuItem>
+                        <MenuItem value="Blockchain">Blockchain</MenuItem>
+                        <MenuItem value="Machine Learning">
+                            Machine Learning
+                        </MenuItem>
+                        <MenuItem value="Artificial Intelligence">
+                            Artificial Intelligence
+                        </MenuItem>
                     </Select>
                     <FormHelperText>Please select a category</FormHelperText>
                 </FormControl>
@@ -337,10 +352,22 @@ const ManuscriptForm = () => {
                     color="primary"
                     size="large"
                     fullWidth
+                    disabled={isLoading}
                 >
-                    Submit Manuscript
+                    ManuScript Submit
                 </Button>
             </form>
+            {isLoading && (
+                <Backdrop
+                    sx={{
+                        color: "#fff",
+                        zIndex: (theme) => theme.zIndex.drawer + 1,
+                    }}
+                    open={isLoading}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+            )}
         </div>
     )
 }
