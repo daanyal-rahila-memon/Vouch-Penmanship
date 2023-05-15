@@ -2,6 +2,7 @@ import React , {useState}from 'react';
 // import axios from 'axios';
 import Select from 'react-select';
 import { Typography,Divider} from "@mui/material"
+import Card from 'react-bootstrap/Card';
 
 function SupervisorlabelsDropdown()
 { // here I will get supervsor's label from mongo
@@ -66,20 +67,30 @@ function SupervisorlabelsDropdown()
         ideasvalue(e.value);
     }
     return(
-        <div style={{marginLeft:"75ch",width:"50ch"}}>
-         
-         
-          <Typography sx={{mb: "50px",mt: "140px", textAlign: "center"}} component="h2" variant="h2">Ideas</Typography>
+        <div style={{width:"50ch"}}>
+          <Typography sx={{mb: "44px",mt: "110px", alignContent: "center",ml:"35%"}} component="h2" variant="h2">Ideas</Typography>
           <Divider sx=
-        {{mt: "50px", mb: "40px",ml:"1ch",mr:"1ch", color: "black", borderColor: "#434F53",
+        {{mt: "50px", mb: "40px",ml:"2ch",mr:"2ch", color: "black", borderColor: "#434F53",
         background: "transparent"}} variant="middle"/>
            <  center> 
-           <Select options={SupervisorList} onChange={ddlHandler} justifyContent="center"/>
+           <Select options={SupervisorList} onChange={ddlHandler} justifyContent="center" sx={{}}/>
          <br></br>
           <h3> {result} </h3>
            </center>
         
-
+        <br></br>
+        {/* <div> 
+        <Card border="primary" style={{ width: '18rem' }}>
+        <Card.Header>Header</Card.Header>
+        <Card.Body>
+          <Card.Title>Primary Card Title</Card.Title>
+          <Card.Text>
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </Card.Text>
+        </Card.Body>
+      </Card>
+      </div> */}
         </div>
 
 
