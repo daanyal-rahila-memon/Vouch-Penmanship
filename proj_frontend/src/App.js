@@ -26,6 +26,8 @@ import Notifications from "./Components/Notifications"
 import UploadIdea from "./Components/UploadIdea"
 import AddSupervisor from "./Components/AddSupervisor"
 import Admin from "./Components/Admin";
+import ManageAccount from "./Components/ManageAccount"
+import RequestForm from "./Components/RequestForm"
 
 function App() {
     const Element = [
@@ -99,7 +101,7 @@ function App() {
   return (
     
       <Routes>
-        <Route path="/" element={<><Navbar/><Admin/></>}/>
+        <Route path="/" element={<><Navbar/><RequestForm/></>}/>
         <Route path="/home" element={<><Navbar/><Home /><Footer /></>}/>
         <Route path="/signup" element={<Signup />} />
         <Route path="/gallery" element={<><Navbar role={"Student"}/><Gallery/><Footer /></>}/>

@@ -14,7 +14,14 @@ function Admin()
 }
     return(
         <div>
-             <Box sx={{ display: "flex", mt: "20%" }} justifyContent="center">
+          <h1> 
+    <Typography sx={{mb: "44px",mt: "130px", alignContent: "center",ml:"1%"}} component="h2" variant="h2">
+       Admin Module</Typography>
+          <Divider sx=
+   {{mt: "45px", mb: "20px",ml:"27ch",mr:"26ch", color: "black", borderColor: "#434F53",
+   background: "transparent"}} variant="middle"/>
+          </h1> 
+             <Box sx={{ display: "flex", mt: "8%" }} justifyContent="center">
           <motion.div
             whileHover={{
               scale: 0.9,
