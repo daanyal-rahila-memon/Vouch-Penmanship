@@ -73,14 +73,9 @@ export const isAuthenticated = () => {
 }
 
 export const setDocument = (document) => {
+    console.log("set document=?>" + JSON.stringify(document))
     return axios
-        .post(`${API}manuscript/create/64262eca47ff817ff021ad88`, document, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization:
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDI2MmVjYTQ3ZmY4MTdmZjAyMWFkODgiLCJpYXQiOjE2ODAyMzMyMzV9.cvXyK4Tgp72fMvtbf67WnSUUuLaWhMDmqN9DDorkX5E",
-            },
-        })
+        .post(`${API}manuscript/create/64524c49bfaff90c2c6d6758`, document)
         .then((response) => {
             return response.data
         })
@@ -107,6 +102,29 @@ export const getDocument = (document) => {
         })
         .catch((error) => {
             // console.log("could not fetch data")
+            console.log(error)
+        })
+}
+
+export const getDocumentByCategory = (document) => {
+    console.log(`in getDocumentByCategory ${document}`)
+    return fetch(
+        `${API}manuscript/getManuscriptsByCategory/64563683c395ec0c845ce575?document=${document}`,
+        {
+            method: "GET",
+            headers: {
+                Authorization:
+                    "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDU2MzY4M2MzOTVlYzBjODQ1Y2U1NzUiLCJpYXQiOjE2ODM3MzgwNDZ9.e9dTBudmBmlW4cQRB5AAGNX8Z8t9SxOfB6JzYKMq6X8",
+            },
+        }
+    )
+        .then((response) => response.json())
+        .then((jsonArray) => {
+            console.log(jsonArray)
+            return jsonArray
+        })
+        .catch((error) => {
+            console.log("could not fetch data")
             console.log(error)
         })
 }

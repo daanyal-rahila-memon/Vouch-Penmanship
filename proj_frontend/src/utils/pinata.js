@@ -1,4 +1,4 @@
-import axios, * as others from "axios"
+import axios from "axios"
 
 // require("dotenv").config()
 const PINATA_KEY = "3a21c54322c1759d88a0"

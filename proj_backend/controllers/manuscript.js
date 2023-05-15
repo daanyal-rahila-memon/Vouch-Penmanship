@@ -76,8 +76,11 @@ exports.createManuscript = (req, res) => {
     //     return res.json(obj);
     //   });
     // });
+    console.log("hello")
+    console.log(req.profile._id)
+    req.body.student = req.profile._id
     const manuscriptObj = new Manuscript(req.body)
-    manuscriptObj.student = req.profile._id
+    // manuscriptObj.student = request.profile._id;
     manuscriptObj.save((error, obj) => {
         if (error || !obj) {
             return res.status(400).json({
@@ -101,23 +104,28 @@ exports.getStudentManuscripts = (req, res) => {
                 error: "No Manuscripts found for this student",
             })
         }
-        console.log(manuscripts)
+        // console.log(manuscripts)
         return res.json(manuscripts)
     })
 }
 
 exports.getManuscriptsByCategory = (req, res) => {
-
-    Manuscript.find({ category: req.body }) // only bring those manuscripts of this category
-        .sort([[sortBy, "asc"]]) // sort on these properties
-        .exec((error, manuscript) => {
-            if (error) {
-                return res.status(400).json({
-                    error: "No NFT Found",
-                })
-            }
-            return res.json(manuscript)
-        })
+    console.log(req.query.document)
+    if (req.query.document == "All Categories") {
+        //
+    } else {
+        Manuscript.find({ category: req.query.document }) // only bring those manuscripts of this category
+            .sort([["asc"]]) // sort on these properties
+            .exec((error, manuscript) => {
+                if (error) {
+                    return res.status(400).json({
+                        error: "No NFT Found",
+                    })
+                }
+                // console.log(manuscript)
+                return res.json(manuscript)
+            })
+    }
 }
 
 exports.getAllManuscripts_NFT = (req, res) => {

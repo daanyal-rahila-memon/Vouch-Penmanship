@@ -28,11 +28,11 @@ function Navbar(props) {
     // const [select, setSelect] = React.useState('Home')
 
     const pages = page.concat(
-        props.role === "Admin"
+        props.role === "admin"
             ? adminPages
-            : props.role === "Supervisor"
+            : props.role === "supervisor"
             ? supervisorPages
-            : props.role === "Student"
+            : props.role === "student"
             ? studentPages
             : ""
     )
