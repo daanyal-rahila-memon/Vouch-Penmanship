@@ -8,13 +8,12 @@ var requestSchema = new mongoose.Schema(
       unique: true,
       trim: true,
     },
-    // Sender (Student) Roll Numeber
-    sender: {
+    
+    // Manuscript
+    manuscriptUrl: {
       type: String,
       required: true,
-      maxlength: 8,
-      trim: true,
-    },
+  },
 
     supervisor: {
       type: String,
