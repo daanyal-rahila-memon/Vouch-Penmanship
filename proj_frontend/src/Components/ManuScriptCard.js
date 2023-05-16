@@ -75,16 +75,16 @@ function ManuScriptCard(manuscript) {
         )
 
         await connectWallet()
-        const status = await onMinting(
+        const returnStatus = await onMinting(
             manuscript.link,
             manuscript.title,
             manuscript.description
         )
-
-        if (status.success) {
+        if (returnStatus.success) {
             console.log("run sucessfully")
             setNFT(manuscript.id)
         }
+        alert(returnStatus.status)
 
         // console.log(`\n\nMinting Status : ${JSON.stringify(status)}`)
     }

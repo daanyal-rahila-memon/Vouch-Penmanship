@@ -154,69 +154,68 @@ export const onMinting = async (url, name, description) => {
     metadata.url = url
     metadata.description = description
 
-    const pinataResponse = await pinJSONToIPFS(metadata)
+    const imgHash = extractCidFromPinataUrl(url)
 
-    console.log(`pinstat response : ${pinataResponse.success}`)
+    console.log(`imghash: ${imgHash}`)
 
-    if (!pinataResponse.success) {
+    const contract = await new web3.eth.Contract(
+        contractABI.abi,
+        contractAddress
+    )
+
+    const checkNFTStatus = await contract.methods.imgHash(imgHash).call()
+    console.log(`NFT status ${checkNFTStatus}`)
+
+    if (checkNFTStatus) {
         return {
             success: false,
-            status: "Something went wrong while uploading your tokenURI.",
-            tokenURI: "",
+            status: "NFT is already Minted",
         }
     } else {
-        const tokenURI = pinataResponse.pinataUrl
-        const response = await fetch(tokenURI)
-        const jsonData = await response.json()
-        console.log(`checking: ${tokenURI}`)
-        console.log(`imghash: ${extractCidFromPinataUrl(url)}`)
+        const pinataResponse = await pinJSONToIPFS(metadata)
+        console.log(`pinstat response : ${pinataResponse.success}`)
 
-        window.contract = await new web3.eth.Contract(
-            contractABI.abi,
-            contractAddress
-        )
-
-        console.log(`function called it ${tokenURI}`)
-
-        // testing calling
-        // const contract = new web3.eth.Contract(contractABI.abi, contractAddress)
-        // contract.methods
-        //     ._owner()
-        //     .call()
-        //     .then((result) => {
-        //         console.log(`contract call : ${result}`)
-        //     })
-        //     .catch((error) => {
-        //         console.error(error)
-        //     })
-
-        // ending testing code
-
-        await connectWallet()
-
-        try {
-            const mintValue = await window.contract.methods
-                .mintNFT(
-                    window.ethereum.selectedAddress,
-                    tokenURI,
-                    extractCidFromPinataUrl(url)
-                )
-                .send({
-                    from: window.ethereum.selectedAddress,
-                    value: web3.utils.toWei("0.0001", "ether"),
-                })
-
-            console.log(`minting Value : ${JSON.stringify(mintValue)}`)
-
-            return {
-                success: true,
-                status: "https://gateway.pinata.cloud/ipfs/" + mintValue,
-            }
-        } catch (error) {
-            console.log("error message : " + error.message)
+        if (!pinataResponse.success) {
             return {
                 success: false,
-                status: "Something went wrong: " + error.message,
+                status: "Something went wrong while uploading your tokenURI.",
+                tokenURI: "",
+            }
+        } else {
+            const tokenURI = pinataResponse.pinataUrl
+            const response = await fetch(tokenURI)
+            const jsonData = await response.json()
+
+            console.log(`checking Token URL: ${tokenURI}`)
+
+            console.log(`function called it ${tokenURI} imgHash ${imgHash}`)
+
+            await connectWallet()
+
+            try {
+                window.contract = await new web3.eth.Contract(
+                    contractABI.abi,
+                    contractAddress
+                )
+                const mintValue = await window.contract.methods
+                    .mintNFT(window.ethereum.selectedAddress, tokenURI, imgHash)
+                    .send({
+                        from: window.ethereum.selectedAddress,
+                        value: web3.utils.toWei("0.0001", "ether"),
+                    })
+
+                console.log(`minting Value : ${JSON.stringify(mintValue)}`)
+
+                return {
+                    success: true,
+                    status: "NFT minted Successfully",
+                }
+            } catch (error) {
+                console.log("error message : " + error.message)
+                return {
+                    success: false,
+                    status: "Something went wrong: " + error.message,
+                }
             }
         }
     }
