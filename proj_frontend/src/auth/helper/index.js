@@ -84,6 +84,20 @@ export const setDocument = (document) => {
         })
 }
 
+export const setNFT = (id) => {
+    console.log("setNFT")
+    return axios
+        .put(`${API}manuscript/setNFT?id=${id}`)
+        .then((response) => {
+            console.log("Yes, in setNFT")
+            return response.data
+        })
+        .catch((error) => {
+            console.log("In error setNFT")
+            console.log(error)
+        })
+}
+
 export const getDocument = (document) => {
     console.log("in getDocument")
     return fetch(
@@ -115,6 +129,29 @@ export const getDocumentByCategory = (document) => {
             headers: {
                 Authorization:
                     "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDU2MzY4M2MzOTVlYzBjODQ1Y2U1NzUiLCJpYXQiOjE2ODM3MzgwNDZ9.e9dTBudmBmlW4cQRB5AAGNX8Z8t9SxOfB6JzYKMq6X8",
+            },
+        }
+    )
+        .then((response) => response.json())
+        .then((jsonArray) => {
+            console.log(jsonArray)
+            return jsonArray
+        })
+        .catch((error) => {
+            console.log("could not fetch data")
+            console.log(error)
+        })
+}
+
+export const getAllManuscripts_NFT = (document) => {
+    console.log(`in getAllManuscripts_NFT ${document}`)
+    return fetch(
+        `${API}manuscript/getAllManuscripts_NFT?document=${document}`,
+        {
+            method: "GET",
+            headers: {
+                Authorization:
+                    "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDU2MzY4M2MzOTVlYzBjODQ1Y2U1NzUiLCJpYXQiOjE2ODQxNzgzMTd9.f6NLwOoZgh1KefcMSy6MzSBRkUpGYxuIenfLOTVkNNc",
             },
         }
     )

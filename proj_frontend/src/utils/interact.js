@@ -6,7 +6,7 @@ import axios, * as others from "axios"
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3")
 
 const ALCHEMY_API_KEY =
-    "https://eth-goerli.g.alchemy.com/v2/GJYhxuYS9reYYOkVJrysGpozt6rdb2Qe"
+    "https://eth-goerli.g.alchemy.com/v2/z1twEMgH3p0Yxh2v2u97bdD_IpfrDCJ4"
 const PRIVATE_KEY =
     "6fbe8baf7f246652782f97ebcaa4020d72e78b6653eac12cbc8ac578202941d6"
 
@@ -178,10 +178,10 @@ export const onMinting = async (url, name, description) => {
 
         console.log(`function called it ${tokenURI}`)
 
-        // // testing calling
+        // testing calling
         // const contract = new web3.eth.Contract(contractABI.abi, contractAddress)
         // contract.methods
-        //     .imgHash("QmeXS22C5gak6YUPxx6ZRdP9tefAc5vmFkigTQmMNUWfpK")
+        //     ._owner()
         //     .call()
         //     .then((result) => {
         //         console.log(`contract call : ${result}`)
@@ -191,6 +191,8 @@ export const onMinting = async (url, name, description) => {
         //     })
 
         // ending testing code
+
+        await connectWallet()
 
         try {
             const mintValue = await window.contract.methods

@@ -14,6 +14,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert"
 import { pdfjs, Document, Page } from "react-pdf"
 import { motion } from "framer-motion"
 import { onMinting, connectWallet } from "../utils/interact"
+import { setNFT } from "../auth/helper"
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
 const options = ["Mint NFT"]
@@ -70,16 +71,22 @@ function ManuScriptCard(manuscript) {
 
     const handleMintingNFT = async () => {
         console.log(
-            ` Called Minting Function ${manuscript.link} ${manuscript.title} ${manuscript.description}\n\n`
+            ` Called Minting Function ${manuscript.id} ${manuscript.link} ${manuscript.title} ${manuscript.description}\n\n`
         )
 
-        // await connectWallet()
+        await connectWallet()
         const status = await onMinting(
             manuscript.link,
             manuscript.title,
             manuscript.description
         )
-        console.log(`\n\nMinting Status : ${JSON.stringify(status)}`)
+
+        if (status.success) {
+            console.log("run sucessfully")
+            setNFT(manuscript.id)
+        }
+
+        // console.log(`\n\nMinting Status : ${JSON.stringify(status)}`)
     }
 
     return (

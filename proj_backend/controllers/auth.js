@@ -134,7 +134,6 @@ exports.isAuthenticated = (req, res, next) => {
             error: "ACCESS DENIED: User is not authenticated",
         })
     }
-    next()
 }
 
 exports.isAdmin = (req, res, next) => {
