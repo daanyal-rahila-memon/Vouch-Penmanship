@@ -19,7 +19,17 @@ const categoryRoutes = require("./routes/category.routes")
 const manuscriptRoutes = require("./routes/manuscript.routes")
 
 // DB Connection
-// "mongodb+srv://bilal:123@cluster0.erpmtps.mongodb.net/VouchPenmanship?retryWrites=true&w=majority"
+mongoose
+    .connect(process.env.DATABASE)
+    .then(() => {
+        // In 'process.env.PORT', At 'process' it attach all the env avriables,
+        // '.env' is the file, and 'DATABASE' is the name of the string
+        console.log("CONNECTED TO MongoDB!")
+    })
+    .catch(() => {
+        console.log("ERROR CONNECTING TO MongoDB!")
+        process.exit()
+    })
 
 const MONGODB_URI =
     "mongodb+srv://bilal:123@cluster0.erpmtps.mongodb.net/VouchPenmanship?retryWrites=true&w=majority"

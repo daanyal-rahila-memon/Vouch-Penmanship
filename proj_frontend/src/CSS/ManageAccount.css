@@ -1,0 +1,64 @@
+.manage-account-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+   
+  }
+  
+  .dropdown-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .email-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .buttons-container {
+    text-align: center;
+  }
+  
+  .access-button {
+    margin: 0 10px;
+  }
+  .deny-button {
+    margin: 0 10px;
+  }
+  
+  form {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+  }
+  
+  input[type='email'],
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #0069d9;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button .access-button:hover {
+    background-color: #45a049;
+  }
+ .deny-button:hover {
+    background-color: #e93023;
+  }
+  
+  

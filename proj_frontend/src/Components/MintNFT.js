@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Button, TextField } from "@mui/material"
+// import { connectWallet, mintNFTs, getNFT } from "../utils/interact"
 import { title } from "process"
 
 const MintNFT = () => {
@@ -61,19 +62,19 @@ const MintNFT = () => {
             <Button
                 variant="contained"
                 color="primary"
-                onClick={onMintPressed}
+                // onClick={onMintPressed}
                 disabled={!file || !name || !description}
             >
                 Mint NFT
             </Button>
             <Button
                 disabled={!file || !name || !description}
-                onClick={connectWalletPressed}
+                // onClick={connectWalletPressed}
             >
                 connect to wallet
             </Button>
             {/* <imag scr={getNFT} alt="MyNFT" /> */}
-            <button onClick={onSetImgNFT}>display NFT</button>
+            {/* <button onClick={onSetImgNFT}>display NFT</button> */}
             {/* <img src={displayNFT} alt="MNFT" /> */}
             <img src={imgNFT} alt="nftimg" />
             <p>{imgNFT}</p>

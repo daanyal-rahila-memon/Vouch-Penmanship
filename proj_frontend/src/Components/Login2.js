@@ -11,7 +11,6 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Gallery from "./Gallery";
 
 import { signin, authenticate, isAuthenticated } from "../auth/helper";
-import Particle from "./Particle";
 
 export default function Signin() {
   const [roles, setRoles] = useState("student");
