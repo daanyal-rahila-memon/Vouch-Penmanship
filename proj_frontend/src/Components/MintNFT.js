@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { Button, TextField } from "@mui/material"
-import { connectWallet, mintNFTs, getNFT } from "../utils/interact"
 import { title } from "process"
 
 const MintNFT = () => {
@@ -14,15 +13,15 @@ const MintNFT = () => {
     const [imgNFT, setImgNFT] = useState("Hello")
 
     const connectWalletPressed = async () => {
-        const walletResponse = await connectWallet()
-        setStatus(walletResponse.status)
-        setWalletAddress(walletResponse.address)
+        // const walletResponse = await connectWallet()
+        // setStatus(walletResponse.status)
+        // setWalletAddress(walletResponse.address)
     }
 
     const onMintPressed = async () => {
-        const { status, tokenURI } = await mintNFTs(file, name, description)
-        setStatus(status)
-        setTkURI(tokenURI)
+        // const { status, tokenURI } = await mintNFTs(file, name, description)
+        // setStatus(status)
+        // setTkURI(tokenURI)
     }
 
     const handleFileUpload = (e) => {
@@ -38,7 +37,7 @@ const MintNFT = () => {
     }
 
     const onSetImgNFT = async () => {
-        setImgNFT(await getNFT())
+        // setImgNFT(await getNFT())
     }
 
     return (

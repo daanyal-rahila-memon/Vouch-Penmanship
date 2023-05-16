@@ -47,21 +47,21 @@ function Filter() {
     }
 
     const handleDropdownChange = async (event) => {
-        console.log(`selected value : ${event.target.value}`)
+        // console.log(`selected value : ${event.target.value}`)
         const document = await getDocumentByCategory(event.target.value)
         setDocuments(document)
-        console.log(`get document ${JSON.stringify(documents)}`)
-        console.log(`get document ${JSON.stringify(document)}`)
-        console.log(getManuscripts(document))
+        // console.log(`get document ${JSON.stringify(documents)}`)
+        // console.log(`get document ${JSON.stringify(document)}`)
+        // console.log(getManuscripts(document))
     }
 
     const getManuscripts = (documents) => {
-        console.log("in Get Manuscripts")
+        // console.log("in Get Manuscripts")
         return documents.map((document) => {
-            console.log(document)
-            console.log(document.title)
-            console.log(document.description)
-            console.log(document.documentUrl)
+            // console.log(document)
+            // console.log(document.title)
+            // console.log(document.description)
+            // console.log(document.documentUrl)
 
             return (
                 <Testing
