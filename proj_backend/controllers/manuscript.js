@@ -122,9 +122,10 @@ exports.getAllManuscripts = (req, res) => {
 }
 
 exports.getManuscriptsByCategory = (req, res) => {
-    // console.log(req.query.document)
+    console.log(req.query.document)
     if (req.query.document == "All Categories") {
-        return Manuscript.find().exec((error, manuscripts) => {
+        return Manuscript.find({ student: req.profile._id }).sort([["desc"]]) // sort on these properties
+        .exec((error, manuscripts) => {
             if (error || !manuscripts) {
                 return res.status(400).json({
                     error: "No manuscripts found",
@@ -133,8 +134,9 @@ exports.getManuscriptsByCategory = (req, res) => {
             return res.json(manuscripts)
         })
     } else {
-        Manuscript.find({ id: req.profile._id, category: req.query.document }) // only bring those manuscripts of this category
-            .sort([["asc"]]) // sort on these properties
+        console.log(req.profile._id);
+        Manuscript.find({ student: req.profile._id, category: req.query.document }) // only bring those manuscripts of this category
+            .sort([["desc"]]) // sort on these properties
             .exec((error, manuscript) => {
                 if (error) {
                     return res.status(400).json({
