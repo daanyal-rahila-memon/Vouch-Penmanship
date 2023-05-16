@@ -4,15 +4,15 @@ const _ = require("lodash")
 const fs = require("fs") // we need to require File System which contains the directory/location of the file (Manuscript, image files, etc...)
 
 exports.getManuscriptById = (req, res, next, id) => {
-    console.log("In GetManuscriptById")
-    console.log(id)
+    // console.log("In GetManuscriptById")
+    // console.log(id)
     Manuscript.findById(id).exec((error, manuscript) => {
         if (error || !manuscript) {
             return res.status(400).json({
                 error: "Manuscript not found",
             })
         }
-        console.log("Found Manuscript")
+        // console.log("Found Manuscript")
         req.manuscript = manuscript
         next()
     })
@@ -77,8 +77,8 @@ exports.createManuscript = (req, res) => {
     //     return res.json(obj);
     //   });
     // });
-    console.log("hello")
-    console.log(req.profile._id)
+    // console.log("hello")
+    // console.log(req.profile._id)
     req.body.student = req.profile._id
     const manuscriptObj = new Manuscript(req.body)
     // manuscriptObj.student = request.profile._id;
@@ -98,7 +98,7 @@ exports.getManuscript = (req, res) => {
 }
 
 exports.getStudentManuscripts = (req, res) => {
-    console.log("in getStudentManuscripts")
+    // console.log("in getStudentManuscripts")
     Manuscript.find({ student: req.profile._id }).exec((error, manuscripts) => {
         if (error) {
             return res.status(400).json({
@@ -122,7 +122,7 @@ exports.getAllManuscripts = (req, res) => {
 }
 
 exports.getManuscriptsByCategory = (req, res) => {
-    console.log(req.query.document)
+    // console.log(req.query.document)
     if (req.query.document == "All Categories") {
         return Manuscript.find().exec((error, manuscripts) => {
             if (error || !manuscripts) {
@@ -133,7 +133,7 @@ exports.getManuscriptsByCategory = (req, res) => {
             return res.json(manuscripts)
         })
     } else {
-        Manuscript.find({ category: req.query.document }) // only bring those manuscripts of this category
+        Manuscript.find({ id: req.profile._id, category: req.query.document }) // only bring those manuscripts of this category
             .sort([["asc"]]) // sort on these properties
             .exec((error, manuscript) => {
                 if (error) {
@@ -148,8 +148,8 @@ exports.getManuscriptsByCategory = (req, res) => {
 }
 
 exports.getAllManuscripts_NFT = (req, res) => {
-    console.log("in getAllMAnuscripts_NFT")
-    console.log(req.query.document)
+    // console.log("in getAllMAnuscripts_NFT")
+    // console.log(req.query.document)
     let limit = req.query.limit ? parseInt(req.query.limit) : 12
     let sortBy = req.query.sort ? req.query.sort : "_id"
 
@@ -194,8 +194,8 @@ exports.setDocument = (req, res) => {
 
 // setNFT -- It will update the field of NFT in manuscript object
 exports.setNFT = (req, res) => {
-    console.log("SetNFT in Controllers")
-    console.log(req.query.id)
+    // console.log("SetNFT in Controllers")
+    // console.log(req.query.manuscriptId)
     Manuscript.findByIdAndUpdate(
         { _id: req.query.id }, // Search this manuscript
         { nft: true }, // sets the field of nft in Manuscript Object (model) to 'True'

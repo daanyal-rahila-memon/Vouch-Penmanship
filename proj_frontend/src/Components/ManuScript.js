@@ -9,7 +9,6 @@ import Paper from "@mui/material/Paper"
 import { motion } from "framer-motion"
 import MintNFT from "./MintNFT"
 import { useNavigate } from "react-router-dom"
-import { onMinting } from "../utils/interact"
 import CategoryListCards from "./CategoryListCards"
 import Testing from "./Testing"
 import DropDownMenu from "./DropDownMenu"
@@ -246,43 +245,8 @@ const ManuScript = () => {
                 Click here to Get Data
             </button> */}
             <br />
-            {documents.map((doc) => {
-                return (
-                    <ul style={{ margin: 10 }}>
-                        <a href={doc.documentUrl}>Open PDF</a>
-                        {!doc.nft ? (
-                            <button
-                                className="button ptimary"
-                                onClick={
-                                    !doc.nft
-                                        ? () => {
-                                              console.log(
-                                                  onMinting(
-                                                      doc.documentUrl,
-                                                      doc.title,
-                                                      doc.description
-                                                  )
-                                              )
-                                          }
-                                        : null
-                                }
-                                style={{ marginLeft: 15 }}
-                            >
-                                {" "}
-                                Mint NFT
-                            </button>
-                        ) : (
-                            <label style={{ marginLeft: 15 }}>
-                                {" "}
-                                NFT Minted
-                            </label>
-                        )}
-                    </ul>
-                )
-            })}
             {/* <MintNFT /> */}
             {/* {<FileView/>} */}
-            <p>{console.log(nftMinted)}</p>
             <Filter />
             {/* <CategoryCard
                 image="https://gateway.pinata.cloud/ipfs/QmbLiP651PnJ7Me8ZsFY1DYHA5GdeNipKmntBpH1yE5gKf?_gl=1*1yqdojl*rs_ga*OGQxOWJlNjQtYTkwYi00ZDMzLTkyNTctNGVlMzA5NmQyZjkz*rs_ga_5RMPXG14TE*MTY4MzQ1MDYwNy4yLjEuMTY4MzQ1MDYxNS41Mi4wLjA."
