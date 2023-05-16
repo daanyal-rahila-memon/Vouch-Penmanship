@@ -5,10 +5,12 @@ const {
     getManuscriptById,
     createManuscript,
     getStudentManuscripts,
+    getAllManuscripts,
     getManuscriptsByCategory,
     getAllManuscripts_NFT,
     getManuscript,
     setDocument,
+    setNFT,
     getDocument,
     updateManuscript,
     deleteManuscript,
@@ -38,7 +40,7 @@ router.get(
     getStudentManuscripts
 )
 router.get(
-    "/manuscript/:manuscriptId",
+    "/manuscript/get/:manuscriptId",
     isSignedIn,
     isAuthenticated,
     getManuscript
@@ -48,15 +50,17 @@ router.get("/manuscript/document/:manuscriptId", getDocument)
 // update route
 router.put("/manuscript/:manuscriptId/:studentId", updateManuscript)
 router.put("/manuscript/setDocument/:manuscriptId/:studentId", setDocument)
+router.put("/manuscript/setNFT", setNFT)
 
 // delete route
 router.delete("/manuscript/:manuscriptId/:studentId", deleteManuscript)
 
 // listing routes
+router.get("/manuscript/getAllManuscripts", getAllManuscripts)
 router.get(
     "/manuscript/getManuscriptsByCategory/:studentId",
     getManuscriptsByCategory
 )
-router.get("/manuscripts", getAllManuscripts_NFT)
+router.get("/manuscript/getAllManuscripts_NFT", getAllManuscripts_NFT)
 
 module.exports = router

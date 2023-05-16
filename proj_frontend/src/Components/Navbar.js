@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom"
 import { signout } from "../auth/helper/index"
 
 var page = ["Home"]
-const studentPages = ["Ideas", "Approval Request", "Manuscript"]
+const studentPages = ["Ideas", "Manuscript"]
 const supervisorPages = ["Ideas", "viewRequest"]
 const adminPages = ["Access Control"]
 const settings = ["Profile", "Change Role", "Status", "Logout"]
@@ -84,8 +84,8 @@ function Navbar(props) {
                     <Typography
                         variant="h6"
                         noWrap
-                        component="a"
-                        href="/"
+                        component="p"
+                        // href="/"
                         sx={{
                             mr: 2,
                             display: { xs: "none", md: "flex" },
@@ -94,6 +94,10 @@ function Navbar(props) {
                             letterSpacing: ".3rem",
                             color: "inherit",
                             textDecoration: "none",
+                            "&:hover": {
+                                // fontWeight: "bold",
+                                // color: "#000",
+                            },
                         }}
                     >
                         VOUCH PENMANSHIP
@@ -145,6 +149,7 @@ function Navbar(props) {
                             ))}
                         </Menu>
                     </Box>
+
                     <AdbIcon
                         sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
                     />

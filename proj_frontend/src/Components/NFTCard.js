@@ -5,26 +5,44 @@ import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 import Avatar from "@mui/material/Avatar"
 import Grid from "@mui/material/Unstable_Grid2"
+import { pdfjs } from "react-pdf"
 
 // Animation
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
-import { duration } from "@mui/material"
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
 const NFTCard = (props) => {
-    const [shown, setShown] = useState(true)
+    const [coverImage, setCoverImage] = useState(null)
 
-    // useEffect(() => {
-    //   const timer = setTimeout(() => {
-    //     setShown(true)
-    //     console.log(props.supervisorName)
-    //   }, props.wait)
-    // }, [props.wait])
+    useEffect(() => {
+        const fetchPdfCover = async () => {
+            const response = await fetch(props.link)
+            const buffer = await response.arrayBuffer()
+            const pdf = await pdfjs.getDocument(buffer).promise
+            const page = await pdf.getPage(1)
+            const viewport = page.getViewport({ scale: 1.0 })
+            const canvas = document.createElement("canvas")
+            const canvasContext = canvas.getContext("2d")
+            canvas.width = viewport.width
+            canvas.height = viewport.height
+            const renderContext = {
+                canvasContext,
+                viewport,
+            }
+            await page.render(renderContext).promise
+            const base64Image = canvas.toDataURL()
+            setCoverImage(base64Image)
+        }
+
+        fetchPdfCover()
+    }, [props.link])
 
     function myFuc() {
         console.log("whatsgoinOn")
     }
-    return shown ? (
+    return (
         <motion.div
             initial={{ x: -100 }}
             whileInView={{ x: 5 }}
@@ -55,7 +73,7 @@ const NFTCard = (props) => {
                         <CardMedia
                             component="img"
                             height="250"
-                            image={`/images/${props.nftimage}`}
+                            image={coverImage}
                             alt="Autralia"
                             sx={{
                                 borderRadius: "15px 15px 0px 0px",
@@ -89,7 +107,7 @@ const NFTCard = (props) => {
                 </Grid>
             </motion.div>
         </motion.div>
-    ) : null
+    )
 }
 
 export default NFTCard

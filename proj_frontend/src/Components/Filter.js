@@ -17,9 +17,24 @@ function Filter() {
     const [showCategoryDropdown, setShowCategoryDropdown] = useState(false)
     const [documents, setDocuments] = useState(null)
 
+    const categoryList = [
+        "Blockchain",
+        "Data Science",
+        "Cybersecurity",
+        "Artificial Intelligence",
+        "Internet of Things (IoT)",
+        "Cloud Computing",
+        "Virtual Reality (VR) and Augmented Reality (AR)",
+        "Robotics",
+        "Machine Learning",
+        "Quantum Computing",
+        "Big Data",
+        "Mobile Applications",
+    ]
+
     useEffect(() => {
         async function fetchDocumentData() {
-            const document = await getDocumentByCategory("Blockchain")
+            const document = await getDocumentByCategory("All Categories")
             setDocuments(document)
         }
         fetchDocumentData()
@@ -81,23 +96,15 @@ function Filter() {
                         <FormControl size="small">
                             <Select
                                 labelId="category-label"
-                                defaultValue="Blockchain"
+                                defaultValue="All Categories"
                                 style={{ width: "200px" }}
                                 onChange={handleDropdownChange}
                             >
-                                <MenuItem value="All Categories">
-                                    All Categories
-                                </MenuItem>
-                                <MenuItem value="Blockchain">
-                                    Blockchain
-                                </MenuItem>
-                                <MenuItem value="Artificial Intelligence">
-                                    Artificial Intelligence
-                                </MenuItem>
-                                <MenuItem value="Machine Learning">
-                                    Machine Learning
-                                </MenuItem>
-                                <MenuItem value="AR/VR">AR/VR</MenuItem>
+                                {categoryList.map((category) => (
+                                    <MenuItem value={category}>
+                                        {category}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                     </div>
@@ -109,6 +116,7 @@ function Filter() {
                         {documents.map((document) => (
                             <Grid key={document._id} item xs={12} sm={6} md={4}>
                                 <ManuScriptCard
+                                    id={document._id}
                                     title={document.title}
                                     link={document.documentUrl}
                                     description={document.description}

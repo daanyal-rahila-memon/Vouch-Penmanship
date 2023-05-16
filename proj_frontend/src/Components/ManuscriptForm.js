@@ -175,6 +175,7 @@ import {
     FormHelperText,
     CircularProgress,
     Backdrop,
+    Menu,
 } from "@mui/material"
 
 import { setDocument } from "../auth/helper"
@@ -187,6 +188,7 @@ const allowedFileTypes = ["application/pdf"]
 const ManuscriptForm = () => {
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
+    const [supervisor, setSupervisor] = useState("")
     const [description, setDescription] = useState("")
     const [file, setFile] = useState(null)
     const [formError, setFormError] = useState("")
@@ -202,6 +204,10 @@ const ManuscriptForm = () => {
 
     const handleCategoryChange = (event) => {
         setCategory(event.target.value)
+    }
+
+    const handleSupervisorChange = (event) => {
+        setSupervisor(event.target.value)
     }
 
     const handleDescriptionChange = (event) => {
@@ -261,6 +267,7 @@ const ManuscriptForm = () => {
             category,
             description,
             documentUrl: tokenURI,
+            supervisor: "64524c49bfaff90c2c6d6758",
         })
             .then((data) => {
                 if (data.error) {
@@ -272,6 +279,36 @@ const ManuscriptForm = () => {
             })
             .catch(console.log("Manuscript upload failed"))
     }
+
+    const categoryList = [
+        "Blockchain",
+        "Data Science",
+        "Cybersecurity",
+        "Artificial Intelligence",
+        "Internet of Things (IoT)",
+        "Cloud Computing",
+        "Virtual Reality (VR) and Augmented Reality (AR)",
+        "Robotics",
+        "Machine Learning",
+        "Quantum Computing",
+        "Big Data",
+        "Mobile Applications",
+    ]
+
+    const supervisorList = [
+        { id: 0, supervisorname: "Sir Umar Aftab" },
+        { id: 1, supervisorname: "Sir Rizwan Ul Haq" },
+        { id: 2, supervisorname: "Sir Bilal Khan" },
+        { id: 3, supervisorname: "Sir Abdul Qadeer" },
+        { id: 4, supervisorname: "Mam Saba" },
+        { id: 5, supervisorname: "Mam Pariwish" },
+        { id: 6, supervisorname: "Mam Sehar" },
+        { id: 7, supervisorname: "Sir Tahir" },
+        { id: 8, supervisorname: "Sir Sajid" },
+        { id: 9, supervisorname: "Mam Ayesha" },
+        { id: 10, supervisorname: "Sir Daanyal" },
+        { id: 11, supervisorname: "Sir Azeem" },
+    ]
 
     return (
         <div style={{ padding: "20px", paddingTop: "30px" }}>
@@ -297,17 +334,32 @@ const ManuscriptForm = () => {
                         label="Category"
                         variant="outlined"
                     >
-                        <MenuItem value="">-- Select --</MenuItem>
-                        <MenuItem value="Blockchain">Blockchain</MenuItem>
-                        <MenuItem value="Machine Learning">
-                            Machine Learning
-                        </MenuItem>
-                        <MenuItem value="Artificial Intelligence">
-                            Artificial Intelligence
-                        </MenuItem>
+                        {categoryList.map((category) => (
+                            <MenuItem value={category}>{category}</MenuItem>
+                        ))}
                     </Select>
                     <FormHelperText>Please select a category</FormHelperText>
                 </FormControl>
+
+                <FormControl fullWidth margin="normal" required>
+                    <InputLabel id="supervisor-label">Supervisor</InputLabel>
+                    <Select
+                        labelId="supervisor-label"
+                        id="supervisor"
+                        value={supervisor}
+                        onChange={handleSupervisorChange}
+                        label="Supervisor"
+                        variant="outlined"
+                    >
+                        {supervisorList.map((supervisor) => (
+                            <MenuItem value={supervisor.supervisorname}>
+                                {supervisor.supervisorname}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                    <FormHelperText>Please select a supervisor</FormHelperText>
+                </FormControl>
+
                 <FormControl fullWidth margin="normal" required>
                     <TextField
                         label="Description"

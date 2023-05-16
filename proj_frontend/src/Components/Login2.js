@@ -27,6 +27,8 @@ export default function Signin() {
     })
     const { role, email, password, error, loading, didRedirect } = values
 
+    const navigate = useNavigate()
+
     // storing JSON.parse(localStorage.getItem('jwt')) returning from isAuthenticated() in src/auth/helper/index.js
     const { user } = isAuthenticated()
 
@@ -98,8 +100,9 @@ export default function Signin() {
             } else {
                 console.log(roles)
                 setLoggedIn(!isLoggedIn)
-                navigate("/Gallery", {
-                    state: { Role: role },
+                console.log(`After submitting value : ${!isLoggedIn}`)
+                navigate("/gallery", {
+                    state: { Role: role, isLoggIn: !isLoggedIn },
                 })
             }
         }
@@ -133,8 +136,6 @@ export default function Signin() {
 
     const roleArray = ["Supervisor", "Student", "Admin"]
 
-    const navigate = useNavigate()
-
     const [passToggle, setPassToggle] = useState(true)
 
     // const [inputEmail, setInputEmail] = useState("")
@@ -167,11 +168,6 @@ export default function Signin() {
     //   setPassword(event.target.value);
     // }
 
-    if (isLoggedIn) {
-        navigate("/Gallery", {
-            state: { Role: role },
-        })
-    }
     return (
         <Box
             component="div"

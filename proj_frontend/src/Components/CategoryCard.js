@@ -5,13 +5,19 @@ import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
+import { getAllManuscripts_NFT } from "../auth/helper"
+import NFTCard from "./NFTCard"
 
 const CategoryCard = ({ image, category }) => {
     const navigate = useNavigate()
 
-    const handleNFTCard = () => {
-        navigate("/NFTCard")
-        console.log("NFT card")
+    const handleNFTCard = async () => {
+        console.log(`Category : ${category}`)
+        // console.log(JSON.stringify(getAllManuscripts_NFT(category)))
+        const documents = await getAllManuscripts_NFT(category)
+        console.log(`NFT Document : ${documents}`)
+        navigate("/NFTCard", { state: { NFTDocuments: documents } })
+        console.log(`Category : ${category}`)
     }
     return (
         <motion.div
