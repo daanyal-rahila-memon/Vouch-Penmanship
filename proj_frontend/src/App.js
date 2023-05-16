@@ -1,125 +1,65 @@
-import React from "react"
-import "./App.css"
-import Card from "./React-Project/Card"
-import data from "./React-Project/CardArray"
-
-import NFTCard from "./Components/NFTCard"
-import Login2 from "./Components/Login2"
-import Signup from "./Components/Signup"
-
+import React from "react";
+import "./App.css";
+import Card from "./React-Project/Card";
+import data from "./React-Project/CardArray";
+import NFTCard from "./Components/NFTCard";
+import Login2 from "./Components/Login2";
+import Signup from "./Components/Signup";
 import Gallery from "./Components/Gallery";
 import ForgotPassword from "./Components/ForgetPassword";
+import ManuscriptForm from "./Components/ManuscriptForm";
 import ManuScript from "./Components/ManuScript";
-// import ManuscriptForm from "./Components/ManuscriptForm"
-import {Routes, Route} from "react-router-dom";
-import { API } from './backend';
+import { Routes, Route } from "react-router-dom";
+import { API } from "./backend";
 import Navbar from "./Components/Navbar";
-import Home from "./Components/Home";
-//import Ideas from "./Components/Ideas";
-import SupervisorNamesDropdown from "./Components/SupervisorNamesDrpdown";
 import Footer from "./Components/Footer";
-import ManuScript2 from "./Components/ManuScript2";
-import Signin from "./Components/Login2"
-import Ideas from "./Components/Ideas"
-import Footer1 from "./Components/Footer1"
-import Notifications from "./Components/Notifications"
-import UploadIdea from "./Components/UploadIdea"
-import AddSupervisor from "./Components/AddSupervisor"
+import { Grid, Box } from "@mui/material";
+import { useLocation } from "react-router-dom";
+import NFTListCard from "./Components/NFTListCard";
+import { Home, InstallDesktopSharp, ManageAccounts, Notifications } from "@mui/icons-material";
+import Ideas from "./Components/Ideas";
+import AddSupervisor from "./Components/AddSupervisor";
 import Admin from "./Components/Admin";
-import ManageAccount from "./Components/ManageAccount"
-import RequestForm from "./Components/RequestForm"
-
+import Footer1 from "./Components/Footer1";
+import RequestForm from "./Components/RequestForm";
+import UploadIdea from "./Components/UploadIdea";
 function App() {
-    const Element = [
-        {
-            id: 1,
-            rating: "5.0",
-            reviewCount: 8,
-            country: "pakistan",
-            title: "Life With jony jony",
-            price: 16,
-        },
-        {
-            id: 2,
-            rating: "5.0",
-            reviewCount: 8,
-            country: "pakistan",
-            title: "Life With Honey Honey",
-            price: 16,
-        },
-        {
-            id: 3,
-            rating: "5.0",
-            reviewCount: 8,
-            country: "pakistan",
-            title: "Life With jony jony",
-            price: 16,
-        },
-    ]
+  const location = useLocation();
 
-    const ProfileDetails = [
-        { id: 1, value: "Technology", techImg: "technology.png" },
-        { id: 2, value: "Description", techImg: "technology.png" },
-        { id: 3, value: "Supervisor", techImg: "technology.png" },
-        { id: 4, value: "Supervisor", techImg: "technology.png" },
-    ]
-
-    const ElementArray = Element.map((data) => {
-        return (
-            <Card
-                key={data.id}
-                // item={data}
-                {...data}
-            />
-        )
-    })
-
-    // const list = ProfileDetails.map(data => <Button>{data.value}</Button>)
-
-    const cardArray = data.map((items) => {
-        return <Card key={items.id} {...items} />
-    })
-
-    const NFTCardArray = []
-    for (var i = 0; i < 12; i++) {
-        NFTCardArray.push(<NFTCard />)
-    }
-
-    ;<div className="App">
-        {/* {ElementArray}
-<Navbar />
-{cardArray} */}
-        {/* {<Login /> */}
-
-        {/* <Signup /> */}
-
-        {/* <UserProfile value={ProfileDetails}/> */}
-
-        {/* <Login2 /> */}
-    </div>
+  const role = location.state?.Role;
+  const isLogin = location.state?.isLogin;
+  const document = location.state?.NFTDocuments;
 
   return (
     
-      <Routes>
-        <Route path="/" element={<><Navbar/><RequestForm/></>}/>
-        <Route path="/home" element={<><Navbar/><Home /><Footer /></>}/>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/gallery" element={<><Navbar role={"Student"}/><Gallery/><Footer /></>}/>
-        <Route path="/forgetpassword" element={<ForgotPassword />} />
-        <Route path="/ideas" element={<><Navbar role={"Student" || "Supervisor"}/><SupervisorNamesDropdown /></>} />
+    <Routes>
+              {/* <Route path="/" element={<><Navbar/><Footer1/></>} /> */}
 
-        {/* <Route path="/manuscriptform" element={<><Navbar role={"Student"}/> <ManuscriptForm /></>} /> */}
-        <Route
-             path="/manuscript"
-                element={
-                    <>
-                        <Navbar role={"Student"} />
-                        <ManuScript />
-                    </>
-                }
-            />
+        {/* Testing code above */}
+      <Route path="/" element={<Login2 />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/gallery" element={ <>  {console.log(`Role in Gallery : ${role}`)} <Navbar role={role} />  <Gallery /> <Footer1 /></> }  />
+      <Route path="/forgetpassword" element={<ForgotPassword />} />
+      <Route path="/home" element={<><Home/><Footer1 /></>} />
+      <Route path="/ideas" element={<><Ideas/><Footer1 /></>} />
+
+      {/* admin Module */}
+      <Route path="/adminpage" element={<><Admin/><Footer1 /></>} />
+      <Route path="/manageaccount" element={<><ManageAccounts/><Footer1 /></>} />
+      <Route path="/addsupervisor" element={<><AddSupervisor/><Footer1 /></>} />
+
+      {/* supervisor module */}
+      <Route path="/showrequests" element={<><Notifications/><Footer1 /></>} />
+      <Route path="/uploadideas" element={<><UploadIdea/><Footer1 /></>} />
+
+      {/* student module */}
+      <Route path="/manuscriptform" element={<> <Navbar role={"student"} /> <ManuscriptForm /> <Footer1 /></> } />
+      <Route path="/manuscript" element={<> <Navbar role={"student"} /> <ManuScript /> </> } /> <Route path="/NFTCard" element={<NFTListCard NFTDocuments={document}  />} /> 
+      <Route path="/sendrequest" element={<> <Navbar role={"student"} /> <RequestForm /> <Footer1 /></> } />
+
       </Routes>
+      
   );
 }
 
-export default App
+export default App;

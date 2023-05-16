@@ -4,17 +4,18 @@ const _ = require("lodash")
 const fs = require("fs") // we need to require File System which contains the directory/location of the file (Manuscript, image files, etc...)
 
 exports.getManuscriptById = (req, res, next, id) => {
-    Manuscript.findById(id)
-        .populate("category") // bringing the manuscripts on the basis of category
-        .exec((error, manuscript) => {
-            if (error || !manuscript) {
-                return res.status(400).json({
-                    error: "Manuscript not found",
-                })
-            }
-            req.manuscript = manuscript
-            next()
-        })
+    console.log("In GetManuscriptById")
+    console.log(id)
+    Manuscript.findById(id).exec((error, manuscript) => {
+        if (error || !manuscript) {
+            return res.status(400).json({
+                error: "Manuscript not found",
+            })
+        }
+        console.log("Found Manuscript")
+        req.manuscript = manuscript
+        next()
+    })
 }
 
 exports.createManuscript = (req, res) => {
@@ -76,8 +77,11 @@ exports.createManuscript = (req, res) => {
     //     return res.json(obj);
     //   });
     // });
+    console.log("hello")
+    console.log(req.profile._id)
+    req.body.student = req.profile._id
     const manuscriptObj = new Manuscript(req.body)
-    manuscriptObj.student = req.profile._id
+    // manuscriptObj.student = request.profile._id;
     manuscriptObj.save((error, obj) => {
         if (error || !obj) {
             return res.status(400).json({
@@ -101,20 +105,56 @@ exports.getStudentManuscripts = (req, res) => {
                 error: "No Manuscripts found for this student",
             })
         }
-        console.log(manuscripts)
+        // console.log(manuscripts)
         return res.json(manuscripts)
     })
 }
 
+exports.getAllManuscripts = (req, res) => {
+    Manuscript.find().exec((error, manuscripts) => {
+        if (error || !manuscripts) {
+            return res.status(400).json({
+                error: "No manuscripts found",
+            })
+        }
+        return res.json(manuscripts)
+    })
+}
+
+exports.getManuscriptsByCategory = (req, res) => {
+    console.log(req.query.document)
+    if (req.query.document == "All Categories") {
+        return Manuscript.find().exec((error, manuscripts) => {
+            if (error || !manuscripts) {
+                return res.status(400).json({
+                    error: "No manuscripts found",
+                })
+            }
+            return res.json(manuscripts)
+        })
+    } else {
+        Manuscript.find({ category: req.query.document }) // only bring those manuscripts of this category
+            .sort([["asc"]]) // sort on these properties
+            .exec((error, manuscript) => {
+                if (error) {
+                    return res.status(400).json({
+                        error: "No NFT Found",
+                    })
+                }
+                // console.log(manuscript)
+                return res.json(manuscript)
+            })
+    }
+}
+
 exports.getAllManuscripts_NFT = (req, res) => {
+    console.log("in getAllMAnuscripts_NFT")
+    console.log(req.query.document)
     let limit = req.query.limit ? parseInt(req.query.limit) : 12
     let sortBy = req.query.sort ? req.query.sort : "_id"
 
-    Manuscript.find({ nft: true }) // only bring those manuscripts which are minted to NFT
-        .select("-document") // it tells teh request to bring everything of this object from the database except document
-        .populate("category")
-        .sort([[sortBy, "asc"]]) // sort on these properties
-        .limit(limit) // limit tells how many documents to return for each request
+    Manuscript.find({ nft: true, category: req.query.document }) // only bring those manuscripts which are minted to NFT
+        .sort([["asc"]]) // sort on these properties
         .exec((error, manuscript) => {
             if (error) {
                 return res.status(400).json({
@@ -125,7 +165,7 @@ exports.getAllManuscripts_NFT = (req, res) => {
         })
 }
 
-// TODO: update thsi function according to the once done in 10.10 video
+// TODO: update this function according to the once done in 10.10 video
 // setDocument
 exports.setDocument = (req, res) => {
     Student.findByIdAndUpdate(
@@ -147,6 +187,33 @@ exports.setDocument = (req, res) => {
                         undefined // Make the encryPassword, createdAt, and updatedAt undefined so that it should not be displayed over the frontend, as it's a private information
 
                 res.json(student)
+            }
+        }
+    )
+}
+
+// setNFT -- It will update the field of NFT in manuscript object
+exports.setNFT = (req, res) => {
+    console.log("SetNFT in Controllers")
+    console.log(req.query.id)
+    Manuscript.findByIdAndUpdate(
+        { _id: req.query.id }, // Search this manuscript
+        { nft: true }, // sets the field of nft in Manuscript Object (model) to 'True'
+        { new: true, useFindAndModify: false }, // "new: true", it'll return the new/updated document
+        (error, manuscript) => {
+            if (error || !manuscript) {
+                return res.status(400).json({
+                    error: "NFT is not set to True or Manuscript isn't found",
+                })
+            } else {
+                // Following will only change in the data which is being sent to the frontend
+                manuscript.salt =
+                    manuscript.encryPassword =
+                    manuscript.createdAt =
+                    manuscript.updatedAt =
+                        undefined // Make the encryPassword, createdAt, and updatedAt undefined so that it should not be displayed over the frontend, as it's a private information
+
+                res.json(manuscript)
             }
         }
     )

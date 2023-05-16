@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom"
 import { signout } from "../auth/helper/index"
 
 var page = ["Home"]
-const studentPages = ["Ideas", "Approval Request", "Manuscript"]
+const studentPages = ["Ideas", "Manuscript"]
 const supervisorPages = ["Ideas", "viewRequest"]
 const adminPages = ["Access Control"]
 const settings = ["Profile", "Change Role", "Status", "Logout"]
@@ -28,11 +28,11 @@ function Navbar(props) {
     // const [select, setSelect] = React.useState('Home')
 
     const pages = page.concat(
-        props.role === "Admin"
+        props.role === "admin"
             ? adminPages
-            : props.role === "Supervisor"
+            : props.role === "supervisor"
             ? supervisorPages
-            : props.role === "Student"
+            : props.role === "student"
             ? studentPages
             : ""
     )
@@ -66,8 +66,23 @@ function Navbar(props) {
         if (event.currentTarget.value === "Manuscript") {
             navigate("/manuscript")
         }
+        else if(event.currentTarget.value === "Gallery") {
+            navigate("/gallery")
+        }
+        else if(event.currentTarget.value === "Ideas") {
+            navigate("/ideas")
+        }
+        else if(event.currentTarget.value === "UploadIdea") {
+            navigate("/uploadidea")
+        }
+        //supervisor
+        else if(event.currentTarget.value === "Requests") {
+            navigate("/showrequests")
+        }
+       
 
-        console.log(event.currentTarget.value)
+
+      //  console.log(event.currentTarget.value)
     }
 
     const handleCloseUserMenu = () => {
@@ -81,11 +96,11 @@ function Navbar(props) {
                     <AdbIcon
                         sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
                     />
-                    <Typography
+                    {/* <Typography
                         variant="h6"
                         noWrap
-                        component="a"
-                        href="/"
+                        component="p"
+                        // href="/"
                         sx={{
                             mr: 2,
                             display: { xs: "none", md: "flex" },
@@ -94,10 +109,18 @@ function Navbar(props) {
                             letterSpacing: ".3rem",
                             color: "inherit",
                             textDecoration: "none",
+                            "&:hover": {
+                                // fontWeight: "bold",
+                                // color: "#000",
+                            },
                         }}
                     >
                         VOUCH PENMANSHIP
-                    </Typography>
+                    </Typography> */}
+                    <h3 style={{ color: "#ffffff",
+                                 font: "normal 36px 'Cookie', cursive",
+                                 margin: "0"}}   >Vouch<span>Penmanship</span></h3>
+
 
                     <Box
                         sx={{

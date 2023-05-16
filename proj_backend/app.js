@@ -31,6 +31,13 @@ mongoose
         process.exit()
     })
 
+const MONGODB_URI =
+    "mongodb+srv://bilal:123@cluster0.erpmtps.mongodb.net/VouchPenmanship?retryWrites=true&w=majority"
+mongoose
+    .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log("Connected to MongoDB")
+    })
 // Middlewares
 app.use(bodyParser.json()) // using bodyParser Middleware
 app.use(cookieParser()) // using cookieParser Middleware

@@ -99,7 +99,7 @@ const AddSupervisor = () => {
         <button type="submit">Add Supervisor</button>
       </form>
     </div>
-  );
+  )
 };
 
 export default AddSupervisor;

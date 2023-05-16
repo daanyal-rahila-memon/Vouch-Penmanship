@@ -13,14 +13,14 @@ import {
   Lock,
   Person,
   Visibility,
-  VisibilityOff,
+  // VisibilityOff,
 } from "@mui/icons-material";
 import MenuItem from "@mui/material/MenuItem";
-import { makeStyles, styled } from "@mui/material/";
+// import { makeStyles, styled } from "@mui/material/";
 import PersonIcon from "@mui/icons-material/Person";
 
 import theme from "../theme";
-import { margin, positions, textAlign } from "@mui/system";
+// import { margin, positions, textAlign } from "@mui/system";
 import { signup } from "../auth/helper/index";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +32,7 @@ export default function Signup() {
 
   const [passToggle, setPassToggle] = useState(true);
 
-  const [confirmPassword, setConfirmPassword] = useState(true);
+  // const [confirmPassword, setConfirmPassword] = useState(true);
 
   const [inputConfirmPass, set] = useState("");
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 
 import "../CSS/Footer1.css";
 function Footer1()
@@ -12,7 +12,7 @@ function Footer1()
             <h3>Vouch<span>Penmanship</span></h3>
 
             <p className="footer-links">
-                <a href="/Footer1">Home&nbsp;</a>
+                <a href="/Footer1" >Home&nbsp;</a>
                 |
                 <a href="/gallery"> &nbsp;Gallery&nbsp;</a>
                 |
@@ -47,11 +47,11 @@ function Footer1()
                 as digital assert.
             </p>
             <div className="footer-icons">
-                <a href="#"><i className="fa fa-facebook"></i></a>
-                <a href="#"><i className="fa fa-instagram"></i></a>
-                <a href="#"><i className="fa fa-linkedin"></i></a>
-                <a href="#"><i className="fa fa-twitter"></i></a>
-                <a href="#"><i className="fa fa-youtube"></i></a>
+                <a href="https://www.facebook.com/login/" ><i className="fa fa-facebook"></i></a>
+                <a href="https://www.instagram.com/" ><i className="fa fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/home" ><i className="fa fa-linkedin"></i></a>
+                <a href="https://twitter.com/i/flow/login" ><i className="fa fa-twitter"></i></a>
+                <a href="https://www.youtube.com/" ><i className="fa fa-youtube"></i></a>
             </div>
         </div>
     </footer>
