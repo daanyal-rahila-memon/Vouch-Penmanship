@@ -90,7 +90,7 @@ exports.signin = (req, res) => {
 
         // create token
         const token = jwt.sign({ _id: obj._id }, process.env.SECRET)
-        console.log(token)
+        // console.log(token)
 
         // put token in cookie to learn in future if the user has already logged in or not
         res.cookie("token", token, { expire: new Date() + 9999 })
