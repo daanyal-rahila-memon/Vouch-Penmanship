@@ -7,8 +7,9 @@ import { Box, Divider, TextField, Typography } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
 import Paper from "@mui/material/Paper"
 import { motion } from "framer-motion"
-import MintNFT from "./MintNFT"
+// import MintNFT from "./MintNFT"
 import { useNavigate } from "react-router-dom"
+// import { onMinting } from "../utils/interact"
 import CategoryListCards from "./CategoryListCards"
 import Testing from "./Testing"
 import DropDownMenu from "./DropDownMenu"
@@ -245,6 +246,40 @@ const ManuScript = () => {
                 Click here to Get Data
             </button> */}
             <br />
+            {documents.map((doc) => {
+                return (
+                    <ul style={{ margin: 10 }}>
+                        <a href={doc.documentUrl}>Open PDF</a>
+                        {!doc.nft ? (
+                            <button
+                                className="button ptimary"
+                                onClick={
+                                    !doc.nft
+                                        ? () => {
+                                              console.log(
+                                                //   onMinting(
+                                                //       doc.documentUrl,
+                                                //       doc.title,
+                                                //       doc.description
+                                                //   )
+                                              )
+                                          }
+                                        : null
+                                }
+                                style={{ marginLeft: 15 }}
+                            >
+                                {" "}
+                                Mint NFT
+                            </button>
+                        ) : (
+                            <label style={{ marginLeft: 15 }}>
+                                {" "}
+                                NFT Minted
+                            </label>
+                        )}
+                    </ul>
+                )
+            })}
             {/* <MintNFT /> */}
             {/* {<FileView/>} */}
             <Filter />

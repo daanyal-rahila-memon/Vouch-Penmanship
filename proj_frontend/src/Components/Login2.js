@@ -11,7 +11,6 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Gallery from "./Gallery";
 
 import { signin, authenticate, isAuthenticated } from "../auth/helper";
-import Particle from "./Particle";
 
 export default function Signin() {
   const [roles, setRoles] = useState("student");
@@ -39,7 +38,8 @@ export default function Signin() {
 
   const handleEmailValidation = (event) => {
     setValid(false);
-    if (roles == "student") {
+    // console.log(event.target.value)
+    if (roles === "student") {
       const nu_regex = new RegExp("[f0-9]+@[cfd]*.nu.edu.pk");
       if (nu_regex.test(event.target.value)) {
         setValid((value) => {
@@ -48,8 +48,7 @@ export default function Signin() {
         setValues({ ...values, email: event.target.value });
       }
     } else {
-      const nu_regex = new RegExp("[f0-9]+@[cfd]*.nu.edu.pk");
-      // const nu_regex = /^[\w.%+-]+@[cfd]*.nu.edu.pk$/
+      const nu_regex = new RegExp("^[a-zA-Z].*@([cfd]*.nu.edu.pk)$");
       if (nu_regex.test(event.target.value)) {
         setValid((value) => {
           return !valid;
@@ -69,7 +68,7 @@ export default function Signin() {
           console.log("ADMIN");
           return <p>Redirect to Admin</p>;
         } else {
-          console.log(roles);
+          // console.log(roles);
           setLoggedIn(!isLoggedIn);
           console.log(`After submitting value : ${!isLoggedIn}`);
           navigate("/gallery", {
@@ -77,7 +76,8 @@ export default function Signin() {
           });
         }
       }
-    }; performRedirect()
+    };
+    performRedirect();
   }, [values]);
 
   const onSubmit = (event) => {
@@ -87,20 +87,20 @@ export default function Signin() {
       setValues({ ...values, error: false, loading: true });
       // console.log(values);
       signin({ role, email, password })
-        .then((data) => {
+        .then(async (data) => {
+          data = await data;
           if (data.error) {
-            // console.log("IN DATA.ERROR");
+            console.log("IN DATA.ERROR");
             setValues({
               ...values,
               error: data.error,
               loading: false,
             });
           } else {
-            // console.log("NOT IN DATA.ERROR");
+            console.log("NOT IN DATA.ERROR");
             authenticate(data, () => {
               setValues({ ...values, didRedirect: true });
               console.log(values);
-            //   performRedirect();
             });
           }
         })

@@ -1,0 +1,48 @@
+/* UploadIdea.css */
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 33%;
+    margin-right: 33%;
+  }
+  
+  label {
+    margin-bottom: 2px;
+    font-size: 22px;
+    font-weight: 450;
+    color: #0069d9;
+  }
+  
+  input,
+  textarea {
+    margin-bottom: 6px;
+    padding: 5px;
+    width: 100%;
+   
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #0069d9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-left: 38%;
+    margin-right: 38%;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  

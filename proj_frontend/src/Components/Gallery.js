@@ -1,18 +1,16 @@
 import {
-    Button,
+    // Button,
     Box,
     Typography,
     Divider,
-    Pagination,
-    Stack,
+    // Pagination,
+    // Stack,
 } from "@mui/material"
 import NFTCard from "./NFTCard"
-import Grid from "@mui/material/Unstable_Grid2/Grid2"
+// import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import CategoryListCards from "./CategoryListCards"
 import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
-import Particle from "./Particle"
-
 import Navbar from "./Navbar"
 
 const Gallery = (props) => {

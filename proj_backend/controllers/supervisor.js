@@ -17,6 +17,7 @@ exports.getSupervisorById = (req, res, next, id) => {
     else {
       // then we'll store the supervisor
       req.profile = supervisor; // store all the object data - driven from database - in req.profile
+      // console.log(req.profile);
       next();
     }
   });
@@ -36,6 +37,17 @@ exports.getSupervisor = (req, res) => {
 
   return res.json(req.profile);
 };
+
+exports.getAllSupervisors = (req, res) => {
+  Supervisor.find().exec((error, categories) => {
+    if (error || !categories) {
+      return res.status(400).json({
+        error: "No categories found",
+      });
+    }
+    return res.json(categories);
+  });
+}
 
 exports.updateSupervisor = (req, res) => {
   // This can update all the information of the supervisor besides the password

@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import { pdfjs, Document, Page } from "react-pdf"
 import { motion } from "framer-motion"
+// import { onMinting, connectWallet } from "../utils/interact"
 import { setNFT } from "../auth/helper"
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
