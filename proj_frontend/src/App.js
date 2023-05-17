@@ -13,11 +13,9 @@ import Notifications from "./Components/Notifications";
 import { Routes, Route } from "react-router-dom";
 import { API } from "./backend";
 import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
-import { Grid, Box } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import NFTListCard from "./Components/NFTListCard";
-import { Home, InstallDesktopSharp, ManageAccounts } from "@mui/icons-material";
+import { Home } from "@mui/icons-material";
 import Ideas from "./Components/Ideas";
 import AddSupervisor from "./Components/AddSupervisor";
 import Admin from "./Components/Admin";
@@ -44,7 +42,6 @@ function App() {
       <Route path="/gallery" element={ <><Navbar role={role} />  <Gallery /> <Footer1 /></> }  />
       <Route path="/forgetpassword" element={<ForgotPassword />} />
       <Route path="/gallery" element={<><Navbar role={"student"} /><Home/><Footer1 /></>} />
-      <Route path="/ideas" element={<><Navbar role={"student"} /><Ideas/><Footer1 /></>} />
 
       {/* admin Module */}
       <Route path="/adminpage" element={<><Navbar role={"admin"} /><Admin/><Footer1 /></>} />
@@ -59,6 +56,7 @@ function App() {
       <Route path="/manuscriptform" element={<> <Navbar role={"student"} /> <ManuscriptForm /> <Footer1 /></> } />
       <Route path="/manuscript" element={<> <Navbar role={"student"} /> <ManuScript /> </> } /> <Route path="/NFTCard" element={<NFTListCard NFTDocuments={document}  />} /> 
       <Route path="/sendrequest" element={<> <Navbar role={"student"} /> <RequestForm /> <Footer1 /></> } />
+      <Route path="/ideas" element={<><Navbar role={"student"} /><Ideas/><Footer1 /></>} />
 
       </Routes>
       

@@ -25,7 +25,6 @@ function Navbar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
-  // const [select, setSelect] = React.useState('Home')
 
   const pages = page.concat(
     props.role === "admin"
@@ -76,8 +75,6 @@ function Navbar(props) {
     } else if (event.currentTarget.value === "Manage Account") {
       navigate("/adminpage");
     }
-
-    console.log(event.currentTarget.value);
   };
 
   const handleCloseUserMenu = () => {

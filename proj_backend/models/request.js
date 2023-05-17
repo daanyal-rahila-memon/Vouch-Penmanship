@@ -12,6 +12,10 @@ var requestSchema = new mongoose.Schema(
       type: ObjectId,
       ref: "Supervisor",
     },
+    supervisor: {
+      type: ObjectId,
+      ref: "Supervisor",
+    },
     responseStatus: {
       type: String,
       default: "Not Approved",
