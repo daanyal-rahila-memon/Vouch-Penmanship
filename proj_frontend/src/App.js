@@ -27,7 +27,11 @@ function App() {
     const role = location.state?.Role
     const isLogin = location.state?.isLogin
     const document = location.state?.NFTDocuments
+    const loginCredentials = location.state?.LoginCredentials
 
+    console.log(
+        `App.js login: ${JSON.stringify(loginCredentials)} role: ${role}`
+    )
     return (
         <Routes>
             <Route path="/" element={<Login2 />} />
@@ -37,9 +41,32 @@ function App() {
                 element={
                     <>
                         {console.log(`Role in Gallery : ${role}`)}
-                        <Navbar role={role} />
-                        <Gallery />
+                        <Navbar
+                            role={role}
+                            loginCredentials={loginCredentials}
+                            event={"Home"}
+                        />
+                        <Gallery
+                            role={role}
+                            loginCredentials={loginCredentials}
+                        />
                         <Footer />
+                    </>
+                }
+            />
+            <Route
+                path="/manuscript"
+                element={
+                    <>
+                        <Navbar
+                            role={role}
+                            loginCredentials={loginCredentials}
+                            event={"Manuscript"}
+                        />
+                        <ManuScript
+                            role={role}
+                            loginCredentials={loginCredentials}
+                        />
                     </>
                 }
             />
@@ -48,23 +75,45 @@ function App() {
                 path="/manuscriptform"
                 element={
                     <>
-                        <Navbar role={"student"} />
-                        <ManuscriptForm />
+                        <Navbar
+                            role={role}
+                            loginCredentials={loginCredentials}
+                        />
+                        <ManuscriptForm
+                            role={role}
+                            loginCredentials={loginCredentials}
+                        />
                     </>
                 }
             />
             <Route
-                path="/manuscript"
+                path="/ideas"
                 element={
                     <>
-                        <Navbar role={"student"} />
-                        <ManuScript />
+                        <Navbar
+                            role={role}
+                            loginCredentials={loginCredentials}
+                        />
+                        {/* <Ideas />
+                        <Footer1 /> */}
                     </>
                 }
             />
             <Route
                 path="/NFTCard"
-                element={<NFTListCard NFTDocuments={document} />}
+                element={
+                    <>
+                        <Navbar
+                            role={role}
+                            loginCredentials={loginCredentials}
+                        />
+                        <NFTListCard
+                            NFTDocuments={document}
+                            role={role}
+                            loginCredentials={loginCredentials}
+                        />
+                    </>
+                }
             />
         </Routes>
     )

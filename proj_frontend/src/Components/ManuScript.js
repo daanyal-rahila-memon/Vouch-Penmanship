@@ -13,10 +13,11 @@ import CategoryListCards from "./CategoryListCards"
 import Testing from "./Testing"
 import DropDownMenu from "./DropDownMenu"
 import Filter from "./Filter"
+import AddIcon from "@mui/icons-material/Add"
 
 const { setDocument, getDocument } = require("../auth/helper/index")
 
-const ManuScript = () => {
+const ManuScript = (manuscript) => {
     const [anchorEl, setAnchorEl] = React.useState(null)
     const [file, setFile] = React.useState(null)
     const [values, setValues] = React.useState({
@@ -30,6 +31,7 @@ const ManuScript = () => {
     const { title, category, description, document } = values
     const [documents, setDocuments] = React.useState([])
 
+    console.log(`Manuscript Form Click ${JSON.stringify(manuscript)}`)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
@@ -207,7 +209,13 @@ const ManuScript = () => {
                                     variant="contained"
                                     component="label"
                                     onClick={() => {
-                                        navigate("/manuscriptform")
+                                        navigate("/manuscriptform", {
+                                            state: {
+                                                Role: manuscript.role,
+                                                LoginCredentials:
+                                                    manuscript.loginCredentials,
+                                            },
+                                        })
                                     }}
                                     sx={{
                                         m: "30px 0px 100px 90px",
@@ -247,7 +255,24 @@ const ManuScript = () => {
             <br />
             {/* <MintNFT /> */}
             {/* {<FileView/>} */}
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button
+                    variant="contained"
+                    onClick={() => {
+                        navigate("/manuscriptform", {
+                            state: {
+                                Role: manuscript.role,
+                                LoginCredentials: manuscript.loginCredentials,
+                            },
+                        })
+                    }}
+                    startIcon={<AddIcon />}
+                >
+                    Add ManuScript
+                </Button>
+            </div>
             <Filter />
+
             {/* <CategoryCard
                 image="https://gateway.pinata.cloud/ipfs/QmbLiP651PnJ7Me8ZsFY1DYHA5GdeNipKmntBpH1yE5gKf?_gl=1*1yqdojl*rs_ga*OGQxOWJlNjQtYTkwYi00ZDMzLTkyNTctNGVlMzA5NmQyZjkz*rs_ga_5RMPXG14TE*MTY4MzQ1MDYwNy4yLjEuMTY4MzQ1MDYxNS41Mi4wLjA."
                 category="new Card"

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 import { getAllManuscripts_NFT } from "../auth/helper"
 import NFTCard from "./NFTCard"
 
-const CategoryCard = ({ image, category }) => {
+const CategoryCard = ({ image, category, role, loginCredentials }) => {
     const navigate = useNavigate()
 
     const handleNFTCard = async () => {
@@ -16,7 +16,13 @@ const CategoryCard = ({ image, category }) => {
         // console.log(JSON.stringify(getAllManuscripts_NFT(category)))
         const documents = await getAllManuscripts_NFT(category)
         console.log(`NFT Document : ${documents}`)
-        navigate("/NFTCard", { state: { NFTDocuments: documents } })
+        navigate("/NFTCard", {
+            state: {
+                NFTDocuments: documents,
+                Role: role,
+                isLogin: loginCredentials,
+            },
+        })
         console.log(`Category : ${category}`)
     }
     return (

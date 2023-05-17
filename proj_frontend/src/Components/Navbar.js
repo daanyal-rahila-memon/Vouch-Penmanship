@@ -14,18 +14,24 @@ import MenuItem from "@mui/material/MenuItem"
 import AdbIcon from "@mui/icons-material/Adb"
 import { useNavigate } from "react-router-dom"
 import { signout } from "../auth/helper/index"
+import { Page } from "react-pdf"
 
 var page = ["Home"]
 const studentPages = ["Ideas", "Manuscript"]
-const supervisorPages = ["Ideas", "viewRequest"]
-const adminPages = ["Access Control"]
+const supervisorPages = ["Upload Ideas", "View Approvals"]
+const adminPages = ["Manage Account"]
 const settings = ["Profile", "Change Role", "Status", "Logout"]
 
 function Navbar(props) {
     const [anchorElNav, setAnchorElNav] = React.useState(null)
     const [anchorElUser, setAnchorElUser] = React.useState(null)
+    const [activeMenuItem, setActiveMenuItem] = React.useState(props.event)
     const navigate = useNavigate()
     // const [select, setSelect] = React.useState('Home')
+
+    // accessing the session information of the logged-in user from the local storage of the browser
+    const needToParse = localStorage.getItem("jwt")
+    const sessionInfo = JSON.parse(needToParse)
 
     const pages = page.concat(
         props.role === "admin"
@@ -61,15 +67,53 @@ function Navbar(props) {
     }
 
     const handleCloseNavMenu = (event) => {
-        setAnchorElNav(null)
+        // setActiveMenuItem(event)
+        // setAnchorElNav(null)
 
-        if (event.currentTarget.value === "Manuscript") {
-            navigate("/manuscript")
+        console.log(`Target Value : ${event}`)
+
+        if (event === "Manuscript") {
+            navigate("/manuscript", {
+                state: {
+                    Role: props.role,
+                    LoginCredentials: props.loginCredentials,
+                },
+            })
+        } else if (event === "Home") {
+            navigate("/gallery", {
+                state: {
+                    Role: props.role,
+                    LoginCredentials: props.loginCredentials,
+                },
+            })
+        } else if (event.currentTarget.value === "Manuscript") {
+            navigate("/manuscript", {
+                state: {
+                    Role: props.role,
+                    LoginCredentials: props.loginCredentials,
+                },
+            })
+        } else if (event.currentTarget.value === "Ideas") {
+            navigate("/ideas", {
+                state: {
+                    Role: props.role,
+                    LoginCredentials: props.loginCredentials,
+                },
+            })
+        } else if (event.currentTarget.value === "Upload Ideas") {
+            navigate("/uploadideas")
+        } else if (event.currentTarget.value === "View Approvals") {
+            navigate("/showrequests")
+        } else if (event.currentTarget.value === "Manage Account") {
+            navigate("/adminpage")
         }
-
-        console.log(event.currentTarget.value)
     }
 
+    const handleOpenMenu = (event) => {
+        setActiveMenuItem(event)
+        setAnchorElNav(null)
+        handleCloseNavMenu(event)
+    }
     const handleCloseUserMenu = () => {
         setAnchorElUser(null)
     }
@@ -140,7 +184,8 @@ function Navbar(props) {
                             {pages.map((page) => (
                                 <MenuItem
                                     key={page}
-                                    onClick={handleCloseNavMenu}
+                                    onClick={() => handleOpenMenu(page)}
+                                    selected={activeMenuItem === page}
                                 >
                                     <Typography textAlign="center">
                                         {page}
@@ -182,13 +227,29 @@ function Navbar(props) {
                         {pages.map((page) => (
                             <Button
                                 key={page}
-                                onClick={handleCloseNavMenu}
+                                onClick={() => handleOpenMenu(page)}
                                 sx={{
                                     my: 2,
-                                    color: "white",
                                     display: "block",
                                     ml: 2,
                                     fontSize: "16px",
+                                    position: "relative",
+                                    color: "white",
+                                    "&::after": {
+                                        content: "''",
+                                        position: "absolute",
+                                        left: 0,
+                                        right: 0,
+                                        bottom:
+                                            activeMenuItem === page
+                                                ? "-2px"
+                                                : 0,
+                                        height: "2px",
+                                        background:
+                                            activeMenuItem === page
+                                                ? "white"
+                                                : "transparent",
+                                    },
                                 }}
                                 value={page}
                             >
@@ -198,15 +259,27 @@ function Navbar(props) {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
+                        <Tooltip
+                            title={
+                                sessionInfo.object.firstName +
+                                " " +
+                                sessionInfo.object.lastName
+                            }
+                        >
                             <IconButton
                                 onClick={handleOpenUserMenu}
                                 sx={{ p: 0 }}
                             >
                                 <Avatar
-                                    alt="Remy Sharp"
+                                    alt={
+                                        sessionInfo.object.firstName.charAt(0) +
+                                        sessionInfo.object.lastName.charAt(0)
+                                    }
                                     src="/static/images/avatar/2.jpg"
-                                />
+                                >
+                                    {sessionInfo.object.firstName.charAt(0)}
+                                    {sessionInfo.object.lastName.charAt(0)}
+                                </Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu

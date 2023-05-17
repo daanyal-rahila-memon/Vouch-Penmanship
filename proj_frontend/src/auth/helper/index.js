@@ -72,12 +72,14 @@ export const isAuthenticated = () => {
     }
 }
 
+// --------------------- Student Controllers
+
 export const setDocument = (document) => {
     // console.log("set document=?>" + JSON.stringify(document))
 
     // accessing the session information of the logged-in user from the local storage of the browser
-    const needToParse = localStorage.getItem("jwt");
-    const sessionInfo = JSON.parse(needToParse);
+    const needToParse = localStorage.getItem("jwt")
+    const sessionInfo = JSON.parse(needToParse)
 
     return axios
         .post(`${API}manuscript/create/${sessionInfo.object._id}`, document)
@@ -107,16 +109,15 @@ export const getDocument = (document) => {
     // console.log("in getDocument")
 
     // accessing the session information of the logged-in user from the local storage of the browser
-    const needToParse = localStorage.getItem("jwt");
-    const sessionInfo = JSON.parse(needToParse);
+    const needToParse = localStorage.getItem("jwt")
+    const sessionInfo = JSON.parse(needToParse)
 
     return fetch(
         `${API}manuscript/getStudentManuscripts/${sessionInfo.object._id}`,
         {
             method: "GET",
             headers: {
-                Authorization:
-                    `bearer ${sessionInfo.token}`,
+                Authorization: `bearer ${sessionInfo.token}`,
             },
         }
     )
@@ -134,19 +135,18 @@ export const getDocumentByCategory = (document) => {
     console.log(`in getDocumentByCategory ${document}`)
 
     // accessing the session information of the logged-in user from the local storage of the browser
-    const needToParse = localStorage.getItem("jwt");
-    const sessionInfo = JSON.parse(needToParse);
+    const needToParse = localStorage.getItem("jwt")
+    const sessionInfo = JSON.parse(needToParse)
     // console.log(sessionInfo.token);
     // console.log(sessionInfo.object);
-    console.log(sessionInfo.object._id);
+    console.log(sessionInfo.object._id)
 
     return fetch(
         `${API}manuscript/getManuscriptsByCategory/${sessionInfo.object._id}?document=${document}`,
         {
             method: "GET",
             headers: {
-                Authorization:
-                `bearer ${sessionInfo.token}`,
+                Authorization: `bearer ${sessionInfo.token}`,
             },
         }
     )
@@ -164,17 +164,16 @@ export const getDocumentByCategory = (document) => {
 export const getAllManuscripts_NFT = (document) => {
     // console.log(`in getAllManuscripts_NFT ${document}`)
 
-     // accessing the session information of the logged-in user from the local storage of the browser
-     const needToParse = localStorage.getItem("jwt");
-     const sessionInfo = JSON.parse(needToParse);
+    // accessing the session information of the logged-in user from the local storage of the browser
+    const needToParse = localStorage.getItem("jwt")
+    const sessionInfo = JSON.parse(needToParse)
 
     return fetch(
         `${API}manuscript/getAllManuscripts_NFT?document=${document}`,
         {
             method: "GET",
             headers: {
-                Authorization:
-                `bearer ${sessionInfo.token}`,
+                Authorization: `bearer ${sessionInfo.token}`,
             },
         }
     )
@@ -182,6 +181,38 @@ export const getAllManuscripts_NFT = (document) => {
         .then((jsonArray) => {
             console.log(jsonArray)
             return jsonArray
+        })
+        .catch((error) => {
+            console.log("could not fetch data")
+            console.log(error)
+        })
+}
+
+// --------------------- Supervisor Controllers
+
+export const getSupervisorById = (id) => {
+    return fetch(`${API}supervisor/getSupervisor/${id}`, {
+        method: "GET",
+    })
+        .then(async (response) => {
+            // const data = await response.json()
+            // console.log(data)
+            return await response.json()
+        })
+        .catch((error) => {
+            console.log("could not fetch data")
+            console.log(error)
+        })
+}
+
+export const getAllSupervisors = () => {
+    return fetch(`${API}supervisor/getAllSupervisors`, {
+        method: "GET",
+    })
+        .then((response) => {
+            // console.log("fetched data")
+            // console.log(response)
+            return response.json()
         })
         .catch((error) => {
             console.log("could not fetch data")

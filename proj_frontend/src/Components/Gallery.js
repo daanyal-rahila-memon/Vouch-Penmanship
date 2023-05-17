@@ -93,7 +93,10 @@ const Gallery = (props) => {
             >
                 {nfg}
             </Grid> */}
-            <CategoryListCards />
+            <CategoryListCards
+                role={props.role}
+                loginCredentials={props.loginCredentials}
+            />
         </>
     )
 }

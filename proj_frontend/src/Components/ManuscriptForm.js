@@ -15,13 +15,16 @@ import {
 
 import { setDocument } from "../auth/helper"
 import { useNavigate } from "react-router-dom"
+import { mintNFTs } from "../utils/interact"
+import { getAllSupervisors } from "../auth/helper"
 
 const allowedFileTypes = ["application/pdf"]
 
-const ManuscriptForm = () => {
+const ManuscriptForm = ({ role, loginCredentials }) => {
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
     const [supervisor, setSupervisor] = useState("")
+    const [selectedSupervisorId, setSelectedSupervisorId] = useState("")
     const [description, setDescription] = useState("")
     const [file, setFile] = useState(null)
     const [formError, setFormError] = useState("")
@@ -30,6 +33,23 @@ const ManuscriptForm = () => {
     const [status, setStatus] = useState("")
 
     const [isLoading, setIsLoading] = useState(false)
+    const [supervisorList, setSupervisorList] = useState([])
+
+    useEffect(() => {
+        const get = async () => {
+            const supList = await getAllSupervisors()
+
+            if (JSON.stringify(supervisorList) !== JSON.stringify(supList)) {
+                // console.log("Did not match")
+                setSupervisorList(supList)
+                // console.log(`superList : ${JSON.stringify(supList)}`)
+            } else {
+                // console.log("match")
+            }
+        }
+
+        get()
+    }, [supervisorList])
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value)
@@ -40,7 +60,12 @@ const ManuscriptForm = () => {
     }
 
     const handleSupervisorChange = (event) => {
-        setSupervisor(event.target.value)
+        const selectedSupervisor = event.target.value
+        setSupervisor(selectedSupervisor)
+        const selectedSupervisorId = selectedSupervisor.split("|")[0]
+        setSelectedSupervisorId(selectedSupervisorId)
+
+        // setSupervisor(event.target.value)
     }
 
     const handleDescriptionChange = (event) => {
@@ -77,71 +102,79 @@ const ManuscriptForm = () => {
     const navigate = useNavigate()
 
     const onFileUploadToIPFS = async () => {
-        // console.log("on Mint pressed start")
-        // console.log(`All information ${file}  ${title} ${description}`)
-        // const { status, tokenURI } = await mintNFTs(file, title, description)
-        // setStatus(status)
-        // localStorage.setItem("tokenUrl", tokenURI)
-        // setDocumentUrl(tokenURI)
-        // console.log(`token url status : ${status}`)
-        // console.log(`token url : ${tokenURI}`)
-        // console.log(`document url : ${documentUrl}`)
-        // console.log("On Mint Pressed")
-        // console.log(status)
-        // await postRequestToSetDocument(tokenURI)
+        console.log("on Mint pressed start")
+        console.log(`All information ${file}  ${title} ${description}`)
+        const { status, tokenURI } = await mintNFTs(file, title, description)
+        setStatus(status)
+        localStorage.setItem("tokenUrl", tokenURI)
+        setDocumentUrl(tokenURI)
+        console.log(`token url status : ${status}`)
+        console.log(`token url : ${tokenURI}`)
+        console.log(`document url : ${documentUrl}`)
+        console.log("On Mint Pressed")
+        console.log(status)
+        await postRequestToSetDocument(tokenURI)
     }
 
     const postRequestToSetDocument = async (tokenURI) => {
         console.log(
-            `\n All data here \n ${title} ${category} ${description} ${tokenURI}`
+            `\n All data here \n ${supervisor} ${title} ${category} ${description} ${tokenURI}`
         )
         await setDocument({
             title,
             category,
             description,
             documentUrl: tokenURI,
-            supervisor: "64524c49bfaff90c2c6d6758",
+            supervisor: selectedSupervisorId,
         })
             .then((data) => {
                 if (data.error) {
                     console.log("IN DATA.ERROR")
                 } else {
                     console.log("NOT IN DATA.ERROR")
-                    navigate("/manuscript")
+                    navigate("/manuscript", {
+                        state: {
+                            Role: role,
+                            LoginCredentials: loginCredentials,
+                        },
+                    })
                 }
             })
             .catch(console.log("Manuscript upload failed"))
     }
 
     const categoryList = [
-        "Blockchain",
-        "Data Science",
-        "Cybersecurity",
-        "Artificial Intelligence",
-        "Internet of Things (IoT)",
-        "Cloud Computing",
-        "Virtual Reality (VR) and Augmented Reality (AR)",
-        "Robotics",
-        "Machine Learning",
-        "Quantum Computing",
-        "Big Data",
-        "Mobile Applications",
+        { id: 0, categoryname: "Blockchain" },
+        { id: 1, categoryname: "Data Science" },
+        { id: 2, categoryname: "Cybersecurity" },
+        { id: 3, categoryname: "Artificial Intelligence" },
+        { id: 4, categoryname: "Internet of Things (IoT)" },
+        { id: 5, categoryname: "Cloud Computing" },
+        {
+            id: 6,
+            categoryname: "Virtual Reality (VR) and Augmented Reality (AR)",
+        },
+        { id: 7, categoryname: "Robotics" },
+        { id: 8, categoryname: "Machine Learning" },
+        { id: 9, categoryname: "Quantum Computing" },
+        { id: 10, categoryname: "Big Data" },
+        { id: 11, categoryname: "Mobile Applications" },
     ]
 
-    const supervisorList = [
-        { id: 0, supervisorname: "Sir Umar Aftab" },
-        { id: 1, supervisorname: "Sir Rizwan Ul Haq" },
-        { id: 2, supervisorname: "Sir Bilal Khan" },
-        { id: 3, supervisorname: "Sir Abdul Qadeer" },
-        { id: 4, supervisorname: "Mam Saba" },
-        { id: 5, supervisorname: "Mam Pariwish" },
-        { id: 6, supervisorname: "Mam Sehar" },
-        { id: 7, supervisorname: "Sir Tahir" },
-        { id: 8, supervisorname: "Sir Sajid" },
-        { id: 9, supervisorname: "Mam Ayesha" },
-        { id: 10, supervisorname: "Sir Daanyal" },
-        { id: 11, supervisorname: "Sir Azeem" },
-    ]
+    // const supervisorList = [
+    //     { id: 0, supervisorname: "Sir Umar Aftab" },
+    //     { id: 1, supervisorname: "Sir Rizwan Ul Haq" },
+    //     { id: 2, supervisorname: "Sir Bilal Khan" },
+    //     { id: 3, supervisorname: "Sir Abdul Qadeer" },
+    //     { id: 4, supervisorname: "Mam Saba" },
+    //     { id: 5, supervisorname: "Mam Pariwish" },
+    //     { id: 6, supervisorname: "Mam Sehar" },
+    //     { id: 7, supervisorname: "Sir Tahir" },
+    //     { id: 8, supervisorname: "Sir Sajid" },
+    //     { id: 9, supervisorname: "Mam Ayesha" },
+    //     { id: 10, supervisorname: "Sir Daanyal" },
+    //     { id: 11, supervisorname: "Sir Azeem" },
+    // ]
 
     return (
         <div style={{ padding: "20px", paddingTop: "30px" }}>
@@ -168,7 +201,12 @@ const ManuscriptForm = () => {
                         variant="outlined"
                     >
                         {categoryList.map((category) => (
-                            <MenuItem value={category}>{category}</MenuItem>
+                            <MenuItem
+                                key={category.id}
+                                value={category.categoryname}
+                            >
+                                {category.categoryname}
+                            </MenuItem>
                         ))}
                     </Select>
                     <FormHelperText>Please select a category</FormHelperText>
@@ -185,8 +223,13 @@ const ManuscriptForm = () => {
                         variant="outlined"
                     >
                         {supervisorList.map((supervisor) => (
-                            <MenuItem value={supervisor.supervisorname}>
-                                {supervisor.supervisorname}
+                            <MenuItem
+                                key={supervisor._id}
+                                value={`${supervisor._id}|${supervisor.firstName} ${supervisor.lastName}`}
+                            >
+                                {supervisor.firstName +
+                                    " " +
+                                    supervisor.lastName}
                             </MenuItem>
                         ))}
                     </Select>

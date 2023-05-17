@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { Grid } from "@mui/material"
 import CategoryCard from "./CategoryCard"
 
-const CategoryListCards = () => {
+const CategoryListCards = ({ role, loginCredentials }) => {
     const [page, setPage] = React.useState(0)
 
     const handlePrevPage = () => {
@@ -95,6 +95,8 @@ const CategoryListCards = () => {
                             <CategoryCard
                                 image={category.image}
                                 category={category.category}
+                                role={role}
+                                loginCredentials={loginCredentials}
                             />
                         </motion.div>
                     </Grid>

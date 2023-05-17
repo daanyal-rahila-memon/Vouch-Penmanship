@@ -124,17 +124,22 @@ exports.getAllManuscripts = (req, res) => {
 exports.getManuscriptsByCategory = (req, res) => {
     // console.log(req.query.document)
     if (req.query.document == "All Categories") {
-        return Manuscript.find().exec((error, manuscripts) => {
-            if (error || !manuscripts) {
-                return res.status(400).json({
-                    error: "No manuscripts found",
-                })
-            }
-            return res.json(manuscripts)
-        })
+        return Manuscript.find({ student: req.profile._id })
+            .sort([["desc"]])
+            .exec((error, manuscripts) => {
+                if (error || !manuscripts) {
+                    return res.status(400).json({
+                        error: "No manuscripts found",
+                    })
+                }
+                return res.json(manuscripts)
+            })
     } else {
-        Manuscript.find({ id: req.profile._id, category: req.query.document }) // only bring those manuscripts of this category
-            .sort([["asc"]]) // sort on these properties
+        Manuscript.find({
+            student: req.profile._id,
+            category: req.query.document,
+        }) // only bring those manuscripts of this category
+            .sort([["desc"]]) // sort on these properties
             .exec((error, manuscript) => {
                 if (error) {
                     return res.status(400).json({
@@ -197,7 +202,7 @@ exports.setNFT = (req, res) => {
     // console.log("SetNFT in Controllers")
     // console.log(req.query.manuscriptId)
     Manuscript.findByIdAndUpdate(
-        { _id: req.query.id }, // Search this manuscript
+        { _id: req.query.manuscriptId }, // Search this manuscript
         { nft: true }, // sets the field of nft in Manuscript Object (model) to 'True'
         { new: true, useFindAndModify: false }, // "new: true", it'll return the new/updated document
         (error, manuscript) => {

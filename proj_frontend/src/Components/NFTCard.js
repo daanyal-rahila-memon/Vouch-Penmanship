@@ -13,12 +13,12 @@ import { useEffect, useState } from "react"
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
-const NFTCard = (props) => {
+const NFTCard = (manuscripts) => {
     const [coverImage, setCoverImage] = useState(null)
 
     useEffect(() => {
         const fetchPdfCover = async () => {
-            const response = await fetch(props.link)
+            const response = await fetch(manuscripts.link)
             const buffer = await response.arrayBuffer()
             const pdf = await pdfjs.getDocument(buffer).promise
             const page = await pdf.getPage(1)
@@ -37,10 +37,10 @@ const NFTCard = (props) => {
         }
 
         fetchPdfCover()
-    }, [props.link])
+    }, [manuscripts.link])
 
-    function myFuc() {
-        console.log("whatsgoinOn")
+    const handleManuscriptOpen = () => {
+        window.open(manuscripts.link, "_blank")
     }
     return (
         <motion.div
@@ -58,10 +58,7 @@ const NFTCard = (props) => {
                     transition: { duration: 0.3 },
                 }}
             >
-                <Grid
-                    onClick={() => window.open("https://google.com")}
-                    sx={{ cursor: "pointer" }}
-                >
+                <Grid onClick={handleManuscriptOpen} sx={{ cursor: "pointer" }}>
                     <Paper
                         elevation={10}
                         sx={{
@@ -74,7 +71,7 @@ const NFTCard = (props) => {
                             component="img"
                             height="250"
                             image={coverImage}
-                            alt="Autralia"
+                            alt={manuscripts.title}
                             sx={{
                                 borderRadius: "15px 15px 0px 0px",
                             }}
@@ -100,7 +97,7 @@ const NFTCard = (props) => {
                                 gutterBottom
                                 noWrap
                             >
-                                {props.supervisorname}
+                                {manuscripts.supervisorname}
                             </Typography>
                         </CardContent>
                     </Paper>

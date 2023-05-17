@@ -18,6 +18,7 @@ function Filter() {
     const [documents, setDocuments] = useState(null)
 
     const categoryList = [
+        "All Categories",
         "Blockchain",
         "Data Science",
         "Cybersecurity",
@@ -120,6 +121,7 @@ function Filter() {
                                     title={document.title}
                                     link={document.documentUrl}
                                     description={document.description}
+                                    supervisorId={document.supervisor}
                                 />
                             </Grid>
                         ))}

@@ -10,13 +10,15 @@ const bodyParser = require("body-parser") // 'body-parser' is responsible for pa
 const cookieParser = require("cookie-parser") // 'cookie-parser' is responsible for parsing the cookie and returning it as a string, so that we can set/get something in/from the cookie.
 const cors = require("cors") // 'cors' is responsible for cross-origin resource sharing; As our frontend & backend are two different codebases to allow them work together we have to enable 'cors' in our server that is in our backend. That will allow our frontend to make requests to the backend
 
-// My Routes (Importing)
+// Student Routes (Importing)
 const authRoutes = require("./routes/auth.routes")
 const studentRoutes = require("./routes/student.routes")
-const supervisorRoutes = require("./routes/supervisor.routes")
 const adminRoutes = require("./routes/admin.routes")
 const categoryRoutes = require("./routes/category.routes")
 const manuscriptRoutes = require("./routes/manuscript.routes")
+
+// Supervisor Routes (Importing)
+const supervisorRoutes = require("./routes/supervisor.routes")
 
 // DB Connection
 // "mongodb+srv://bilal:123@cluster0.erpmtps.mongodb.net/VouchPenmanship?retryWrites=true&w=majority"
