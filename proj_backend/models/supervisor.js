@@ -28,7 +28,6 @@ var supervisorSchema = new mongoose.Schema(
     expertise: {
       type: String,
     },
-    experience: String,
     email: {
       type: String,
       required: true,

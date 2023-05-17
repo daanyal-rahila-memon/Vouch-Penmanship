@@ -17,6 +17,7 @@ exports.getSupervisorById = (req, res, next, id) => {
     else {
       // then we'll store the supervisor
       req.profile = supervisor; // store all the object data - driven from database - in req.profile
+      // console.log(req.profile);
       next();
     }
   });

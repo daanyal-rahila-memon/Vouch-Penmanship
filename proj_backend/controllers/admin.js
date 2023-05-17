@@ -1,5 +1,7 @@
 const crypto = require("crypto");
 const uuidv4 = require("uuid/v4");
+const Student = require("../models/student");
+const Supervisor = require("../models/supervisor");
 const Admin = require("../models/admin");
 
 // This function will work with 'params', bcz we've the 'id' (parameter) here
@@ -78,6 +80,35 @@ exports.updateAdminPassword = (req, res) => {
   Admin.findByIdAndUpdate(
     { _id: req.profile._id }, // Replace with the _id of the user you want to update
     { password: Password }, // Replace with the new name you want to set
+    { new: true }, // Return the updated document
+    (err, obj) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(obj);
+      }
+    }
+  );
+};
+
+exports.manageAccont = (req, res) => {
+  console.log("in /proj_backend/admin");
+  console.log(req.body.selectedOption);
+  console.log(req.body.email);
+  console.log(req.body.status);
+
+  let model;
+  if (req.body.selectedOption == "student") {
+    console.log("I'm in student condition");
+    model = Student;
+  } else if (req.body.selectedOption == "supervisor") {
+    console.log("I'm in supervisor condition");
+    model = Supervisor;
+  }
+
+  model.findOneAndUpdate(
+    req.body.email, // Search the object with this mail
+    { access: req.body.status }, // Replace with the new status (access field) you want to set
     { new: true }, // Return the updated document
     (err, obj) => {
       if (err) {

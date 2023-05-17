@@ -31,6 +31,10 @@ var adminSchema = new mongoose.Schema(
       required: true,
     },
     salt: String, // is a random string (collection of alpha-numerics) added to the password to make it stronger
+    access: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true } // Timestamp will save the exact time in Database when any Admin will be created.
 );

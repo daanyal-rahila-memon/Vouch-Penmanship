@@ -8,9 +8,9 @@ const { getSupervisorById, getSupervisor, getAllSupervisors, updateSupervisor, u
 router.param("supervisorId", getSupervisorById);
 
 //actual routes goes here
-router.get("/supervisor/:supervisorId", isSignedIn, isAuthenticated, getSupervisor); // gets the supervisor from the database using the given id
+router.get("/supervisor/getSupervisor/:supervisorId", getSupervisor); // gets the supervisor from the database using the given id
 router.get("/supervisor/getAllSupervisors", getAllSupervisors)  // gets all the supervisors from the database
-router.put("/supervisor/:supervisorId", isSignedIn, isAuthenticated, updateSupervisor); // updates the supervisor in the databse
+router.put("/supervisor/updateSupervisor/:supervisorId", isSignedIn, isAuthenticated, updateSupervisor); // updates the supervisor in the databse
 router.put("/supervisorPassword/:supervisorId", isSignedIn, isAuthenticated, updateSupervisorPassword); // updates the supervisor's password in the databse
 
 router.delete("/supervisor/:supervisorId", isSignedIn, isAuthenticated, deleteSupervisor); // delete the supervisor from the databse

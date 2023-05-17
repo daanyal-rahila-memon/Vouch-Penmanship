@@ -17,8 +17,8 @@ import { signout } from "../auth/helper/index";
 
 var page = ["Home"];
 const studentPages = ["Ideas", "Manuscript"];
-const supervisorPages = ["Ideas", "viewRequest"];
-const adminPages = ["Access Control"];
+const supervisorPages = ["Upload Ideas", "View Approvals"];
+const adminPages = ["Manage Account"];
 const settings = ["Profile", "Change Role", "Status", "Logout"];
 
 function Navbar(props) {
@@ -51,7 +51,7 @@ function Navbar(props) {
   };
   // {setting !== "Logout" ? setting : (isAuthenticated() && "Logout")}
 
-  pages.push("Contact Us");
+  // pages.push("Contact Us");
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -63,8 +63,18 @@ function Navbar(props) {
   const handleCloseNavMenu = (event) => {
     setAnchorElNav(null);
 
+    // if (event.currentTarget.value === "Home") {
+    //   navigate("/gallery");
     if (event.currentTarget.value === "Manuscript") {
       navigate("/manuscript");
+    } else if (event.currentTarget.value === "Ideas") {
+      navigate("/ideas");
+    } else if (event.currentTarget.value === "Upload Ideas") {
+      navigate("/uploadideas");
+    } else if (event.currentTarget.value === "View Approvals") {
+      navigate("/showrequests");
+    } else if (event.currentTarget.value === "Manage Account") {
+      navigate("/adminpage");
     }
 
     console.log(event.currentTarget.value);
@@ -79,27 +89,6 @@ function Navbar(props) {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          {/* <Typography
-                        variant="h6"
-                        noWrap
-                        component="p"
-                        // href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: "none", md: "flex" },
-                            fontFamily: "monospace",
-                            fontWeight: 700,
-                            letterSpacing: ".3rem",
-                            color: "inherit",
-                            textDecoration: "none",
-                            "&:hover": {
-                                // fontWeight: "bold",
-                                // color: "#000",
-                            },
-                        }}
-                    >
-                        VOUCH PENMANSHIP
-                    </Typography> */}
           <h3
             style={{
               color: "#ffffff",

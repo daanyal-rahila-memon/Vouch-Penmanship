@@ -25,9 +25,8 @@ import { signup } from "../auth/helper/index";
 import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
-  const roleArray = ["Supervisor", "Student", "Admin"];
 
-  const [role, setRole] = useState("Student");
+  const [role, setRole] = useState("student");
   const [valid, setValid] = useState(true);
 
   const [passToggle, setPassToggle] = useState(true);
@@ -41,13 +40,14 @@ export default function Signup() {
     firstName: "",
     lastName: "",
     batch: "",
+    department: "",
     email: "",
     password: "",
     error: "",
     success: false,
   });
 
-  const { firstName, lastName, batch, email, password, error, success } =
+  const { firstName, lastName, batch, department, email, password, error, success } =
     values;
 
   // to update values state
@@ -63,8 +63,8 @@ export default function Signup() {
   // Submit Button Function
   const onSubmit = (event) => {
     event.preventDefault(); // It will prevent the form from submitting itself so that we could do our regular stuff
-    // console.log(firstName, lastName, batch, email, password);
-    signup({ firstName, lastName, batch, email, password }) // It will automatically fires the request to the backend and return the respond & the error
+    // console.log(firstName, lastName, role, batch, email, password);
+    signup({ firstName, lastName, role, batch, department, email, password }) // It will automatically fires the request to the backend and return the respond & the error
       .then((data) => {
         // data is the response we're getting from signup function - backend
         if (data.error) {
@@ -77,7 +77,9 @@ export default function Signup() {
             ...values,
             firstName: "",
             lastName: "",
+            role: "",
             batch: "",
+            department: "",
             email: "",
             password: "",
             error: "",
@@ -223,6 +225,17 @@ export default function Signup() {
               onChange={handleChange("lastName")}
             />
           </Box>
+          <Box sx={flexStyle}>
+            <PersonIcon sx={{ ...emailSx }} />
+            <TextField
+              type="text"
+              value={department}
+              variant="standard"
+              label="Department"
+              sx={{ width: "300px" }}
+              onChange={handleChange("department")}
+            />
+          </Box>
 
           <Box sx={flexStyle}>
             <Email sx={{ ...emailSx }} fontSize="small" />
@@ -248,17 +261,6 @@ export default function Signup() {
               onChange={handleChange("password")}
             />
           </Box>
-
-          {/* <Box sx={flexStyle}>
-            <Lock sx={emailSx} fontSize="small" />
-            <TextField
-              type="password"
-              variant="standard"
-              label="Confirm Password"
-              sx={{ width: 300 }}
-              onBlur={handleConfirmPassword}
-            />
-          </Box> */}
 
           <Button
             variant="contained"

@@ -1,27 +1,17 @@
 const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema;
 
 var requestSchema = new mongoose.Schema(
   {
-    id: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-    },
-    
     // Manuscript
     manuscriptUrl: {
       type: String,
       required: true,
-  },
-
-    supervisor: {
-      type: String,
-      required: true,
-      maxlength: 32,
-      trim: true,
     },
-
+    supervisor: {
+      type: ObjectId,
+      ref: "Supervisor",
+    },
     responseStatus: {
       type: String,
       default: "Not Approved",
