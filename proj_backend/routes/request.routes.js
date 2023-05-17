@@ -2,35 +2,31 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  getIdeaById,
-  createIdea,
-  getIdea,
-  getAllIdeas,
-} = require("../controllers/ideas");
+  getRequestById,
+  createRequest
+} = require("../controllers/request");
 const {
   isSignedIn,
   isAuthenticated,
-  isSupervisor,
 } = require("../controllers/auth");
-const { getSupervisorById } = require("../controllers/supervisor");
+const { getStudentById } = require("../controllers/student");
 
 // params
-router.param("supervisorId", getSupervisorById);
-router.param("ideaId", getIdeaById);
+router.param("studentId", getStudentById)
+router.param("requestId", getRequestById);
 
 //actual routes goes here
 
 // Create
 router.post(
-  "/idea/createIdea/:supervisorId",
+  "/request/createRequest/:studentId",
   isSignedIn,
   isAuthenticated,
-  isSupervisor,
-  createIdea
+  createRequest
 );
 
 // Read
-router.get("/idea/getIdea/:ideaId", getIdea);
-router.get("/idea/getAllIdeas", getAllIdeas);
+// router.get("/idea/getIdea/:ideaId", getIdea);
+// router.get("/idea/getAllIdeas", getAllIdeas);
 
 module.exports = router;
