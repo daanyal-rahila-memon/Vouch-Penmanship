@@ -1,88 +1,84 @@
 import React, { useEffect, useState } from "react";
-import SupervisorlabelsDropdown from "./SupervisorNamesDrpdown";
-import Card from "./IdeaCard";
-import { getAllIdeas, getSupervisorById } from "../auth/helper";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  FormHelperText,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { getAllSupervisors, getIdeasBySupervisorId } from "../auth/helper";
+import IdeaCard from "./IdeaCard";
 
-function Ideas() {
-  const [cards, setCards] = useState([]);
-  const [supervisorList, setSupervisorList] = useState({
-    supervisors: [],
-    supervisorListFlag: false,
-  });
+const Ideas = ({ role, loginCredentials }) => {
+  const [supervisor, setSupervisor] = useState("");
+  const [supervisorList, setSupervisorList] = useState([]);
+  const [valid, setValid] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  const [ideas, setIdeas] = useState([]);
 
-  //create an array of cards for applying
   useEffect(() => {
-    console.log("in proj_frontend/src/Components/Ideas");
-    async function fetchData() {
-      const data = await getAllIdeas();
-      setCards(data);
-      console.log(cards);
-      const supervisorListPromises = cards.map(async (card) => {
-        return getSupervisorById(card.supervisor);
-      });
-      console.log(supervisorListPromises);
-      Promise.all(supervisorListPromises).then(async (values) => {
-        console.log(values);
-        const data = await values;
-        setSupervisorList({
-          ...supervisorList,
-          supervisors: data,
-          supervisorListFlag: true,
-        });
-      });
-      if (supervisorList.supervisorListFlag) {
-        console.log(
-          `supervisorList.supervisors : ${JSON.stringify(
-            supervisorList.supervisors
-          )}`
-        );
+    const get = async () => {
+      const supList = await getAllSupervisors();
+
+      if (JSON.stringify(supervisorList) !== JSON.stringify(supList)) {
+        // console.log("Did not match")
+        setSupervisorList(supList);
+        // console.log(`superList : ${JSON.stringify(supList)}`)
       }
-    }
-    fetchData();
-  }, []);
-  return supervisorList.supervisorListFlag ? (
-    <div style={{ alignContent: "center" }}>
-      <div
-        className="card-container"
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          margin: "5px",
-          // justifyContent:"space-between",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "3%",
-        }}
-      >
-        <SupervisorlabelsDropdown />
-      </div>
-      <div className="Ideas">
-        <div
-          className="card-container"
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            margin: "5px",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
+    };
+
+    get();
+  }, [supervisorList]);
+
+  if (valid) {
+    const get = async () => {
+      console.log(supervisor);
+      const data = await getIdeasBySupervisorId(supervisor._id);
+      console.log(data);
+      setIdeas(data);
+      setValid(false);
+    };
+    get();
+  }
+
+  const handleSupervisorChange = (event) => {
+    const selectedSupervisor = event.target.value;
+    setSupervisor(selectedSupervisor);
+    setValid(true);
+    setToggle(true);
+    // console.log(JSON.stringify(selectedSupervisor));
+  };
+
+  const navigate = useNavigate();
+
+  return (
+    <div style={{ padding: "20px", paddingTop: "30px" }}>
+      <FormControl fullWidth margin="normal" required>
+        <InputLabel id="supervisor-label">Supervisor</InputLabel>
+        <Select
+          labelId="supervisor-label"
+          id="supervisor"
+          value={supervisor}
+          onChange={handleSupervisorChange}
+          label="Supervisor"
+          variant="outlined"
         >
-          {cards.map((card, index) => {
-            return (
-              <Card
-                title={card.title}
-                description={card.description}
-                // supervisor={supervisorList.supervisors[index]}
-                // imageSrc={card.imageSrc}
-                // buttonLabel1={card.buttonLabel1}
-              />
-            );
-          })}
-        </div>
-      </div>
+          {supervisorList.map((supervisor) => (
+            <MenuItem key={supervisor._id} value={supervisor}>
+              {supervisor.firstName + " " + supervisor.lastName}
+            </MenuItem>
+          ))}
+        </Select>
+        <FormHelperText>Please select a supervisor</FormHelperText>
+      </FormControl>
+      {toggle  && ideas.map((idea) => {
+        return (
+          <IdeaCard supervisor={idea}/>
+        )
+      })}
     </div>
-  ) : (
-    ""
   );
-}
+};
+
 export default Ideas;

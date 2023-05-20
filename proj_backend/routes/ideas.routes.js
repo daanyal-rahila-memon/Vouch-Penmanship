@@ -6,6 +6,7 @@ const {
   createIdea,
   getIdea,
   getAllIdeas,
+  getIdeasBySupervisorId,
 } = require("../controllers/ideas");
 const {
   isSignedIn,
@@ -32,6 +33,7 @@ router.post(
 // Read
 router.get("/idea/getIdea/:ideaId", getIdea);
 router.get("/idea/getAllIdeas", getAllIdeas);
+router.get("/idea/getIdeasBySupervisorId", getIdeasBySupervisorId);
 
 // // Update
 // router.put("/category/:categoryId/:adminId", isSignedIn, isAuthenticated, isAdmin, updateCategory);

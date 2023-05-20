@@ -208,7 +208,7 @@ export const getAllSupervisors = () => {
   })
     .then((response) => {
       // console.log("fetched data")
-      // console.log(response)
+      console.log(response)
       return response.json();
     })
     .catch((error) => {
@@ -256,6 +256,53 @@ export const getAllIdeas = async () => {
       const data = await response.json();
       // console.log(data);
       return data;
+    })
+    .catch((error) => {
+      console.log("could not fetch data");
+      console.log(error);
+    });
+};
+
+export const getIdeasBySupervisorId = async (id) => {
+  console.log("in proj_frintend/src/auth/helper/index.js/getIdeasBySupervisorId");
+  console.log(id);
+
+  return await fetch(`${API}idea/getIdeasBySupervisorId?id=${id}`, {
+    method: "GET",
+  })
+    .then(async (response) => {
+      console.log("fetched data");
+      const data = await response.json();
+      // console.log(data);
+      return data;
+    })
+    .catch((error) => {
+      console.log("could not fetch data");
+      console.log(error);
+    });
+};
+
+// ------------------ Request Controllers
+
+export const createRequest = (data) => {
+  // console.log("set Idea -> " + JSON.stringify(document));
+
+  // accessing the session information of the logged-in user from the local storage of the browser
+  const needToParse = localStorage.getItem("jwt");
+  const sessionInfo = JSON.parse(needToParse);
+  // console.log(sessionInfo.object._id);
+
+  return fetch(`${API}request/createRequest/${sessionInfo.object._id}`, {
+    method: "POST",
+    headers: {
+      Authorization: `bearer ${sessionInfo.token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      console.log("fetched data");
+      return response.json();
     })
     .catch((error) => {
       console.log("could not fetch data");

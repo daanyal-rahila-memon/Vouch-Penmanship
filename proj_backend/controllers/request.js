@@ -20,6 +20,7 @@ exports.createRequest = (req, res) => {
 
   console.log(req.profile);
   console.log(req.body);
+  req.body.student = req.profile._id;
   const request = new Request(req.body);
 
   request.save((error, requestObj) => {
@@ -34,10 +35,26 @@ exports.createRequest = (req, res) => {
 };
 
 // Read
-// exports.getIdea = (req, res) => {
-//   return res.json(req.idea);
-// };
-// 
+exports.getRequest = (req, res) => {
+  return req.request;
+}
+
+exports.getRequestBySupervisor = (req, res) => {
+  // console.log(req.query.document)
+  console.log(req.profile._id);
+  Request.find({ supervisor: req.profile._id }) // only bring those requests of this supervisor
+    .sort([["desc"]]) // sort on these properties
+    .exec((error, requests) => {
+      if (error) {
+        return res.status(400).json({
+          errorMessage: "No Requests Found against this Supervisor",
+          error: error,
+        });
+      }
+      return res.json(requests);
+    });
+};
+
 // exports.getAllIdeas = (req, res) => {
 //   Idea.find().exec((error, ideas) => {
 //     if (error || !ideas) {
@@ -48,12 +65,12 @@ exports.createRequest = (req, res) => {
 //     return res.json(ideas);
 //   });
 // };
-// 
+
 // Update
 // exports.updateCategory = (req, res) => {
 //   const category = req.category;
 //   category.name = req.body.name;
-// 
+//
 //   category.save((error, updatedCategory) => {
 //     if (error) {
 //       return res.status(400).json({
@@ -63,11 +80,11 @@ exports.createRequest = (req, res) => {
 //     return res.json(updatedCategory);
 //   });
 // };
-// 
+//
 // // Delete
 // exports.deleteCategory = (req, res) => {
 //   const category = req.category;
-// 
+//
 //   category.remove((error, category) => {
 //     if (error) {
 //       return res.status(400).json({

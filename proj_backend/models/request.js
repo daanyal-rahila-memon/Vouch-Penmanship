@@ -4,13 +4,13 @@ const { ObjectId } = mongoose.Schema;
 var requestSchema = new mongoose.Schema(
   {
     // Manuscript
-    manuscriptUrl: {
-      type: String,
-      required: true,
-    },
-    supervisor: {
+    manuscript: {
       type: ObjectId,
-      ref: "Supervisor",
+      ref: "Manuscript",
+    },
+    student: {
+      type: ObjectId,
+      ref: "Student",
     },
     supervisor: {
       type: ObjectId,

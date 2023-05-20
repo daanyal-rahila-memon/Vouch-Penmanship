@@ -14,9 +14,7 @@ import {
 } from "@mui/material"
 
 import { setDocument } from "../auth/helper"
-// import { mintNFTs } from "../utils/interact"
 import { useNavigate } from "react-router-dom"
-
 const allowedFileTypes = ["application/pdf"]
 
 const ManuscriptForm = () => {

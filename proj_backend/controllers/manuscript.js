@@ -19,65 +19,6 @@ exports.getManuscriptById = (req, res, next, id) => {
 };
 
 exports.createManuscript = (req, res) => {
-  // let form = new formidable.IncomingForm(); // instantiation of form object -- 'form' takes 3 parameters; 1) error, 2) fields/names, 3) files
-  // form.keepExtensions = true; // we want keep the extensions of the incoming file (.mp3, .pdf, etc...)
-
-  // form.parse(req, (error, fields, file) => {
-  //   if (error) {
-  //     return res.status(400).json({
-  //       error: "Problem with the file",
-  //     });
-  //   }
-  //   console.log("in parse");
-  //   {
-  //     // Testing
-  //     // console.log(fields);
-  //     // console.log(file);
-  //   }
-
-  //   // restrictions on the fields
-  //   const { title, category } = fields; // destructure the fields
-
-  //   if (!title || !category) {
-  //     return res.status(400).json({
-  //       errorMessage: "Please include all the fields",
-  //     });
-  //   }
-
-  //   const { document } = file;
-  //   if (!document) {
-  //     return res.status(400).json({
-  //       errorMessage: "Please upload the file",
-  //     });
-  //   }
-  //   console.log(document);
-
-  //   let uploadedManuscript = new Manuscript(fields);
-
-  //   // handle the file here
-  //   if (file.document) {
-  //     if (file.document.size > 5242880) {
-  //       // Max Size: 5MB
-  //       return res.status(400).json({
-  //         error: "File size exceeds",
-  //       });
-  //     }
-  //     uploadedManuscript.document.data = fs.readFileSync(file.document.path); // In 'Manuscript' model, there's a field of data which stores the direcory/location of the document
-  //     uploadedManuscript.document.contentType = file.document.type;
-  //   }
-
-  //   uploadedManuscript.student = req.profile._id;
-  //   // save the document to the database
-  //   uploadedManuscript.save((error, obj) => {
-  //     if (error || !obj) {
-  //       return res.status(400).json({
-  //         error: "Saving Manuscript in database failed",
-  //       });
-  //     }
-  //     return res.json(obj);
-  //   });
-  // });
-  // console.log("hello")
   // console.log(req.profile._id)
   req.body.student = req.profile._id;
   const manuscriptObj = new Manuscript(req.body);
@@ -135,7 +76,7 @@ exports.getManuscriptsByCategory = (req, res) => {
         return res.json(manuscripts);
       });
   } else {
-    console.log(req.profile._id);
+    // console.log(req.profile._id);
     Manuscript.find({ student: req.profile._id, category: req.query.document }) // only bring those manuscripts of this category
       .sort([["desc"]]) // sort on these properties
       .exec((error, manuscript) => {

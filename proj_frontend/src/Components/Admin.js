@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { Box, Divider, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";

@@ -1,8 +1,5 @@
 import React from "react";
 import "./App.css";
-import Card from "./React-Project/Card";
-import data from "./React-Project/CardArray";
-import NFTCard from "./Components/NFTCard";
 import Login2 from "./Components/Login2";
 import Signup from "./Components/Signup";
 import Gallery from "./Components/Gallery";
@@ -11,7 +8,6 @@ import ManuscriptForm from "./Components/ManuscriptForm";
 import ManuScript from "./Components/ManuScript";
 import Notifications from "./Components/Notifications";
 import { Routes, Route } from "react-router-dom";
-import { API } from "./backend";
 import Navbar from "./Components/Navbar";
 import { useLocation } from "react-router-dom";
 import NFTListCard from "./Components/NFTListCard";
@@ -34,12 +30,9 @@ function App() {
   return (
     
     <Routes>
-              {/* <Route path="/" element={<><Navbar/><Footer1/></>} /> */}
-
         {/* Testing code above */}
       <Route path="/" element={<Login2 />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/gallery" element={ <><Navbar role={role} />  <Gallery /> <Footer1 /></> }  />
       <Route path="/forgetpassword" element={<ForgotPassword />} />
       <Route path="/gallery" element={<><Navbar role={"student"} /><Home/><Footer1 /></>} />
 

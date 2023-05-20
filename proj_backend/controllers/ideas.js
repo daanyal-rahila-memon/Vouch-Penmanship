@@ -50,11 +50,24 @@ exports.getAllIdeas = (req, res) => {
   });
 };
 
+exports.getIdeasBySupervisorId = (req, res) => {
+  // console.log(req.query.id);
+  Idea.find({ supervisor: req.query.id }).exec((error, ideas) => {
+    if (error || !ideas) {
+      return res.status(400).json({
+        errorMessage: "No Ideas found for this supervisor",
+        error: error,
+      });
+    }
+    return res.json(ideas);
+  });
+};
+
 // // Update
 // exports.updateCategory = (req, res) => {
 //   const category = req.category;
 //   category.name = req.body.name;
-// 
+//
 //   category.save((error, updatedCategory) => {
 //     if (error) {
 //       return res.status(400).json({
@@ -64,11 +77,11 @@ exports.getAllIdeas = (req, res) => {
 //     return res.json(updatedCategory);
 //   });
 // };
-// 
+//
 // // Delete
 // exports.deleteCategory = (req, res) => {
 //   const category = req.category;
-// 
+//
 //   category.remove((error, category) => {
 //     if (error) {
 //       return res.status(400).json({
